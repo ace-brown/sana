@@ -1,0 +1,20 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "about": "Go to the about page"
+  },
+  "AboutPage": {
+    "title": "About us",
+    "content": "Go to the home page"
+  },
+  "PatentRegistrationPage": {
+    "title": "Patent registration",
+    "content": "Submit your patent application"
+  },
+  "hero": {
+    "title": "Khayam Sana",
+    "body": "From validation to execution, we provide you with the tools, guidance, and community you need to build, launch, and grow your business.",
+    "start": "Get Started",
+    "seeFeatures": "See Features"
+  }
+}
