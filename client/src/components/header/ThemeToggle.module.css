@@ -1,0 +1,12 @@
+.theme-toggle__btn {
+  background: none;
+  border: none;
+}
+
+.theme-toggle__icon {
+  display: flex;
+  align-items: center;
+  color: var(--font-clr-secondary);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
