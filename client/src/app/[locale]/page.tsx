@@ -1,11 +1,13 @@
-import { TimelineLayout } from "@/components/startup-path/timeline-layout";
+import { TimelineLayout } from "@/components/timeline/timeline-layout";
 import Component from "@/components/test";
+import StartupPath from "@/components/startup-path/StartupPath";
+import StartUpCard from "@/components/cards/startup-card";
 
 export default function Home() {
   return (
-    <div>
+    <div className="mb-8">
       <Component />
-      <TimelineLayout />
+      <StartupPath />
     </div>
   );
 }
