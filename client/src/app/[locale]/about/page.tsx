@@ -3,13 +3,13 @@ import { useTranslations } from "next-intl";
 import P from "@/components/common/ptag";
 import Text from "@/components/common/text";
 import ReadContainer from "@/components/common/read-container";
-import Title from "@/components/common/title";
+import PageTitle from "@/components/common/page-title";
 
 export default function AboutPage() {
   const t = useTranslations("AboutPage");
   return (
     <ReadContainer>
-      <Title>{t("title")}</Title>
+      <PageTitle>{t("title")}</PageTitle>
       <Text>
         <p>
           ما در [نام وبسایت یا شرکت شما] ،با هدف حمایت از کارآفرینان

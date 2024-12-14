@@ -21,19 +21,19 @@ const Hero = () => {
           alt="Hero Image"
         />
       </div>
-      <div className="lg:grid-area-content lg:mt-[clamp(1rem,8vw,4rem)]">
+      <div className="lg:grid-area-content lg:mt-8">
         <h1 className="text-[clamp(2.5rem,8vw+1rem,5rem)] font-bold text-right lg:text-[clamp(2rem,8vw,5.5rem)]">
           {t("hero.title")}
         </h1>
-        <p className="font-light text-[#b3b3b3] text-right mt-[var(--margin-top-button-mobile)] lg:text-[clamp(1rem,2vw,1.5rem)] lg:mt-[var(--margin-top-button-desktop)]">
+        <p className="font-light text-[#b3b3b3] text-right lg:text-[clamp(1rem,2vw,1.5rem)]">
           {t("hero.body")}
         </p>
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-4 mt-4">
           <Link href="/about">
-            <Button title={t("hero.start")} />
+            <Button>{t("hero.start")}</Button>
           </Link>
           <Link href="/sales">
-            <Button title={t("hero.seeFeatures")} />
+            <Button>{t("hero.seeFeatures")}</Button>
           </Link>
         </div>
       </div>

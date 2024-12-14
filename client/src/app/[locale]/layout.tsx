@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-
+import NavBar from "@/components/navigation/nav-bar";
 import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
-import Header from "@/components/header/header";
+
 import "../globals.css";
 
 const geistSans = localFont({
@@ -46,7 +46,7 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <NavBar />
           <main className="flex w-[90%] mx-auto md:w-[80%]">{children}</main>
         </NextIntlClientProvider>
       </body>

@@ -16,7 +16,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { JSX, SVGProps } from "react";
 import LocaleSwitcher from "./LocaleSwitcher";
 
-export default function Header() {
+export default function NavBar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 dark:bg-gray-950">
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
@@ -30,42 +30,49 @@ export default function Header() {
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            Home
+            تولید و بازاریابی
           </Link>
           <Link
-            href="/about"
+            href="#"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            About
+            پژوهش
           </Link>
           <Link
             href="/patent-registration"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            Patent Registration
+            ثبت اختراع
+          </Link>
+          <Link
+            href="#"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+            prefetch={false}
+          >
+            فروش
           </Link>
           <Link
             href="/sales"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            Sales
+            آموزش
           </Link>
           <Link
-            href="#"
+            href="/about"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            Services
+            درباره ما
           </Link>
           <Link
-            href="#"
+            href="/"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            Contact
+            خانه
           </Link>
         </nav>
         <div className="flex items-center gap-4">

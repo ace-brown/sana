@@ -6,7 +6,7 @@ interface TitleProps {
   className?: string;
 }
 
-export default function Title({ children, className }: TitleProps) {
+export default function PageTitle({ children, className }: TitleProps) {
   const locale = useLocale();
 
   const alignment = locale === "en" ? "text-left" : "text-right";
