@@ -12,7 +12,7 @@ import SectionTitle from "@/components/common/section-title";
 export default function StartupPath() {
   const t = useTranslations("startupPath");
 
-  const STARTUP_CARD_DATA = [
+  const cardData = [
     {
       id: 1,
       title: t("validate.title"),
@@ -45,7 +45,7 @@ export default function StartupPath() {
   return (
     <Container>
       <SectionTitle>{t("header")}</SectionTitle>
-      {STARTUP_CARD_DATA.map((item, _) => {
+      {cardData.map((item, _) => {
         return (
           <div key={item.id} className="grid">
             <div className="mb-4 grid gap-4 lg:grid-cols-[2fr_5px_2fr] lg:m-0">

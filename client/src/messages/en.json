@@ -4,20 +4,24 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+
   "AboutPage": {
     "title": "About us",
     "content": "Go to the home page"
   },
+
   "PatentRegistrationPage": {
     "title": "Patent registration",
     "content": "Submit your patent application"
   },
+
   "hero": {
     "title": "Khayam Sana",
     "body": "From validation to execution, we provide you with the tools, guidance, and community you need to build, launch, and grow your business.",
     "start": "Get Started",
     "seeFeatures": "See Features"
   },
+
   "startupPath": {
     "header": "Your startup path, simplified",
     "validate": {
@@ -35,6 +39,18 @@
     "growth": {
       "title": "Validate the idea",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+    }
+  },
+
+  "whyUs": {
+    "title": "Why Khayam Sana?",
+    "card1": {
+      "title": "Our features",
+      "bulletPoints": {
+        "point1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "point2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "point3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      }
     }
   }
 }
