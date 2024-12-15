@@ -12,6 +12,7 @@ import { NewsCard1, NewsCard2, NewsCard3, NewsCard4 } from "./newsCard";
 import { useTranslations } from "next-intl";
 import "./embla.css";
 import Container from "../common/container";
+import SectionTitle from "../common/section-title";
 
 type CardEntry = {
   type: string;
@@ -43,6 +44,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   return (
     <Container>
+      <SectionTitle>{t("navigation.blog")}</SectionTitle>
       <section className="news-swiper">
         <div className="embla">
           <div className="embla__viewport" ref={emblaRef}>
