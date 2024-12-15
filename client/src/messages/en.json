@@ -87,5 +87,24 @@
         "point3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }
     }
+  },
+
+  "blogs": {
+    "blog1": {
+      "title": "Title of the first blog post",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+    },
+    "blog2": {
+      "title": "Title of the first blog post",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+    },
+    "blog3": {
+      "title": "Title of the first blog post",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+    },
+    "blog4": {
+      "title": "Title of the first blog post",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+    }
   }
 }

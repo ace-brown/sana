@@ -1,6 +1,15 @@
+import { EmblaOptionsType } from "embla-carousel";
+
 import StartupPath from "@/components/startup-path/StartupPath";
 import Hero from "@/components/hero";
 import WhyUs from "@/components/why-us/why-us";
+import EmblaCarousel from "@/components/blog/EmblaCarousel";
+import "@/components/blog/EmblaCarousel";
+
+// const OPTIONS: EmblaOptionsType = { align: "start" };
+const OPTIONS: EmblaOptionsType = { loop: true };
+const SLIDE_COUNT = 2;
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
 export default function Home() {
   return (
@@ -8,6 +17,7 @@ export default function Home() {
       <Hero />
       <StartupPath />
       <WhyUs />
+      <EmblaCarousel slides={SLIDES} options={OPTIONS} />
     </div>
   );
 }
