@@ -1,5 +1,5 @@
 import { useLocale } from "next-intl";
-import React, { Children, ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 export default function Container({ children }: { children: ReactNode }) {
   const locale = useLocale();

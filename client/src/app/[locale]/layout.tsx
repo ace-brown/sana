@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import localFont from "next/font/local";
 
 import "../globals.css";
+import Footer from "@/components/footer";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -46,8 +47,11 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <NavBar />
-          <main className="flex w-[90%] mx-auto md:w-[80%]">{children}</main>
+          <div className="flex min-h-screen flex-col justify-between">
+            <NavBar />
+            <main className="flex w-[90%] mx-auto md:w-[80%]">{children}</main>
+            <Footer />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

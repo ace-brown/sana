@@ -1,5 +1,40 @@
 {
   "readMore": "بیشتر بخوانید",
+
+  "navigation": {
+    "home": "خانه",
+    "about": "درباره ما",
+    "patentRegistration": "ثبت اختراع",
+    "contact": "تماس",
+    "blog": "وبلاگ",
+    "education": "آموزش",
+    "sales": "فروش",
+    "research": "پژوهش",
+    "news": "اخبار",
+    "faq": "سؤالات متداول",
+    "careers": "فرصت‌های شغلی",
+    "terms": "قوانین",
+    "privacy": "حریم خصوصی",
+    "helpCenter": "مرکز کمک",
+    "partners": "همکاران",
+    "resources": "منابع",
+    "publication": "انتشارات",
+    "consultation": "مشاوره",
+    "address": "آدرس",
+    "company": "شرکت",
+    "support": "پشتیبانی",
+    "usefullLinks": "لینک‌های مفید",
+    "search": "جستجو",
+    "copyRight": ".کلیه حقوق این وب سایت متعلق به خیام سانا است"
+  },
+
+  "address": {
+    "street": "خیابان ولیعصر، بلوار کشاورز، شماره ۱۲۳",
+    "city": "تهران، ایران",
+    "phone": "تلفن",
+    "email": "ایمیل"
+  },
+
   "HomePage": {
     "title": "سلام!",
     "about": "برو به صحفه اول"

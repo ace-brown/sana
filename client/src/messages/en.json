@@ -1,5 +1,40 @@
 {
   "readMore": "Read More",
+
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "patentRegistration": "Patent Registration",
+    "contact": "Contact",
+    "blog": "Blog",
+    "education": "Education",
+    "sales": "Sales",
+    "research": "Research",
+    "news": "News",
+    "faq": "FAQ",
+    "careers": "Careers",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "helpCenter": "Help Center",
+    "partners": "Partners",
+    "resources": "Resources",
+    "publication": "Publication",
+    "consultation": "Consultation",
+    "address": "Address",
+    "company": "Company",
+    "support": "Support",
+    "usefullLinks": "Useful Links",
+    "search": "Search",
+    "copyRight": "Khayam Sana. All Rights Reserved."
+  },
+
+  "address": {
+    "street": "123 Startup Lane",
+    "city": "Stuttgart, Germany",
+    "phone": "Phone",
+    "email": "Email"
+  },
+
   "HomePage": {
     "title": "Hello world!",
     "about": "Go to the about page"
