@@ -7,7 +7,7 @@ export default function Section({ children }: { children: ReactNode }) {
   const alignment = locale === "en" ? "text-left" : "text-right";
 
   return (
-    <div className={`mt-h-txt-lg md:h-txt-md sm:h-txt-sm ${alignment}`}>
+    <div className={`mt-[9rem] md:mt-[8rem] sm:mt-[5rem] ${alignment}`}>
       {children}
     </div>
   );

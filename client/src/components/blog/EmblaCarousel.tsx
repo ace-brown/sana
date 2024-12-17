@@ -11,8 +11,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import { NewsCard1, NewsCard2, NewsCard3, NewsCard4 } from "./newsCard";
 import { useTranslations } from "next-intl";
 import "./embla.css";
-import Container from "../common/container";
 import SectionTitle from "../common/section-title";
+import Section from "../common/section";
 
 type CardEntry = {
   type: string;
@@ -43,7 +43,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <Container>
+    <Section>
       <SectionTitle>{t("navigation.blog")}</SectionTitle>
       <section className="news-swiper">
         <div className="embla">
@@ -94,7 +94,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           </div>
         </div>
       </section>
-    </Container>
+    </Section>
   );
 };
 

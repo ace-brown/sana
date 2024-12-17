@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 
 const branchesOptions = {
   "literal studies": ["Literature", "Linguistics", "Philosophy"],
@@ -28,7 +29,7 @@ const branchesOptions = {
 
 type BranchKey = keyof typeof branchesOptions;
 
-const RegisterIdeaForm = () => {
+export default function RegisterIdeaForm() {
   const [step, setStep] = useState(1);
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const { register, handleSubmit, watch, setValue } = useForm();
@@ -117,9 +118,16 @@ const RegisterIdeaForm = () => {
             </div>
           )}
 
-          <Button type="submit" className="w-full">
-            Next
-          </Button>
+          <div className="flex justify-between">
+            <Link href="/research" className="w-1/3">
+              <Button type="button" variant="outline">
+                Back to all forms
+              </Button>
+            </Link>
+            <Button type="submit" className="w-1/3">
+              Next
+            </Button>
+          </div>
         </form>
       )}
       {step === 2 && (
@@ -157,6 +165,4 @@ const RegisterIdeaForm = () => {
       )}
     </div>
   );
-};
-
-export default RegisterIdeaForm;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import Link from "next/link";
 
 import { SatrtUpCardDataType } from "@/types";
 
@@ -21,7 +22,7 @@ export default function StartUpCard({ item }: { item: SatrtUpCardDataType }) {
       <div className="pl-0 p-4 h-[250px]">
         <h2 className="text-3xl">{item.title}</h2>
         <p className="mb-2 mt-2 text-[12px]">{item.description}</p>
-        <a href={item.link}>{t("readMore")}</a>
+        <Link href={item.link}>{t("readMore")}</Link>
       </div>
     </div>
   );

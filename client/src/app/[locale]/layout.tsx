@@ -49,7 +49,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col justify-between">
             <NavBar />
-            <main className="flex w-[90%] mx-auto md:w-[80%]">{children}</main>
+            <main className="w-[90%] mx-auto md:w-[80%]">{children}</main>
             <Footer />
           </div>
         </NextIntlClientProvider>

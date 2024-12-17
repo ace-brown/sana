@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 
 import {
@@ -8,8 +9,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import Container from "../common/container";
 import SectionTitle from "../common/section-title";
+import Section from "../common/section";
 
 export default function WhyUs() {
   const t = useTranslations();
@@ -82,7 +83,7 @@ export default function WhyUs() {
   ];
 
   return (
-    <Container>
+    <Section>
       <SectionTitle>{t("whyUs.title")}</SectionTitle>
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {cardData.map((item) => {
@@ -107,17 +108,17 @@ export default function WhyUs() {
                 </ul>
               </CardContent>
               <CardFooter className={`mt-4 ${isRightToLeft && "justify-end"}`}>
-                <a
+                <Link
                   href={item.link}
                   className="text-blue-500 font-medium hover:underline"
                 >
                   {t("readMore")}
-                </a>
+                </Link>
               </CardFooter>
             </Card>
           );
         })}
       </div>
-    </Container>
+    </Section>
   );
 }

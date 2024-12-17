@@ -1,5 +1,6 @@
 import { FaTelegram, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useLocale } from "next-intl";
 
 export default function Footer() {
@@ -20,6 +21,7 @@ export default function Footer() {
               href="#"
               aria-label="Telegram"
               className="hover:text-blue-500 mr-4"
+              rel="noreferrer"
             >
               <FaTelegram className="text-2xl" />
             </a>
@@ -27,6 +29,7 @@ export default function Footer() {
               href="#"
               aria-label="Twitter"
               className="hover:text-blue-400 mr-4"
+              rel="noreferrer"
             >
               <FaTwitter className="text-2xl" />
             </a>
@@ -34,6 +37,7 @@ export default function Footer() {
               href="#"
               aria-label="Instagram"
               className="hover:text-pink-500 mr-4"
+              rel="noreferrer"
             >
               <FaInstagram className="text-2xl" />
             </a>
@@ -41,6 +45,7 @@ export default function Footer() {
               href="#"
               aria-label="LinkedIn"
               className="hover:text-blue-600 mr-0"
+              rel="noreferrer"
             >
               <FaLinkedin className="text-2xl" />
             </a>
@@ -61,24 +66,24 @@ export default function Footer() {
           <h3 className="text-white font-bold"> {t("navigation.resources")}</h3>
           <ul className="space-y-1">
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.publication")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.consultation")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.research")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.patentRegistration")}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -87,19 +92,19 @@ export default function Footer() {
           <h3 className="text-white font-bold">{t("navigation.company")}</h3>
           <ul className="space-y-1">
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.careers")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.partners")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.sales")}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -108,24 +113,24 @@ export default function Footer() {
           <h3 className="text-white font-bold">{t("navigation.support")}</h3>
           <ul className="space-y-1">
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.helpCenter")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.faq")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.terms")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.privacy")}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -136,29 +141,29 @@ export default function Footer() {
           </h3>
           <ul className="space-y-1">
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.home")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.about")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.blog")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.contact")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-gray-100">
+              <Link href="#" className="hover:text-gray-100">
                 {t("navigation.news")}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
