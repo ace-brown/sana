@@ -106,5 +106,98 @@
       "title": "Title of the first blog post",
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
     }
+  },
+
+  "research": {
+    "title": "Register your ideas",
+    "body": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet fugiat ullam optio libero beatae fugit eos, autem nulla voluptates quasi, consequuntur ratione. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet fugiat ullam optio libero beatae fugit eos, autem nulla voluptates quasi, consequuntur ratione.",
+    "forms": {
+      "title": "All the forms you need",
+      "report": {
+        "title": "Report",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+      },
+      "register": {
+        "title": "Register your ideas",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+      },
+      "competitions": {
+        "title": "Academic Competitions",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra, ex eget consectetur consectetur."
+      }
+    }
+  },
+
+  "registerIdeaForm": {
+    "firstStep": {
+      "title": "Step 1: Basic Information",
+      "name": "Name",
+      "email": "Email",
+      "branch": {
+        "title": "Branch of Study",
+        "select": "Select Branch of Study",
+        "options": {
+          "literal": "Literal Studies",
+          "art": "Art",
+          "engin": "engineering",
+          "expSci": "experimental science",
+          "physical": "Physical Education",
+          "others": "Others"
+        }
+      },
+      "subBranch": {
+        "title": "Spesific Field",
+        "select": "Select Spesific Field",
+        "literal": {
+          "Literature": "Literature",
+          "Linguistics": "Linguistics",
+          "Philosophy": "Philosophy",
+          "Geography": "Geography",
+          "History": "History",
+          "Religion": "Religion",
+          "Psychology": "Psychology",
+          "Sociology": "Sociology",
+          "Marketing": "Marketing",
+          "Finance": "Finance",
+          "Economics": "Economics",
+          "Business Administration": "Business Administration",
+          "Tourism": "Tourism",
+          "Accounting": "Accounting",
+          "law": "Law"
+        },
+        "art": {
+          "Painting": "Painting",
+          "Sculpture": "Sculpture",
+          "Photography": "Photography",
+          "Performing Arts": "Performing Arts",
+          "ClothDesign": "Clothing Design",
+          "fashionDesign": "Fashion Design",
+          "sewingDesign": "Sewing Design",
+          "textileDesign": "Textile Design",
+          "calliIllumination": "Calligraphy and Illumination",
+          "Music": "Music",
+          "industrialDesign": "Industrial Design",
+          "carpet": "Carpet",
+          "jewlery": "jewlery",
+          "graphics": "Graphics"
+        },
+        "engin": {
+          "ElectricalEngin": "Electrical Engineering",
+          "MechanicalEngin": "Mechanical Engineering",
+          "ComputerSci": "Computer Science",
+          "architec": "Architecture",
+          "compEngin": "Computational Engineering",
+          "envEngin": "Environmental Engineering"
+        },
+        "expSci": {
+          "Biotech": "Biotechnology",
+          "Medicine": "Medicine",
+          "BioEngin": "Biomedical Engineering",
+          "Geology": "Geology"
+        },
+        "physical": "physical science",
+        "others": "Other Fields"
+      }
+    }
   }
 }
