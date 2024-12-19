@@ -1,5 +1,8 @@
 {
   "readMore": "بیشتر بخوانید",
+  "next": "بعدی",
+  "submit": "ارسال",
+  "back": "بازگشت",
 
   "navigation": {
     "home": "خانه",
@@ -129,6 +132,7 @@
   },
 
   "registerIdeaForm": {
+    "backToForms": "بازگشت به همه فرم‌ها",
     "firstStep": {
       "title": "مرحله ۱: اطلاعات پایه",
       "name": "نام",
@@ -160,7 +164,7 @@
           "Marketing": "بازاریابی",
           "Finance": "امور مالی",
           "Economics": "اقتصاد",
-          "Business Administration": "مدیریت بازرگانی",
+          "BusinessAdministration": "مدیریت بازرگانی",
           "Tourism": "گردشگری",
           "Accounting": "حسابداری",
           "law": "حقوق"
@@ -169,7 +173,7 @@
           "Painting": "نقاشی",
           "Sculpture": "مجسمه‌سازی",
           "Photography": "عکاسی",
-          "Performing Arts": "هنرهای نمایشی",
+          "PerformingArts": "هنرهای نمایشی",
           "ClothDesign": "طراحی لباس",
           "fashionDesign": "طراحی مد",
           "sewingDesign": "طراحی دوخت",
@@ -198,6 +202,10 @@
         "physical": "علوم پایه",
         "others": "سایر زمینه‌ها"
       }
+    },
+    "secondStep": {
+      "title": "مرحله ۲: ایده شما",
+      "describeIdea": "ایده خود را توصیف کنید"
     }
   }
 }

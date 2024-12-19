@@ -1,5 +1,8 @@
 {
   "readMore": "Read More",
+  "next": "Next",
+  "submit": "Submit",
+  "back": "Back",
 
   "navigation": {
     "home": "Home",
@@ -129,6 +132,8 @@
   },
 
   "registerIdeaForm": {
+    "backToForms": "Back to all forms",
+
     "firstStep": {
       "title": "Step 1: Basic Information",
       "name": "Name",
@@ -160,7 +165,7 @@
           "Marketing": "Marketing",
           "Finance": "Finance",
           "Economics": "Economics",
-          "Business Administration": "Business Administration",
+          "BusinessAdministration": "Business Administration",
           "Tourism": "Tourism",
           "Accounting": "Accounting",
           "law": "Law"
@@ -169,7 +174,7 @@
           "Painting": "Painting",
           "Sculpture": "Sculpture",
           "Photography": "Photography",
-          "Performing Arts": "Performing Arts",
+          "PerformingArts": "Performing Arts",
           "ClothDesign": "Clothing Design",
           "fashionDesign": "Fashion Design",
           "sewingDesign": "Sewing Design",
@@ -198,6 +203,10 @@
         "physical": "physical science",
         "others": "Other Fields"
       }
+    },
+    "secondStep": {
+      "title": "Step 2: Your Idea",
+      "describeIdea": "Describe Your Idea"
     }
   }
 }
