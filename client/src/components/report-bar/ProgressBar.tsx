@@ -4,7 +4,11 @@ import { useTranslations } from "next-intl";
 import Container from "../common/container";
 import SubSectionTitle from "../common/subsection-title";
 
-export default function ProgressBar() {
+export default function ProgressBar({
+  trackingCode,
+}: {
+  trackingCode: string;
+}) {
   const t = useTranslations();
 
   // Translations
@@ -60,10 +64,23 @@ export default function ProgressBar() {
     },
   ];
 
+  // Helper function to check if the status is "Completed"
+  const isStatusCompleted = (status: string) =>
+    status === completedTxt || status === "تکمیل‌شده";
+
+  // Helper function to check if the status is "In Progress"
+  const isStatusInProgress = (status: string) =>
+    status === inProgressTxt || status === "در حال اجرا";
+
   return (
     <Container>
       <div className="container mx-auto p-6">
-        <SubSectionTitle>{t("progressBar.title")}</SubSectionTitle>
+        <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
+          {t("progressBar.title")}
+        </h2>
+        <p className="mb-12">{`${t(
+          "report.trackingCode"
+        )} : ${trackingCode}`}</p>
         <div className="flex items-center justify-between relative">
           {stages.map((stage, index) => (
             <React.Fragment key={index}>
@@ -72,9 +89,9 @@ export default function ProgressBar() {
                 <h3 className="font-bold text-lg mb-2">{stage.title}</h3>
                 <div
                   className={`h-4 w-4 rounded-full mx-auto ${
-                    stage.status === "Completed"
+                    isStatusCompleted(stage.status)
                       ? "bg-green-500"
-                      : stage.status === "In Progress"
+                      : isStatusInProgress(stage.status)
                       ? "bg-yellow-500"
                       : "bg-gray-300"
                   }`}
@@ -101,7 +118,17 @@ export default function ProgressBar() {
               key={index}
               className="w-1/4 p-4 border rounded-lg shadow-lg bg-white"
             >
-              <h4 className="font-semibold text-gray-700">{stage.status}</h4>
+              <h4
+                className={`font-semibold  ${
+                  isStatusCompleted(stage.status)
+                    ? "text-green-500"
+                    : isStatusInProgress(stage.status)
+                    ? "text-yellow-500"
+                    : "text-gray-400"
+                }`}
+              >
+                {stage.status}
+              </h4>
               <ul className="mt-2 text-sm text-gray-600">
                 {stage.tasks.map((task, i) => (
                   <li

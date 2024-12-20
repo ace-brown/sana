@@ -25,7 +25,9 @@ export default function ResearchPage() {
         <P>{t("research.body")}</P>
       </ReadContainer>
       <SubSection>
-        <SubSectionTitle>{t("research.forms.title")}</SubSectionTitle>
+        <SubSectionTitle textAlign="center">
+          {t("research.forms.title")}
+        </SubSectionTitle>
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] pl-16 pr-16">
           <Card>
             <CardHeader>
