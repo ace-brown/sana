@@ -34,7 +34,7 @@ export default function ResearchPage() {
             <CardContent>{t("research.forms.report.body")}</CardContent>
             <CardFooter>
               <Link
-                href="#"
+                href="/research/report"
                 className="text-blue-500 font-medium hover:underline"
               >
                 {t("readMore")}

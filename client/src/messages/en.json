@@ -208,5 +208,45 @@
       "title": "Step 2: Your Idea",
       "describeIdea": "Describe Your Idea"
     }
+  },
+
+  "report": {
+    "title": "Track the Progress of Your Idea",
+    "body": "In this section, you can view the progress of your idea that you have submitted to us. We strive to keep you informed at every stage of the development process and ensure that you are always aware of the status of your project. Simply enter your unique tracking code to view the complete details of the completed steps and upcoming plans. Our goal is to support you in realizing your idea with full transparency and the most up-to-date information.",
+    "input": "Enter your tracking code"
+  },
+
+  "progressBar": {
+    "title": "Progress Timeline",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "pending": "Pending",
+    "stages": {
+      "ideaEvaluation": {
+        "title": "Idea Evaluation",
+        "point1": "Clearly define the idea",
+        "point2": "Analyze needs",
+        "point3": "Competitor analysis",
+        "point4": "Short-term and long-term goals"
+      },
+      "prototype": {
+        "title": "Prototype Development",
+        "point1": "Gather resources and tools",
+        "point2": "Initial design",
+        "point3": "Choose appropriate technology"
+      },
+      "test": {
+        "title": "Testing",
+        "point1": "Gather resources and tools",
+        "point2": "Initial design",
+        "point3": "Choose appropriate technology"
+      },
+      "deploy": {
+        "title": "Deployment",
+        "point1": "Gather resources and tools",
+        "point2": "Initial design",
+        "point3": "Choose appropriate technology"
+      }
+    }
   }
 }
