@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslations } from "next-intl";
 
 import Container from "../common/container";
-import SubSectionTitle from "../common/subsection-title";
 
 export default function ProgressBar({
   trackingCode,
@@ -24,7 +23,7 @@ export default function ProgressBar({
   const ideaEvaluationP3Txt = t("progressBar.stages.ideaEvaluation.point3");
   const ideaEvaluationP4Txt = t("progressBar.stages.ideaEvaluation.point4");
 
-  const stages = [
+  const reports = [
     {
       title: ideaEvaluationTxt,
       status: completedTxt,
@@ -82,7 +81,7 @@ export default function ProgressBar({
           "report.trackingCode"
         )} : ${trackingCode}`}</p>
         <div className="flex items-center justify-between relative">
-          {stages.map((stage, index) => (
+          {reportStages.map((stage, index) => (
             <React.Fragment key={index}>
               {/* Node Title */}
               <div className="text-center w-1/4">
@@ -98,12 +97,14 @@ export default function ProgressBar({
                 ></div>
               </div>
               {/* Connecting Line */}
-              {index < stages.length - 1 && (
+              {index < reportStages.length - 1 && (
                 <div className="absolute top-10 w-full h-1 -z-10">
                   <div
                     className="h-1 bg-gray-300"
                     style={{
-                      width: `${((index + 1) / (stages.length - 1)) * 100}%`,
+                      width: `${
+                        ((index + 1) / (reportStages.length - 1)) * 100
+                      }%`,
                     }}
                   ></div>
                 </div>
@@ -113,7 +114,7 @@ export default function ProgressBar({
         </div>
         {/* Cards */}
         <div className="flex justify-between mt-4 gap-8">
-          {stages.map((stage, index) => (
+          {reportStages.map((stage, index) => (
             <div
               key={index}
               className="w-1/4 p-4 border rounded-lg shadow-lg bg-white"
