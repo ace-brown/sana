@@ -1,4 +1,5 @@
 const HttpError = require("../models/http-error");
+const { validationResult } = require("express-validator")
 
 const users = [
     {
@@ -29,10 +30,19 @@ function getUsers(req, res, next) {
 
 // Create a new user
 function signup(req, res, next) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        throw new HttpError("Invalid input passed, please check your data", 422)
+    }
+
     const { name, email, password } = req.body
 
     if (!name || !email || !password) {
         return res.status(400).json({ error: "All fields are required" })
+    }
+
+    if (users.find(u => u.email === email)) {
+        return res.status(400).json({ error: "Email already exists" })
     }
 
     const createdUser = {

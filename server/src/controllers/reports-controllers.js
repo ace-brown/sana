@@ -1,4 +1,5 @@
 const HttpError = require('../models/http-error')
+const { validationResult } = require('express-validator')
 
 
 const reports = [
@@ -115,6 +116,11 @@ function getReportsByUserId(req, res, next) {
 
 // Create a new report
 function createReport(req, res, next) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        throw new HttpError("Invalid input passed, please check your data", 422)
+    }
+
     const { ideaTitle, owner, stages } = req.body;
     const newTrackingId = `TC-${1000 + reports.length + 1}`;
 

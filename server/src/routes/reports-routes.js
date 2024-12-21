@@ -1,4 +1,6 @@
 const express = require('express')
+const { check } = require('express-validator')
+
 const router = express.Router()
 
 const reportsControllers = require('../controllers/reports-controllers')
@@ -10,7 +12,14 @@ router.get('/:tid', reportsControllers.getReportById)
 router.get('/user/:uid', reportsControllers.getReportsByUserId)
 
 // Create a new report
-router.post('/', reportsControllers.createReport)
+router.post(
+    '/',
+    [
+        check('ideaTitle').notEmpty(),
+        check('owner').notEmpty()
+    ],
+    reportsControllers.createReport
+)
 
 // Update a report
 router.patch('/:tid', reportsControllers.updateReport)
