@@ -94,7 +94,7 @@ const reports = [
 ];
 
 // Get a spesific report by a specific tracking id 
-function getReportsById(req, res, next) {
+function getReportById(req, res, next) {
     const trackingId = req.params.tid;
     const report = reports.find(r => r.trackingId === trackingId);
     if (!report) {
@@ -104,14 +104,62 @@ function getReportsById(req, res, next) {
 }
 
 // Get all reports for a specific user with a userId
-function getAllReportsByUserId(req, res, next) {
+function getReportsByUserId(req, res, next) {
     const userId = req.params.uid;
     const reportsForUser = reports.filter(r => r.owner === userId)
-    if (reportsForUser.length === 0) {
+    if (!reportsForUser || reportsForUser.length === 0) {
         return next(new HttpError("Could not find reports for the provided user id", 404))
     }
     res.json({ reportsForUser })
 }
 
-exports.getReportsById = getReportsById
-exports.getAllReportsByUserId = getAllReportsByUserId
+// Create a new report
+function createReport(req, res, next) {
+    const { ideaTitle, owner, stages } = req.body;
+    const newTrackingId = `TC-${1000 + reports.length + 1}`;
+
+    const newReport = {
+        trackingId: newTrackingId,
+        ideaTitle: ideaTitle,
+        owner: owner,
+        stages: stages
+    }
+    reports.push(newReport)
+    res.status(201).json({ newReport })
+}
+
+// Update a specific report
+function updateReport(req, res, next) {
+    const trackingId = req.params.tid;
+    const reportIndex = reports.findIndex(r => r.trackingId === trackingId);
+
+    if (reportIndex === -1) {
+        return next(new HttpError("Could not find a report for the provided id", 404))
+    }
+
+    const updatedReport = { ...reports[reportIndex], ...req.body };
+    reports[reportIndex] = updatedReport;
+
+    res.json({ report: updatedReport })
+}
+
+
+// Delete a specific report
+function deleteReport(req, res, next) {
+    const trackingId = req.params.tid;
+    const reportIndex = reports.findIndex(r => r.trackingId === trackingId);
+
+    if (reportIndex === -1) {
+        return next(new HttpError("Could not find a report for the provided id", 404))
+    }
+
+    reports.splice(reportIndex, 1);
+    res.status(200).json({ message: "Report deleted successfully" })
+}
+
+
+exports.getReportById = getReportById
+exports.getReportsByUserId = getReportsByUserId
+exports.createReport = createReport
+exports.updateReport = updateReport
+exports.deleteReport = deleteReport

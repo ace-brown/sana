@@ -1,9 +1,17 @@
 const express = require('express')
-
 const router = express.Router()
 
-router.get('/', function (req, res) {
-    res.json({ message: 'API is running' })
-})
+const usersControllers = require('../controllers/users-controllers')
+
+// Get the list of users 
+router.get('/', usersControllers.getUsers)
+
+// Create a new user
+router.post('/signup', usersControllers.signup)
+
+// Log in a user
+router.post('/login', usersControllers.login)
+
+
 
 module.exports = router
