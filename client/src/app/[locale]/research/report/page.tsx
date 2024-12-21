@@ -27,7 +27,7 @@ export default function ReportPage() {
       setError(t("report.inputError"));
       return;
     }
-    if (trackingCode === "abc123") {
+    if (trackingCode === "TC-1001") {
       setShowProgressBar(true);
     } else {
       setError(t("report.invalidCode"));

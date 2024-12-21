@@ -213,6 +213,7 @@
   "report": {
     "title": "Track the Progress of Your Idea",
     "trackingCode": "Tracking code",
+    "ideaTitle": "Title of the idea",
     "body": "In this section, you can view the progress of your idea that you have submitted to us. We strive to keep you informed at every stage of the development process and ensure that you are always aware of the status of your project. Simply enter your unique tracking code to view the complete details of the completed steps and upcoming plans. Our goal is to support you in realizing your idea with full transparency and the most up-to-date information.",
     "input": "Enter your tracking code",
     "findBtn": "Find the progress bar",
@@ -252,5 +253,14 @@
         "point3": "Choose appropriate technology"
       }
     }
+  },
+
+  "signup": {
+    "title": "Sign Up",
+    "input": "Your email address",
+    "submit": "Sign up",
+    "success": "You have successfully created your account!",
+    "error": "An error occurred while creating account.",
+    "login": "Log In"
   }
 }

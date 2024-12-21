@@ -25,40 +25,91 @@ export default function ProgressBar({
 
   const reports = [
     {
-      title: ideaEvaluationTxt,
-      status: completedTxt,
-      tasks: [
-        { title: ideaEvaluationP1Txt, completed: true },
-        { title: ideaEvaluationP2Txt, completed: true },
-        { title: ideaEvaluationP3Txt, completed: true },
-        { title: ideaEvaluationP4Txt, completed: true },
+      trackingId: "TC-1001",
+      ideaTitle: "فروشگاه مجازی",
+      owner: "u1",
+      stages: [
+        {
+          title: ideaEvaluationTxt,
+          status: completedTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: true },
+            { title: ideaEvaluationP2Txt, completed: true },
+            { title: ideaEvaluationP3Txt, completed: true },
+            { title: ideaEvaluationP4Txt, completed: true },
+          ],
+        },
+        {
+          title: prototypeTxt,
+          status: inProgressTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: true },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
+        {
+          title: testTxt,
+          status: pendingTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: false },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
+        {
+          title: deployTxt,
+          status: pendingTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: false },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
       ],
     },
     {
-      title: prototypeTxt,
-      status: inProgressTxt,
-      tasks: [
-        { title: ideaEvaluationP1Txt, completed: true },
-        { title: ideaEvaluationP2Txt, completed: false },
-        { title: ideaEvaluationP3Txt, completed: false },
-      ],
-    },
-    {
-      title: testTxt,
-      status: pendingTxt,
-      tasks: [
-        { title: ideaEvaluationP1Txt, completed: false },
-        { title: ideaEvaluationP2Txt, completed: false },
-        { title: ideaEvaluationP3Txt, completed: false },
-      ],
-    },
-    {
-      title: deployTxt,
-      status: pendingTxt,
-      tasks: [
-        { title: ideaEvaluationP1Txt, completed: false },
-        { title: ideaEvaluationP2Txt, completed: false },
-        { title: ideaEvaluationP3Txt, completed: false },
+      trackingId: "TC-1002",
+      ideaTitle: "کتاب داستان",
+      owner: "u2",
+      stages: [
+        {
+          title: ideaEvaluationTxt,
+          status: completedTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: true },
+            { title: ideaEvaluationP2Txt, completed: true },
+            { title: ideaEvaluationP3Txt, completed: true },
+            { title: ideaEvaluationP4Txt, completed: true },
+          ],
+        },
+        {
+          title: prototypeTxt,
+          status: inProgressTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: true },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
+        {
+          title: testTxt,
+          status: pendingTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: false },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
+        {
+          title: deployTxt,
+          status: pendingTxt,
+          tasks: [
+            { title: ideaEvaluationP1Txt, completed: false },
+            { title: ideaEvaluationP2Txt, completed: false },
+            { title: ideaEvaluationP3Txt, completed: false },
+          ],
+        },
       ],
     },
   ];
@@ -71,17 +122,34 @@ export default function ProgressBar({
   const isStatusInProgress = (status: string) =>
     status === inProgressTxt || status === "در حال اجرا";
 
+  // Find the report for the given trackingCode
+  const report = reports.find((report) => report.trackingId === trackingCode);
+
+  if (!report) {
+    return (
+      <Container>
+        <div className="container mx-auto p-6">
+          <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
+            {t("progressBar.title")}
+          </h2>
+          <p>{t("progressBar.notFound")}</p>
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <div className="container mx-auto p-6">
         <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
           {t("progressBar.title")}
         </h2>
-        <p className="mb-12">{`${t(
-          "report.trackingCode"
-        )} : ${trackingCode}`}</p>
+        <p>{`${t("report.trackingCode")} : ${trackingCode}`}</p>
+        <p className="mb-12">{`${t("report.ideaTitle")} : ${
+          report.ideaTitle
+        }`}</p>
         <div className="flex items-center justify-between relative">
-          {reportStages.map((stage, index) => (
+          {report.stages.map((stage, index) => (
             <React.Fragment key={index}>
               {/* Node Title */}
               <div className="text-center w-1/4">
@@ -97,13 +165,13 @@ export default function ProgressBar({
                 ></div>
               </div>
               {/* Connecting Line */}
-              {index < reportStages.length - 1 && (
+              {index < report.stages.length - 1 && (
                 <div className="absolute top-10 w-full h-1 -z-10">
                   <div
                     className="h-1 bg-gray-300"
                     style={{
                       width: `${
-                        ((index + 1) / (reportStages.length - 1)) * 100
+                        ((index + 1) / (report.stages.length - 1)) * 100
                       }%`,
                     }}
                   ></div>
@@ -114,7 +182,7 @@ export default function ProgressBar({
         </div>
         {/* Cards */}
         <div className="flex justify-between mt-4 gap-8">
-          {reportStages.map((stage, index) => (
+          {report.stages.map((stage, index) => (
             <div
               key={index}
               className="w-1/4 p-4 border rounded-lg shadow-lg bg-white"

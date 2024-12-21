@@ -69,7 +69,7 @@ export default function NavBar() {
           <div className="hidden items-center gap-2 text-sm font-medium md:flex">
             <LocaleSwitcher />
           </div>
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
                 <SearchIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -86,10 +86,13 @@ export default function NavBar() {
                 />
               </div>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
           <Toggle aria-label="Toggle dark mode" className="rounded-full">
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </Toggle>
+          <Link href="/signup">
+            <Button> {t("signup.title")}</Button>
+          </Link>
           <Sheet>
             <SheetTrigger asChild>
               <Button
