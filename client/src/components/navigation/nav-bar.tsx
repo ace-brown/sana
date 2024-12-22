@@ -90,8 +90,8 @@ export default function NavBar() {
           <Toggle aria-label="Toggle dark mode" className="rounded-full">
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </Toggle>
-          <Link href="/signup">
-            <Button> {t("signup.title")}</Button>
+          <Link href="/signin">
+            <Button> {t("signup.login")}</Button>
           </Link>
           <Sheet>
             <SheetTrigger asChild>

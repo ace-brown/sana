@@ -202,7 +202,7 @@ export default function RegisterIdeaForm() {
         {step === 1 && (
           <form
             onSubmit={handleSubmit(() => setStep(2))}
-            className="space-y-4 p-6 shadow-lg rounded-lg"
+            className="space-y-4 p-6 shadow-2xl rounded-lg border-sm"
           >
             <h1 className="text-2xl font-bold mb-4">{basicInfoTxt}</h1>
 
