@@ -10,6 +10,7 @@ import ProgressBar from "@/components/report-bar/ProgressBar";
 import SubSection from "@/components/common/subsection";
 import ReadContainer from "@/components/common/read-container";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ReportPage() {
   const t = useTranslations();
@@ -58,6 +59,13 @@ export default function ReportPage() {
           <ProgressBar trackingCode={trackingCode} />
         </SubSection>
       )}
+      <div className="text-center mt-12">
+        <Link href="#">
+          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md">
+            {t("registerIdeaForm.backToForms")}
+          </Button>
+        </Link>
+      </div>
     </>
   );
 }

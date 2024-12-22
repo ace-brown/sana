@@ -63,13 +63,12 @@ export default function ResearchPage() {
             </CardHeader>
             <CardContent>{t("research.forms.competitions.body")}</CardContent>
             <CardFooter>
-              <a
-                href="#"
-                rel="noreferrer"
+              <Link
+                href="/research/competitions"
                 className="text-blue-500 font-medium hover:underline"
               >
                 {t("readMore")}
-              </a>
+              </Link>
             </CardFooter>
           </Card>
         </div>
