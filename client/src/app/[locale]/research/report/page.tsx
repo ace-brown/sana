@@ -60,8 +60,8 @@ export default function ReportPage() {
         </SubSection>
       )}
       <div className="text-center mt-12">
-        <Link href="#">
-          <Button className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md">
+        <Link href="/research">
+          <Button variant="outline" type="button">
             {t("registerIdeaForm.backToForms")}
           </Button>
         </Link>

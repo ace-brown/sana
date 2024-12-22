@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
+import ThemeSwitch from "./ThemeSwitch";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { JSX, SVGProps } from "react";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -87,9 +88,10 @@ export default function NavBar() {
               </div>
             </DropdownMenuContent>
           </DropdownMenu> */}
-          <Toggle aria-label="Toggle dark mode" className="rounded-full">
+          {/* <Toggle aria-label="Toggle dark mode" className="rounded-full">
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-          </Toggle>
+          </Toggle> */}
+          <ThemeSwitch />
           <Link href="/signin">
             <Button> {t("signup.login")}</Button>
           </Link>
