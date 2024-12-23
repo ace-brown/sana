@@ -16,7 +16,7 @@ router.post(
     '/',
     [
         check('ideaTitle').notEmpty(),
-        check('owner').notEmpty()
+        check('ownerId').notEmpty()
     ],
     reportsControllers.createReport
 )

@@ -3,51 +3,51 @@ const mongoose = require('mongoose')
 
 const defaultStages = [
     {
-        title: "Idea Evaluation",
+        stageTitle: "Idea Evaluation",
         status: "Not Started",
         tasks: [
-            { title: "Brainstorming Session", completed: false },
-            { title: "Market Research", completed: false },
-            { title: "Competitor Analysis", completed: false },
-            { title: "Feasibility Study", completed: false },
+            { taskTitle: "Brainstorming Session", completed: false },
+            { taskTitle: "Market Research", completed: false },
+            { taskTitle: "Competitor Analysis", completed: false },
+            { taskTitle: "Feasibility Study", completed: false },
         ],
     },
     {
-        title: "Prototype Development",
+        stageTitle: "Prototype Development",
         status: "Not Started",
         tasks: [
-            { title: "Sketch Initial Design", completed: false },
-            { title: "Build MVP", completed: false },
-            { title: "Test Prototype", completed: false },
+            { taskTitle: "Sketch Initial Design", completed: false },
+            { taskTitle: "Build MVP", completed: false },
+            { taskTitle: "Test Prototype", completed: false },
         ],
     },
     {
-        title: "Testing Phase",
+        stageTitle: "Testing Phase",
         status: "Not Started",
         tasks: [
-            { title: "Unit Testing", completed: false },
-            { title: "Integration Testing", completed: false },
-            { title: "User Feedback", completed: false },
+            { taskTitle: "Unit Testing", completed: false },
+            { taskTitle: "Integration Testing", completed: false },
+            { taskTitle: "User Feedback", completed: false },
         ],
     },
     {
-        title: "Deployment",
+        stageTitle: "Deployment",
         status: "Not Started",
         tasks: [
-            { title: "Setup Hosting", completed: false },
-            { title: "Configure Production", completed: false },
-            { title: "Launch Product", completed: false },
+            { taskTitle: "Setup Hosting", completed: false },
+            { taskTitle: "Configure Production", completed: false },
+            { taskTitle: "Launch Product", completed: false },
         ],
     },
 ]
 
 const taskSchema = new mongoose.Schema({
-    title: { type: String, required: true, immutable: true },
+    taskTitle: { type: String, required: true, immutable: true },
     completed: { type: Boolean, required: true },
 });
 
 const stageSchema = new mongoose.Schema({
-    title: { type: String, required: true, immutable: true },
+    stageTitle: { type: String, required: true, immutable: true },
     status: { type: String, required: true, enum: ['Completed', 'In Progress', 'Not Started'] },
     tasks: { type: [taskSchema], required: true },
 });
@@ -55,7 +55,7 @@ const stageSchema = new mongoose.Schema({
 const reportSchema = new mongoose.Schema({
     trackingId: { type: String, required: true, unique: true },
     ideaTitle: { type: String, required: true },
-    owner: { type: String, required: true },
+    ownerId: { type: String, required: true },
     stages: { type: [stageSchema], default: defaultStages },
 });
 
