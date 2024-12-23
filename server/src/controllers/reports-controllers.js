@@ -165,26 +165,18 @@ async function createReport(req, res, next) {
 
 // Update a specific report
 async function updateReport(req, res, next) {
-    // const trackingId = req.params.tid;
-    // const reportIndex = reports.findIndex(r => r.trackingId === trackingId);
-
-    // if (reportIndex === -1) {
-    //     return next(new HttpError("Could not find a report for the provided id", 404))
-    // }
-
-    // const updatedReport = { ...reports[reportIndex], ...req.body };
-    // reports[reportIndex] = updatedReport;
-
-    // res.json({ report: updatedReport })
-
     const reportId = req.params.rid;
     const updates = req.body;
 
     try {
-        const updatedReport = await Report.findOneAndUpdate(
-            { trackingId: reportId },
+        if (!mongoose.Types.ObjectId.isValid(reportId)) {
+            return next(new HttpError("Invalid report ID", 400));
+        }
+
+        const updatedReport = await Report.findByIdAndUpdate(
+            reportId,
             updates,
-            { new: true }
+            { new: true, runValidators: true }
         );
 
 
@@ -193,6 +185,7 @@ async function updateReport(req, res, next) {
         }
 
         res.status(200).json({ report: updatedReport });
+
     } catch (error) {
         return next(new HttpError("Updating report failed, please try again later.", 500));
     }
