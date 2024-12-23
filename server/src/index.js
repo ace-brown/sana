@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const usersRoutes = require('./routes/users-routes')
 const reportsRoutes = require('./routes/reports-routes')
@@ -30,6 +31,11 @@ app.use(function (error, req, res, next) {
     res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
-app.listen(port, function () {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+// Connect to MongoDB
+mongoose
+    .connect('mongodb+srv://kdehnoei:QHFgtl3LvqVf5V1p@sana.olzio.mongodb.net/sanadb?retryWrites=true&w=majority&appName=Sana')
+    .then(function () {
+        app.listen(port, () => console.log(`Server is running at port ${port}`))
+    })
+    .catch((err) => { console.log(err) })
+

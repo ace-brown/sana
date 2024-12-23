@@ -1,5 +1,8 @@
-const HttpError = require('../models/http-error')
 const { validationResult } = require('express-validator')
+const mongoose = require('mongoose')
+
+const HttpError = require('../models/http-error')
+const { Report, defaultStages } = require('../models/report')
 
 
 const reports = [
@@ -95,58 +98,104 @@ const reports = [
 ];
 
 // Get a spesific report by a specific tracking id 
-function getReportById(req, res, next) {
-    const trackingId = req.params.tid;
-    const report = reports.find(r => r.trackingId === trackingId);
+async function getReportById(req, res, next) {
+    const reportId = req.params.rid;
+
+    let report;
+
+    try {
+        report = await Report.findById(reportId);
+    } catch (err) {
+        return next(new HttpError("Something went wrong, couldn't find report.", 500))
+    }
+
     if (!report) {
         return next(new HttpError("Could not find a report for the provided id", 404))
     }
-    res.json({ report })
+
+    res.json({ report: report.toObject({ getters: true }) })
 }
 
 // Get all reports for a specific user with a userId
-function getReportsByUserId(req, res, next) {
+async function getReportsByUserId(req, res, next) {
     const userId = req.params.uid;
-    const reportsForUser = reports.filter(r => r.owner === userId)
+
+    let reportsForUser;
+
+    try {
+        reportsForUser = await Report.find({ owner: userId })
+    } catch (err) {
+        return next(new HttpError("Fetching reports faild, please try again later", 500))
+    }
+
     if (!reportsForUser || reportsForUser.length === 0) {
         return next(new HttpError("Could not find reports for the provided user id", 404))
     }
-    res.json({ reportsForUser })
+
+    res.json({ reportsForUser: reportsForUser.map(r => r.toObject({ getters: true })) })
 }
 
 // Create a new report
-function createReport(req, res, next) {
+async function createReport(req, res, next) {
+    const { nanoid } = await import('nanoid');
     const errors = validationResult(req)
+
     if (!errors.isEmpty()) {
         throw new HttpError("Invalid input passed, please check your data", 422)
     }
 
-    const { ideaTitle, owner, stages } = req.body;
-    const newTrackingId = `TC-${1000 + reports.length + 1}`;
+    const { ideaTitle, owner } = req.body;
+    const trackingId = `t-${nanoid(10)}`;
 
-    const newReport = {
-        trackingId: newTrackingId,
-        ideaTitle: ideaTitle,
-        owner: owner,
-        stages: stages
+    const newReport = new Report({
+        trackingId,
+        ideaTitle,
+        owner,
+        stages: defaultStages,
+    });
+
+    try {
+        await newReport.save();
+    } catch (err) {
+        return next(new HttpError("Creating report failed, please try again later.", 500))
     }
-    reports.push(newReport)
-    res.status(201).json({ newReport })
+
+    res.status(201).json({ report: newReport });
 }
 
 // Update a specific report
-function updateReport(req, res, next) {
-    const trackingId = req.params.tid;
-    const reportIndex = reports.findIndex(r => r.trackingId === trackingId);
+async function updateReport(req, res, next) {
+    // const trackingId = req.params.tid;
+    // const reportIndex = reports.findIndex(r => r.trackingId === trackingId);
 
-    if (reportIndex === -1) {
-        return next(new HttpError("Could not find a report for the provided id", 404))
+    // if (reportIndex === -1) {
+    //     return next(new HttpError("Could not find a report for the provided id", 404))
+    // }
+
+    // const updatedReport = { ...reports[reportIndex], ...req.body };
+    // reports[reportIndex] = updatedReport;
+
+    // res.json({ report: updatedReport })
+
+    const reportId = req.params.rid;
+    const updates = req.body;
+
+    try {
+        const updatedReport = await Report.findOneAndUpdate(
+            { trackingId: reportId },
+            updates,
+            { new: true }
+        );
+
+
+        if (!updatedReport) {
+            return next(new HttpError("Could not find a report for the provided ID", 404));
+        }
+
+        res.status(200).json({ report: updatedReport });
+    } catch (error) {
+        return next(new HttpError("Updating report failed, please try again later.", 500));
     }
-
-    const updatedReport = { ...reports[reportIndex], ...req.body };
-    reports[reportIndex] = updatedReport;
-
-    res.json({ report: updatedReport })
 }
 
 

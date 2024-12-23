@@ -6,7 +6,7 @@ const router = express.Router()
 const reportsControllers = require('../controllers/reports-controllers')
 
 // Get a spesific report by a specific tracking id 
-router.get('/:tid', reportsControllers.getReportById)
+router.get('/:rid', reportsControllers.getReportById)
 
 // Get all reports for a specific user with a userId
 router.get('/user/:uid', reportsControllers.getReportsByUserId)
@@ -22,9 +22,9 @@ router.post(
 )
 
 // Update a report
-router.patch('/:tid', reportsControllers.updateReport)
+router.patch('/:rid', reportsControllers.updateReport)
 
 // Delete a report
-router.delete('/:tid', reportsControllers.deleteReport)
+router.delete('/:rid', reportsControllers.deleteReport)
 
 module.exports = router
