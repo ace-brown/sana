@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 
 const HttpError = require('../models/http-error')
 const { Report, defaultStages } = require('../models/report')
+const User = require('../models/user')
 
 
 // Get a spesific report by a specific tracking id 
@@ -53,20 +54,36 @@ async function createReport(req, res, next) {
     const { ideaTitle, ownerId } = req.body;
     const trackingId = `t-${nanoid(10)}`;
 
-    const newReport = new Report({
+    const createdReport = new Report({
         trackingId,
         ideaTitle,
         ownerId,
         stages: defaultStages,
     });
 
+    let user;
     try {
-        await newReport.save();
+        user = await User.findById(ownerId);
+    } catch (err) {
+        return next(new HttpError("Creating report failed, please try again", 404))
+    }
+
+    if (!user) {
+        return next(new HttpError("Could not find user, please check the user ID", 404))
+    }
+
+    try {
+        const sess = await mongoose.startSession()
+        sess.startTransaction()
+        await createdReport.save({ session: sess });
+        user.reports.push(createdReport)
+        await user.save({ session: sess })
+        await sess.commitTransaction()
     } catch (err) {
         return next(new HttpError("Creating report failed, please try again later.", 500))
     }
 
-    res.status(201).json({ report: newReport });
+    res.status(201).json({ report: createdReport });
 }
 
 // Update a specific report

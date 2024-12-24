@@ -57,7 +57,7 @@ export default function SignupPage() {
             <p className="text-sm text-center mt-4 text-gray-600">
               {t("signup.alreadyAccount")}{" "}
               <Link
-                href="/signin"
+                href="/login"
                 className="text-indigo-600 hover:underline focus:outline-none"
               >
                 {t("signup.login")}

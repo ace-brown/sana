@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Container from "@/components/common/container";
 
-export default function SigninPage() {
+export default function LoginPage() {
   const t = useTranslations();
 
   return (

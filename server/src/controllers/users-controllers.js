@@ -26,7 +26,7 @@ async function signup(req, res, next) {
     }
 
     const { username, email, password, fullName } = req.body;
-    if (!username || !email || !password || !fullName.fullName) {
+    if (!username || !email || !password || !fullName) {
         return res.status(400).json({ error: "All fields are required" });
     }
 
@@ -42,7 +42,8 @@ async function signup(req, res, next) {
             username,
             email,
             password,
-            profile: { fullName },
+            reports: [],
+            profile: { fullName }
         });
 
         await createdUser.save();

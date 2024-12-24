@@ -21,7 +21,7 @@ router.post('/signup', [
 ], usersControllers.signup)
 
 // Log in a user
-router.post('/signin', usersControllers.login)
+router.post('/login', usersControllers.login)
 
 
 

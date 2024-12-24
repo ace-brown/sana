@@ -92,7 +92,7 @@ export default function NavBar() {
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </Toggle> */}
           <ThemeSwitch />
-          <Link href="/signin">
+          <Link href="/login">
             <Button> {t("signup.login")}</Button>
           </Link>
           <Sheet>
