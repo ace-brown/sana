@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Container from "@/components/common/container";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 export default function SignupPage() {
   const t = useTranslations();
@@ -22,10 +23,8 @@ export default function SignupPage() {
     password: "",
   });
 
-  // State for handling errors, loading, and success
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const [success, setSuccess] = useState<string | null>(null);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +40,6 @@ export default function SignupPage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    // setSuccess(null);
 
     try {
       // Make an API call to the backend
@@ -53,16 +51,18 @@ export default function SignupPage() {
         body: JSON.stringify(formData),
       });
 
+      // Check if the response is not ok
       if (!response.ok) {
-        throw new Error("Failed to create an account.");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to create an account");
       }
 
       // Success message
-      // setSuccess("Account created successfully! Please log in.");
-      toast("My first toast");
+      toast.success("Account created successfully");
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
+        toast.error(err.message);
       } else {
         setError("An unknown error occurred.");
       }
@@ -73,7 +73,8 @@ export default function SignupPage() {
 
   return (
     <Container>
-      <Toaster />
+      {loading && <LoadingSpinner asOverlay />}
+      <Toaster position="top-center" richColors />
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
@@ -146,11 +147,6 @@ export default function SignupPage() {
             {error && (
               <p className="text-sm text-red-500 text-center mt-4">{error}</p>
             )}
-            {/* {success && (
-              <p className="text-sm text-green-500 text-center mt-4">
-                
-              </p>
-            )} */}
 
             <p className="text-sm text-center mt-4 text-gray-600">
               {t("signup.alreadyAccount")}{" "}

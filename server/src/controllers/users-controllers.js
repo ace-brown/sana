@@ -26,59 +26,64 @@ async function signup(req, res, next) {
     }
 
     const { username, email, password, fullName } = req.body;
-    if (!username || !email || !password || !fullName) {
-        return res.status(400).json({ error: "All fields are required" });
+
+    let existingUser;
+    try {
+        existingUser = await User.findOne({ email: email });
+    } catch (err) {
+        const error = new HttpError(
+            'Signing up failed, please try again later.',
+            500
+        );
+        return next(error);
     }
+
+    if (existingUser) {
+        const error = new HttpError('User exists already, please login instead.', 422);
+        return next(error);
+    }
+
+    const createdUser = new User({
+        username,
+        email,
+        password,
+        reports: [],
+        profile: { fullName }
+    });
+
 
     try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ error: "User already exists with this email, try to login instead." });
-        }
-
-        // const hashedPassword = await bcrypt.hash(password, 10);
-
-        const createdUser = new User({
-            username,
-            email,
-            password,
-            reports: [],
-            profile: { fullName }
-        });
-
         await createdUser.save();
-
-        res.status(201).json({ user: createdUser.toObject({ getters: true }) });
-
     } catch (err) {
-        return next(new HttpError("Signup failed, please try again later", 500));
+        const error = new HttpError('Signing up failed, please try again later.', 500);
+        return next(error);
     }
+
+    res.status(201).json({ user: createdUser.toObject({ getters: true }) })
 }
 
 // Login an existing user
 async function login(req, res, next) {
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ error: "Email and password are required" })
-    }
+    let existingUser;
 
     try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            throw new HttpError('Invalid email or password', 401);
-        }
-
-        // const isPasswordValid = await bcrypt.compare(password, user.password);
-        // if (!isPasswordValid) {
-        //     throw new HttpError('Invalid email or password', 401);
-        // }
-
-        res.json({ message: "Logged in successfully", userId: user._id });
+        existingUser = await User.findOne({ email: email });
     } catch (err) {
-
-        next(err);
+        const error = new HttpError('Loggin in failed, please try again later.', 500);
+        return next(error);
     }
+
+    if (!existingUser || existingUser.password !== password) {
+        const error = new HttpError('Invalid email or password, could not log you in.', 401);
+        return next(error);
+    }
+
+    res.json({
+        message: 'Logged in!',
+        user: existingUser.toObject({ getters: true })
+    });
 }
 
 exports.getUsers = getUsers
