@@ -8,8 +8,8 @@ const { Report, defaultStages } = require('../models/report')
 // Get a spesific report by a specific tracking id 
 async function getReportById(req, res, next) {
     const reportId = req.params.rid;
-    let report;
 
+    let report;
     try {
         report = await Report.findById(reportId);
     } catch (err) {
@@ -28,7 +28,6 @@ async function getReportsByUserId(req, res, next) {
     const userId = req.params.uid;
 
     let reportsForUser;
-
     try {
         reportsForUser = await Report.find({ ownerId: userId })
     } catch (err) {
@@ -72,6 +71,11 @@ async function createReport(req, res, next) {
 
 // Update a specific report
 async function updateReport(req, res, next) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        throw new HttpError("Invalid input passed, please check your data", 422)
+    }
+
     const reportId = req.params.rid;
     const updates = req.body;
 
@@ -85,7 +89,6 @@ async function updateReport(req, res, next) {
             updates,
             { new: true, runValidators: true }
         );
-
 
         if (!updatedReport) {
             return next(new HttpError("Could not find a report for the provided ID", 404));
@@ -105,17 +108,12 @@ async function deleteReport(req, res, next) {
 
     try {
         const deletedReport = await Report.findByIdAndDelete(reportId);
-
         if (!deletedReport) {
             return next(new HttpError("Could not find a report for the provided ID", 404));
         }
-
         res.status(200).json({ message: "Report deleted successfully!" });
-
     } catch (err) {
-
         return next(new HttpError("Deleting the report failed, please try again later.", 500));
-
     }
 
 }

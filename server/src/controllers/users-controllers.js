@@ -1,76 +1,83 @@
-const HttpError = require("../models/http-error");
 const { validationResult } = require("express-validator")
 
-const users = [
-    {
-        id: "u1",
-        name: "Alice Johnson",
-        email: "alice.johnson@example.com",
-        password: "securepassword123",
-    },
-    {
-        id: "u2",
-        name: "Bob Smith",
-        email: "bob.smith@example.com",
-        password: "password456",
-    },
-    {
-        id: "u3",
-        name: "Charlie Brown",
-        email: "charlie.brown@example.com",
-        password: "mypassword789",
-    },
-];
+const HttpError = require("../models/http-error");
+const User = require("../models/user");
 
 
 // Get all users
-function getUsers(req, res, next) {
-    res.json({ users: users })
+async function getUsers(req, res, next) {
+    try {
+        // Exclude the password field for security
+        const users = await User.find({}, '-password');
+        res.status(200).json({ users: users.map(user => user.toObject({ getters: true })) });
+    } catch (err) {
+        return next(new HttpError(
+            'Fetching users failed, please try again later.',
+            500
+        ));
+    }
 }
 
 // Create a new user
-function signup(req, res, next) {
-    const errors = validationResult(req)
+async function signup(req, res, next) {
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422)
+        return next(new HttpError("Invalid input passed, please check your data", 422));
     }
 
-    const { name, email, password } = req.body
-
-    if (!name || !email || !password) {
-        return res.status(400).json({ error: "All fields are required" })
+    const { username, email, password, fullName } = req.body;
+    if (!username || !email || !password || !fullName.fullName) {
+        return res.status(400).json({ error: "All fields are required" });
     }
 
-    if (users.find(u => u.email === email)) {
-        return res.status(400).json({ error: "Email already exists" })
-    }
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: "User already exists with this email, try to login instead." });
+        }
 
-    const createdUser = {
-        id: Math.random().toString(36),
-        name,
-        email,
-        password
-    }
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
-    users.push(createdUser)
-    res.status(201).json({ message: "User created successfully" })
+        const createdUser = new User({
+            username,
+            email,
+            password,
+            profile: { fullName },
+        });
+
+        await createdUser.save();
+
+        res.status(201).json({ user: createdUser.toObject({ getters: true }) });
+
+    } catch (err) {
+        return next(new HttpError("Signup failed, please try again later", 500));
+    }
 }
 
 // Login an existing user
-function login(req, res, next) {
+async function login(req, res, next) {
     const { email, password } = req.body
 
     if (!email || !password) {
         return res.status(400).json({ error: "Email and password are required" })
     }
 
-    const user = users.find(u => u.email === email && u.password === password)
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw new HttpError('Invalid email or password', 401);
+        }
 
-    if (!user || user.password !== password) {
-        throw new HttpError('Invalid username or password', 404)
+        // const isPasswordValid = await bcrypt.compare(password, user.password);
+        // if (!isPasswordValid) {
+        //     throw new HttpError('Invalid email or password', 401);
+        // }
+
+        res.json({ message: "Logged in successfully", userId: user._id });
+    } catch (err) {
+
+        next(err);
     }
-
-    res.json({ message: "Logged in successfully", userId: user.id })
 }
 
 exports.getUsers = getUsers

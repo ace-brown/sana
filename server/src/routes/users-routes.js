@@ -9,18 +9,19 @@ router.get('/', usersControllers.getUsers)
 
 // Create a new user
 router.post('/signup', [
-    check('name')
+    check('username')
         .notEmpty(),
     check('email')
         .normalizeEmail()
         .isEmail(),
     check('password')
         .isLength({ min: 6 }),
-    // check('confirmPassword').custom((value, { req }) => value === req.body.password)
+    check('fullName')
+        .notEmpty()
 ], usersControllers.signup)
 
 // Log in a user
-router.post('/login', usersControllers.login)
+router.post('/signin', usersControllers.login)
 
 
 
