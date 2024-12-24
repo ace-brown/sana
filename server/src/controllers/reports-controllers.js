@@ -118,20 +118,34 @@ async function updateReport(req, res, next) {
     }
 }
 
-
 // Delete a specific report
 async function deleteReport(req, res, next) {
     const reportId = req.params.rid;
 
+    let report;
     try {
-        const deletedReport = await Report.findByIdAndDelete(reportId);
-        if (!deletedReport) {
-            return next(new HttpError("Could not find a report for the provided ID", 404));
-        }
-        res.status(200).json({ message: "Report deleted successfully!" });
+        report = await Report.findById(reportId).populate('ownerId');
     } catch (err) {
-        return next(new HttpError("Deleting the report failed, please try again later.", 500));
+        return next(new HttpError("Something went wrong, could not delete report.", 500));
     }
+
+    if (!report) {
+        return next(new HttpError("Could not find a report for the provided id", 404));
+    }
+
+    try {
+        const sess = await mongoose.startSession()
+        sess.startTransaction()
+        await report.deleteOne({ _id: report._id }, { session: sess });
+        report.ownerId.reports.pull(report._id)
+        await report.ownerId.save({ session: sess });
+        await sess.commitTransaction()
+    } catch (err) {
+        console.log('error 2', err)
+        return next(new HttpError("Deleting report failed.", 500));
+    }
+
+    res.status(200).json({ message: "Report deleted successfully." });
 
 }
 
