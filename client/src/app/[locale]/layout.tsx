@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+
 import NavBar from "@/components/navigation/nav-bar";
 import { routing } from "@/i18n/routing";
-
-import "../globals.css";
 import Footer from "@/components/footer";
 import { Providers } from "./providers";
+import "../globals.css";
 
 // const geistSans = localFont({
 //   src: "../fonts/GeistVF.woff",

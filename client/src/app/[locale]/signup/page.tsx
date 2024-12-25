@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +11,13 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Container from "@/components/common/container";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { useHttpClient } from "@/hooks/http-hook";
+import { AuthContext } from "@/context/auth-context";
 
 export default function SignupPage() {
   const t = useTranslations();
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest } = useHttpClient();
 
   // State to manage form data
   const [formData, setFormData] = useState({
@@ -23,57 +27,36 @@ export default function SignupPage() {
     password: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
   // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
+  }
 
   // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
 
     try {
-      // Make an API call to the backend
-      const response = await fetch("http://localhost:5000/api/users/signup", {
-        method: "POST",
-        headers: {
+      await sendRequest(
+        "http://localhost:5000/api/users/signup",
+        "POST",
+        JSON.stringify(formData),
+        {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
-      });
-
-      // Check if the response is not ok
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create an account");
-      }
-
-      // Success message
-      toast.success("Account created successfully");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-        toast.error(err.message);
-      } else {
-        setError("An unknown error occurred.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+        "Account created successfully"
+      );
+      auth.login();
+    } catch (err) {}
+  }
 
   return (
     <Container>
-      {loading && <LoadingSpinner asOverlay />}
+      {isLoading && <LoadingSpinner asOverlay />}
       <Toaster position="top-center" richColors />
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
@@ -138,7 +121,7 @@ export default function SignupPage() {
 
               {/* Submit Button */}
               <div className="mt-6">
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {t("signup.signup")}
                 </Button>
               </div>

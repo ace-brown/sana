@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Toaster, toast } from "sonner";
@@ -12,53 +11,36 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Container from "@/components/common/container";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { useHttpClient } from "@/hooks/http-hook";
+import { AuthContext } from "@/context/auth-context";
 
 export default function LoginPage() {
   const t = useTranslations();
-
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { isLoading, sendRequest } = useHttpClient();
+  const auth = useContext(AuthContext);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: {
+      await sendRequest(
+        "http://localhost:5000/api/users/login",
+        "POST",
+        JSON.stringify({ email, password }),
+        {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to login");
-      }
-
-      // const responseData = await response.json();
-      // console.log(responseData);
-
-      // Redirect to dashboard or home page after successful login
-      // router.push("/dashboard");
-
-      toast.success("Logged in successfully");
-    } catch (err) {
-      if (err instanceof Error) {
-        toast.error(err.message || "An unknown error occurred.");
-      }
-    } finally {
-      setLoading(false);
-    }
+        "Logged in successfully"
+      );
+      auth.login();
+    } catch (err) {}
   };
 
   return (
     <Container>
-      {loading && <LoadingSpinner asOverlay />}
+      {isLoading && <LoadingSpinner asOverlay />}
       <Toaster position="top-center" richColors />
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
@@ -97,7 +79,7 @@ export default function LoginPage() {
 
               {/* Submit Button */}
               <div className="mt-6">
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {t("signup.login")}
                 </Button>
               </div>

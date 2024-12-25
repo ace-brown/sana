@@ -1,5 +1,17 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card } from "@/components/ui/card";
 
 interface User {
   _id: string;
@@ -12,14 +24,14 @@ interface User {
   };
 }
 
-const UsersPage = () => {
+export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchUsers = async (currentPage: number) => {
+  async function fetchUsers(currentPage: number) {
     setIsLoading(true);
     setError(null);
     try {
@@ -39,35 +51,42 @@ const UsersPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     fetchUsers(page);
   }, [page]);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Users</h1>
+    <Card className="p-8 mt-8 shadow">
+      <h1 className="text-2xl font-bold mb-4">Users</h1>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && (
+        <div>
+          <Skeleton className="h-8 w-full mb-2" />
+          <Skeleton className="h-8 w-full mb-2" />
+          <Skeleton className="h-8 w-full mb-2" />
+        </div>
+      )}
+
       {error && <p className="text-red-500">Error: {error}</p>}
 
       {!isLoading && !error && (
         <>
-          <table className="table-auto w-full mt-4 border-collapse border border-gray-300">
-            <thead>
-              <tr>
-                <th className="border border-gray-300 px-4 py-2">Avatar</th>
-                <th className="border border-gray-300 px-4 py-2">Username</th>
-                <th className="border border-gray-300 px-4 py-2">Full Name</th>
-                <th className="border border-gray-300 px-4 py-2">Email</th>
-                <th className="border border-gray-300 px-4 py-2">Role</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Avatar</TableHead>
+                <TableHead>Username</TableHead>
+                <TableHead>Full Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Role</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {users.map((user) => (
-                <tr key={user._id}>
-                  <td className="border border-gray-300 px-4 py-2">
+                <TableRow key={user._id}>
+                  <TableCell>
                     {user.profile.avatar ? (
                       <img
                         src={user.profile.avatar}
@@ -75,49 +94,39 @@ const UsersPage = () => {
                         className="w-8 h-8 rounded-full"
                       />
                     ) : (
-                      "No Avatar"
+                      <span>No Avatar</span>
                     )}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {user.username}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {user.profile.fullName}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {user.email}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {user.role}
-                  </td>
-                </tr>
+                  </TableCell>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.profile.fullName}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
 
-          <div className="mt-4 flex justify-between">
-            <button
+          <div className="mt-4 flex justify-between items-center">
+            <Button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={page === 1}
-              className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              variant="outline"
             >
               Previous
-            </button>
+            </Button>
             <span>
               Page {page} of {totalPages}
             </span>
-            <button
+            <Button
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={page === totalPages}
-              className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+              variant="outline"
             >
               Next
-            </button>
+            </Button>
           </div>
         </>
       )}
-    </div>
+    </Card>
   );
-};
-
-export default UsersPage;
+}
