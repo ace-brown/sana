@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { JSX, SVGProps, useContext } from "react";
 import { useTranslations } from "next-intl";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,13 +12,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ThemeSwitch from "./ThemeSwitch";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { JSX, SVGProps } from "react";
 import LocaleSwitcher from "./LocaleSwitcher";
+import { AuthContext } from "@/context/auth-context";
 
 export default function NavBar() {
   const t = useTranslations();
+  const auth = useContext(AuthContext);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 dark:bg-gray-950">
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
@@ -92,9 +99,33 @@ export default function NavBar() {
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </Toggle> */}
           <ThemeSwitch />
-          <Link href="/login">
-            <Button> {t("signup.login")}</Button>
-          </Link>
+          {!auth.isLoggedIn && (
+            <>
+              <Link href="/signup">
+                <Button>{t("signup.signup")}</Button>
+              </Link>
+              <Link href="/login">
+                <Button>{t("signup.login")}</Button>
+              </Link>
+            </>
+          )}
+          {auth.isLoggedIn && (
+            <>
+              <Link href="/users">
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </Link>
+              <Button
+                onClick={() => {
+                  auth.logout();
+                }}
+              >
+                {t("signup.logout")}
+              </Button>
+            </>
+          )}
           <Sheet>
             <SheetTrigger asChild>
               <Button

@@ -2,6 +2,7 @@
 
 import React, { useContext, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Toaster } from "sonner";
 
@@ -17,6 +18,7 @@ import { AuthContext } from "@/context/auth-context";
 export default function SignupPage() {
   const t = useTranslations();
   const auth = useContext(AuthContext);
+  const router = useRouter();
   const { isLoading, error, sendRequest } = useHttpClient();
 
   // State to manage form data
@@ -51,6 +53,7 @@ export default function SignupPage() {
         "Account created successfully"
       );
       auth.login();
+      router.push("/research");
     } catch (err) {}
   }
 
@@ -143,9 +146,6 @@ export default function SignupPage() {
           </CardContent>
         </Card>
       </div>
-      <Link href="/users">
-        <Button>Go to users page</Button>
-      </Link>
     </Container>
   );
 }

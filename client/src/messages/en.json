@@ -262,6 +262,7 @@
     "success": "You have successfully created your account!",
     "error": "An error occurred while creating account.",
     "login": "Log In",
+    "logout": "Log Out",
     "userName": "Username",
     "fullName": "Full Name",
     "email": "Email",

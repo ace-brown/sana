@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { Toaster, toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const { isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ export default function LoginPage() {
         "Logged in successfully"
       );
       auth.login();
+      router.push("/research");
     } catch (err) {}
   };
 
