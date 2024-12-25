@@ -7,9 +7,26 @@ const User = require("../models/user");
 // Get all users
 async function getUsers(req, res, next) {
     try {
+        const { page = 1, limit = 10 } = req.query;
+
+        // Parse and validate `page` and `limit`
+        const currentPage = Math.max(1, parseInt(page, 10));
+        const perPage = Math.max(1, parseInt(limit, 10));
+
         // Exclude the password field for security
-        const users = await User.find({}, '-password');
-        res.status(200).json({ users: users.map(user => user.toObject({ getters: true })) });
+        const users = await User.find({}, '-password')
+            .skip((currentPage - 1) * perPage)
+            .limit(perPage);
+
+        // Count total users in the database for pagination metadata
+        const totalUsers = await User.countDocuments();
+
+        res.status(200).json({
+            users: users.map(user => user.toObject({ getters: true })),
+            totalUsers,
+            currentPage,
+            totalPages: Math.ceil(totalUsers / perPage)
+        });
     } catch (err) {
         return next(new HttpError(
             'Fetching users failed, please try again later.',

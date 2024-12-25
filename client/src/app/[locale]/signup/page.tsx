@@ -160,6 +160,9 @@ export default function SignupPage() {
           </CardContent>
         </Card>
       </div>
+      <Link href="/users">
+        <Button>Go to users page</Button>
+      </Link>
     </Container>
   );
 }
