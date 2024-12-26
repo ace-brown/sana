@@ -139,7 +139,6 @@ async function deleteReport(req, res, next) {
         await report.ownerId.save({ session: sess });
         await sess.commitTransaction()
     } catch (err) {
-        console.log('error 2', err)
         return next(new HttpError("Deleting report failed.", 500));
     }
 

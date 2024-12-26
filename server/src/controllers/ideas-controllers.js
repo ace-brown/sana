@@ -9,7 +9,7 @@ const Idea = require('../models/idea')
 
 // Get a spesific idea by a specific tracking id 
 async function getIdeaById(req, res, next) {
-    const ideaId = req.params.rid;
+    const ideaId = req.params.eid;
 
     let idea;
     try {
@@ -136,18 +136,7 @@ async function createIdea(req, res, next) {
         return next(new HttpError("Creating idea and report failed, please try again later.", 500));
     }
 
-    // try {
-    //     const sess = await mongoose.startSession()
-    //     sess.startTransaction()
-    //     await createdIdea.save({ session: sess });
-    //     user.ideas.push(createdIdea)
-    //     await user.save({ session: sess })
-    //     await sess.commitTransaction()
-    // } catch (err) {
-    //     return next(new HttpError("Creating idea failed, please try again later.", 500))
-    // }
-
-    res.status(201).json({ idea: createdIdea, report: createdReport });
+    res.status(201).json({ idea: createdIdea });
 }
 
 // Update a specific idea
@@ -157,7 +146,7 @@ async function updateIdea(req, res, next) {
         throw new HttpError("Invalid input passed, please check your data", 422)
     }
 
-    const ideaId = req.params.rid;
+    const ideaId = req.params.eid;
     const updates = req.body;
 
     try {
@@ -184,7 +173,7 @@ async function updateIdea(req, res, next) {
 
 // Delete a specific idea
 async function deleteIdea(req, res, next) {
-    const ideaId = req.params.rid;
+    const ideaId = req.params.eid;
 
     let idea;
     try {
