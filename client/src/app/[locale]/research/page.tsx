@@ -50,7 +50,7 @@ export default function ResearchPage() {
             <CardContent>{t("research.forms.register.body")}</CardContent>
             <CardFooter>
               <Link
-                href="/research/register-idea-form"
+                href="/research/register-idea"
                 className="text-blue-500 font-medium hover:underline"
               >
                 {t("readMore")}

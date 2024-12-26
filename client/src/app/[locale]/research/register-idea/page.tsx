@@ -28,7 +28,17 @@ export default function RegisterIdeaForm() {
 
   // Translations
   const basicInfoTxt = t("registerIdeaForm.firstStep.title");
-  const nameTxt = t("registerIdeaForm.firstStep.name");
+  const nameTxt = t("registerIdeaForm.firstStep.fullName");
+  const fatherNameTxt = t("registerIdeaForm.firstStep.fatherName");
+  const countryTxt = t("registerIdeaForm.firstStep.country");
+  const cityTxt = t("registerIdeaForm.firstStep.city");
+  const careerTxt = t("registerIdeaForm.firstStep.career");
+  const genderTxt = t("registerIdeaForm.firstStep.gender");
+  const mobileNumberTxt = t("registerIdeaForm.firstStep.mobileNumber");
+  const ageTxt = t("registerIdeaForm.firstStep.age");
+  const maritalStatusTxt = t("registerIdeaForm.firstStep.maritalStatus");
+  const idNumberTxt = t("registerIdeaForm.firstStep.idNumber");
+  const stateTxt = t("registerIdeaForm.firstStep.state");
   const emailTxt = t("registerIdeaForm.firstStep.email");
   const branchOfStudyTxt = t("registerIdeaForm.firstStep.branch.title");
   const SelectBranchOfStudyTxt = t("registerIdeaForm.firstStep.branch.select");
@@ -206,15 +216,116 @@ export default function RegisterIdeaForm() {
           >
             <h1 className="text-2xl font-bold mb-4">{basicInfoTxt}</h1>
 
-            {/* Name Field */}
+            {/* Full Name Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
                 {nameTxt}
+                <span className="text-red-500"> *</span>
               </label>
               <Input
                 type="text"
                 {...register("name", { required: "Name is required" })}
               />
+            </div>
+
+            {/* Father's Name Field */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {fatherNameTxt}
+                <span className="text-red-500"> *</span>
+              </label>
+              <Input
+                type="text"
+                {...register("fatherName", {
+                  required: "Father Name is required",
+                })}
+              />
+            </div>
+
+            {/* Country Field */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {countryTxt}
+              </label>
+              <Input type="text" {...register("country")} />
+            </div>
+
+            {/* State and City Fields */}
+            <div className="flex gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {stateTxt}
+                </label>
+                <Input type="text" {...register("state")} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {cityTxt}
+                  <span className="text-red-500"> *</span>
+                </label>
+                <Input
+                  type="text"
+                  {...register("city", { required: "City is required" })}
+                />
+              </div>
+            </div>
+
+            {/* Career Fields */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {careerTxt}
+                <span className="text-red-500"> *</span>
+              </label>
+              <Input
+                type="text"
+                {...register("career", { required: "Career is required" })}
+              />
+            </div>
+
+            {/* Marital Status and Gender Field */}
+            <div className="flex gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {maritalStatusTxt}
+                </label>
+                <Input type="text" {...register("maritalStatus")} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {genderTxt}
+                  <span className="text-red-500"> *</span>
+                </label>
+                <Input
+                  type="text"
+                  {...register("sex", { required: "Sex is required" })}
+                />
+              </div>
+            </div>
+
+            {/* Mobile Number and age Field */}
+            <div className="flex gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {mobileNumberTxt}
+                  <span className="text-red-500"> *</span>
+                </label>
+                <Input
+                  type="text"
+                  {...register("mobileNumber", {
+                    required: "Mobile Number is required",
+                  })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {ageTxt}
+                  <span className="text-red-500"> *</span>
+                </label>
+                <Input
+                  type="number"
+                  {...register("age", { required: "Age is required" })}
+                />
+              </div>
             </div>
 
             {/* Email Field */}
@@ -225,6 +336,20 @@ export default function RegisterIdeaForm() {
               <Input
                 type="email"
                 {...register("email", { required: "Email is required" })}
+              />
+            </div>
+
+            {/* Identification Number Field */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {idNumberTxt}
+                <span className="text-red-500"> *</span>
+              </label>
+              <Input
+                type="text"
+                {...register("identificationNumber", {
+                  required: "Identification Number is required",
+                })}
               />
             </div>
 

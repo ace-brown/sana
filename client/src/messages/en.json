@@ -136,7 +136,17 @@
 
     "firstStep": {
       "title": "Step 1: Basic Information",
-      "name": "Name",
+      "fullName": "Full Name",
+      "fatherName": "Father's Name",
+      "country": "Country",
+      "state": "ُState",
+      "city": "City",
+      "career": "Career",
+      "maritalStatus": "Marital Status",
+      "gender": "Gender",
+      "mobileNumber": "Mobile Number",
+      "age": "Age",
+      "idNumber": "Identification Number",
       "email": "Email",
       "branch": {
         "title": "Branch of Study",

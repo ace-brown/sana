@@ -135,7 +135,17 @@
     "backToForms": "بازگشت به همه فرم‌ها",
     "firstStep": {
       "title": "مرحله ۱: اطلاعات پایه",
-      "name": "نام",
+      "fullName": "نام و نام خانوادگی",
+      "fatherName": "نام پدر",
+      "country": "کشور",
+      "state": "استان",
+      "city": "شهر",
+      "career": "شغل",
+      "maritalStatus": "وضعیت تاهل",
+      "gender": "جنسیت",
+      "mobileNumber": "شماره تماس (موبایل)",
+      "age": "سن",
+      "idNumber": "شماره شناسنامه یا کد ملی",
       "email": "ایمیل",
       "branch": {
         "title": "رشته تحصیلی",
