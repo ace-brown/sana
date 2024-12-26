@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     role: { type: String, default: 'user', enum: ['user', 'admin'] },
     createdAt: { type: Date, default: Date.now },
     reports: [{ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Report' }],
-    ideas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'RegisterIdea' }], // A user can own multiple ideas
+    ideas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Idea' }], // A user can own multiple ideas
     profile: {
         fullName: { type: String, required: true },
         bio: { type: String, maxlength: 500 },

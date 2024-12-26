@@ -5,26 +5,41 @@ const router = express.Router()
 
 const ideasControllers = require('../controllers/ideas-controllers')
 
-// Get a spesific report by a specific tracking id 
+// Get a spesific idea by a specific tracking id 
 router.get('/:rid', ideasControllers.getIdeaById)
 
-// Get all reports for a specific user with a userId
+// Get all ideas for a specific user with a userId
 router.get('/user/:uid', ideasControllers.getIdeasByUserId)
 
-// Create a new report
+// Create a new idea
 router.post(
     '/',
     [
+        check('ownerId').notEmpty(),
+        check('reportId').notEmpty(),
+        check('trackingId').notEmpty(),
+        check('fullName').notEmpty(),
+        check('fatherName').notEmpty(),
+        check('city').notEmpty(),
+        check('career').notEmpty(),
+        check('maritalStatus').notEmpty(),
+        check('gender').notEmpty(),
+        check('mobileNumber').notEmpty(),
+        check('age').notEmpty(),
+        check('email').normalizeEmail().isEmail(),
+        check('identificationNumber').notEmpty(),
+        check('branchOfStudy').notEmpty(),
+        check('branchDetail').notEmpty(),
         check('ideaTitle').notEmpty(),
-        check('ownerId').notEmpty()
+        check('ideaDescription').notEmpty(),
     ],
     ideasControllers.createIdea
 )
 
-// Update a report
+// Update a idea
 router.patch('/:rid', ideasControllers.updateIdea)
 
-// Delete a report
+// Delete a idea
 router.delete('/:rid', ideasControllers.deleteIdea)
 
 module.exports = router

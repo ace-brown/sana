@@ -44,15 +44,13 @@ async function getReportsByUserId(req, res, next) {
 
 // Create a new report
 async function createReport(req, res, next) {
-    const { nanoid } = await import('nanoid');
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
         throw new HttpError("Invalid input passed, please check your data", 422)
     }
 
-    const { ideaTitle, ownerId } = req.body;
-    const trackingId = `t-${nanoid(10)}`;
+    const { ideaTitle, ownerId, trackingId } = req.body;
 
     const createdReport = new Report({
         trackingId,

@@ -21,7 +21,6 @@ export default function RegisterIdeaForm() {
   const [step, setStep] = useState(1);
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const { register, handleSubmit, watch, setValue } = useForm();
-  const selectedBranch = watch("branchOfStudy");
   const [maritalStatus, gender, branchDetail, branchOfStudy] = watch([
     "maritalStatus",
     "gender",
@@ -40,9 +39,17 @@ export default function RegisterIdeaForm() {
   const cityTxt = t("registerIdeaForm.firstStep.city");
   const careerTxt = t("registerIdeaForm.firstStep.career");
   const genderTxt = t("registerIdeaForm.firstStep.gender");
+  const selectGenderTxt = t("registerIdeaForm.firstStep.selectGender");
+  const maleTxt = t("signup.male");
+  const femaleTxt = t("signup.female");
   const mobileNumberTxt = t("registerIdeaForm.firstStep.mobileNumber");
   const ageTxt = t("registerIdeaForm.firstStep.age");
   const maritalStatusTxt = t("registerIdeaForm.firstStep.maritalStatus");
+  const selectMaritalStatusTxt = t(
+    "registerIdeaForm.firstStep.selectMaritalStatus"
+  );
+  const singleTxt = t("registerIdeaForm.firstStep.single");
+  const marriedTxt = t("registerIdeaForm.firstStep.married");
   const idNumberTxt = t("registerIdeaForm.firstStep.idNumber");
   const stateTxt = t("registerIdeaForm.firstStep.state");
   const emailTxt = t("registerIdeaForm.firstStep.email");
@@ -306,11 +313,11 @@ export default function RegisterIdeaForm() {
                   value={maritalStatus}
                 >
                   <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectValue placeholder="Select Marital Status" />
+                    <SelectValue placeholder={selectMaritalStatusTxt} />
                   </SelectTrigger>
                   <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectItem value="single">Single</SelectItem>
-                    <SelectItem value="married">Married</SelectItem>
+                    <SelectItem value="single">{singleTxt}</SelectItem>
+                    <SelectItem value="married">{marriedTxt}</SelectItem>
                   </SelectContent>
                 </Select>
                 <input type="hidden" {...register("maritalStatus")} />
@@ -326,11 +333,11 @@ export default function RegisterIdeaForm() {
                   value={gender}
                 >
                   <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectValue placeholder="Select Gender" />
+                    <SelectValue placeholder={selectGenderTxt} />
                   </SelectTrigger>
                   <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="male">{maleTxt}</SelectItem>
+                    <SelectItem value="female">{femaleTxt}</SelectItem>
                   </SelectContent>
                 </Select>
                 <input
@@ -437,7 +444,7 @@ export default function RegisterIdeaForm() {
             </div>
 
             {/* Sub-options based on branch */}
-            {selectedBranch && subOptions.length > 0 && (
+            {branchOfStudy && subOptions.length > 0 && (
               <div>
                 <label className="block text-sm font-medium mb-2">
                   {spesificFieldTxt}
