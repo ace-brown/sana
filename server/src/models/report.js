@@ -55,8 +55,10 @@ const stageSchema = new mongoose.Schema({
 const reportSchema = new mongoose.Schema({
     trackingId: { type: String, required: true, unique: true },
     ideaTitle: { type: String, required: true },
+    ideaId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'RegisterIdea' },
     ownerId: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
     stages: { type: [stageSchema], default: defaultStages },
+    createdAt: { type: Date, default: Date.now },
 });
 
 const Report = mongoose.model('Report', reportSchema);

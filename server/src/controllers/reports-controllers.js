@@ -6,7 +6,7 @@ const { Report, defaultStages } = require('../models/report')
 const User = require('../models/user')
 
 
-// Get a spesific report by a specific tracking id 
+// Get a spesific report by a specific id 
 async function getReportById(req, res, next) {
     const reportId = req.params.rid;
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const usersRoutes = require('./routes/users-routes')
 const reportsRoutes = require('./routes/reports-routes')
+const ideasRoutes = require('./routes/ideas-routes')
 const HttpError = require('./models/http-error')
 
 const app = express();
@@ -27,6 +28,9 @@ app.use('/api/reports', reportsRoutes);
 
 // Users routes
 app.use('/api/users', usersRoutes);
+
+// Ideas routes
+app.use('/api/ideas', ideasRoutes);
 
 // Middleware to handle wrong routes 
 app.use(function (req, res, next) {

@@ -22,6 +22,12 @@ export default function RegisterIdeaForm() {
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const { register, handleSubmit, watch, setValue } = useForm();
   const selectedBranch = watch("branchOfStudy");
+  const [maritalStatus, gender, branchDetail, branchOfStudy] = watch([
+    "maritalStatus",
+    "gender",
+    "branchDetail",
+    "branchOfStudy",
+  ]);
   const t = useTranslations();
   const locale = useLocale();
   const rtl = locale === "fa";
@@ -136,6 +142,7 @@ export default function RegisterIdeaForm() {
   const submitTxt = t("submit");
   const backTxt = t("back");
   const SecSteptitleTxt = t("registerIdeaForm.secondStep.title");
+  const ideaTitleTxt = t("ideaTitle");
   const SecStepDescribeIdeaTxt = t("registerIdeaForm.secondStep.describeIdea");
 
   const branchesOptions = {
@@ -195,7 +202,12 @@ export default function RegisterIdeaForm() {
   const handleBranchChange = (value: BranchKey) => {
     setValue("branchOfStudy", t(value));
     setSubOptions(branchesOptions[value]);
-    setValue("branchDetail", ""); // Reset the sub-category field
+    // setValue("branchDetail", ""); // Reset the sub-category field
+  };
+
+  const handleNextStep = () => {
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   const onSubmit = (data: any) => {
@@ -211,7 +223,7 @@ export default function RegisterIdeaForm() {
       >
         {step === 1 && (
           <form
-            onSubmit={handleSubmit(() => setStep(2))}
+            onSubmit={handleSubmit(handleNextStep)}
             className="space-y-4 p-6 shadow-2xl rounded-lg border-sm"
           >
             <h1 className="text-2xl font-bold mb-4">{basicInfoTxt}</h1>
@@ -284,20 +296,46 @@ export default function RegisterIdeaForm() {
 
             {/* Marital Status and Gender Field */}
             <div className="flex gap-4">
-              <div>
+              {/* Marital Status Select */}
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   {maritalStatusTxt}
                 </label>
-                <Input type="text" {...register("maritalStatus")} />
+                <Select
+                  onValueChange={(value) => setValue("maritalStatus", value)}
+                  value={maritalStatus}
+                >
+                  <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
+                    <SelectValue placeholder="Select Marital Status" />
+                  </SelectTrigger>
+                  <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
+                    <SelectItem value="single">Single</SelectItem>
+                    <SelectItem value="married">Married</SelectItem>
+                  </SelectContent>
+                </Select>
+                <input type="hidden" {...register("maritalStatus")} />
               </div>
-              <div>
+              {/* Gender Select */}
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   {genderTxt}
                   <span className="text-red-500"> *</span>
                 </label>
-                <Input
-                  type="text"
-                  {...register("sex", { required: "Sex is required" })}
+                <Select
+                  onValueChange={(value) => setValue("gender", value)}
+                  value={gender}
+                >
+                  <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
+                    <SelectValue placeholder="Select Gender" />
+                  </SelectTrigger>
+                  <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
+                <input
+                  type="hidden"
+                  {...register("gender", { required: "Gender is required" })}
                 />
               </div>
             </div>
@@ -353,15 +391,36 @@ export default function RegisterIdeaForm() {
               />
             </div>
 
+            <div className="flex justify-between">
+              <Link href="/research" className="w-1/3">
+                <Button type="button" variant="outline">
+                  {backToFormsTxt}
+                </Button>
+              </Link>
+              <Button type="submit" className="w-1/3">
+                {nextTxt}
+              </Button>
+            </div>
+          </form>
+        )}
+        {step === 2 && (
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 p-6 shadow-lg rounded-lg"
+          >
+            <h1 className="text-2xl font-bold mb-4">{SecSteptitleTxt}</h1>
+
             {/* Branch of Study */}
             <div>
               <label className="block text-sm font-medium mb-2">
                 {branchOfStudyTxt}
+                <span className="text-red-500"> *</span>
               </label>
               <Select
                 onValueChange={(value) =>
                   handleBranchChange(value as BranchKey)
                 }
+                // value={branchOfStudy}
               >
                 <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
                   <SelectValue placeholder={SelectBranchOfStudyTxt} />
@@ -382,9 +441,11 @@ export default function RegisterIdeaForm() {
               <div>
                 <label className="block text-sm font-medium mb-2">
                   {spesificFieldTxt}
+                  <span className="text-red-500"> *</span>
                 </label>
                 <Select
                   onValueChange={(value) => setValue("branchDetail", value)}
+                  value={branchDetail}
                 >
                   <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
                     <SelectValue placeholder={selectSpesificFieldTxt} />
@@ -401,29 +462,25 @@ export default function RegisterIdeaForm() {
               </div>
             )}
 
-            <div className="flex justify-between">
-              <Link href="/research" className="w-1/3">
-                <Button type="button" variant="outline">
-                  {backToFormsTxt}
-                </Button>
-              </Link>
-              <Button type="submit" className="w-1/3">
-                {nextTxt}
-              </Button>
+            {/* Idea Title Field */}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                {ideaTitleTxt}
+                <span className="text-red-500"> *</span>
+              </label>
+              <Input
+                type="text"
+                {...register("ideaTitle", {
+                  required: "Idea Title is required",
+                })}
+              />
             </div>
-          </form>
-        )}
-        {step === 2 && (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 p-6 shadow-lg rounded-lg"
-          >
-            <h1 className="text-2xl font-bold mb-4">{SecSteptitleTxt}</h1>
 
-            {/* Idea Details */}
+            {/* Idea Details Field*/}
             <div>
               <label className="block text-sm font-medium mb-2">
                 {SecStepDescribeIdeaTxt}
+                <span className="text-red-500"> *</span>
               </label>
               <Textarea
                 className="min-h-[10rem]"

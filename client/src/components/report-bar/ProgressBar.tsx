@@ -145,9 +145,7 @@ export default function ProgressBar({
           {t("progressBar.title")}
         </h2>
         <p>{`${t("report.trackingCode")} : ${trackingCode}`}</p>
-        <p className="mb-12">{`${t("report.ideaTitle")} : ${
-          report.ideaTitle
-        }`}</p>
+        <p className="mb-12">{`${t("ideaTitle")} : ${report.ideaTitle}`}</p>
         <div className="flex items-center justify-between relative">
           {report.stages.map((stage, index) => (
             <React.Fragment key={index}>
