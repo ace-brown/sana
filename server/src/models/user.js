@@ -10,11 +10,11 @@ const userSchema = new mongoose.Schema({
     ideas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Idea' }], // A user can own multiple ideas
     profile: {
         fullName: { type: String, required: true },
-        bio: { type: String, maxlength: 500 },
+        bio: { type: String, maxlength: 1000 },
         avatar: { type: String },
     },
     settings: {
-        language: { type: String, default: 'en', enum: ['en', 'fa'] },
+        language: { type: String, default: 'fa', enum: ['en', 'fa'] },
         notifications: { type: Boolean, default: true },
     },
 });

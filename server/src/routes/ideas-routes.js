@@ -34,10 +34,10 @@ router.post(
     ideasControllers.createIdea
 )
 
-// Update a idea
+// Update an idea
 router.patch('/:eid', ideasControllers.updateIdea)
 
-// Delete a idea
+// Delete an idea
 router.delete('/:eid', ideasControllers.deleteIdea)
 
 module.exports = router

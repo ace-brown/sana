@@ -23,6 +23,10 @@ router.post('/signup', [
 // Log in a user
 router.post('/login', usersControllers.login)
 
+// Update a user
+router.patch('/:uid', usersControllers.updateUser)
 
+// Delete a user
+router.delete('/:uid', usersControllers.deleteUser)
 
 module.exports = router

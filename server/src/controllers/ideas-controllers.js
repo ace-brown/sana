@@ -54,7 +54,6 @@ async function createIdea(req, res, next) {
 
     const {
         ownerId,
-        fullName,
         fatherName,
         country,
         state,
@@ -76,7 +75,6 @@ async function createIdea(req, res, next) {
     const createdIdea = new Idea({
         ownerId,
         trackingId,
-        fullName,
         fatherName,
         country,
         state,

@@ -1,8 +1,9 @@
 const { validationResult } = require("express-validator")
+const mongoose = require('mongoose')
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user");
-
+const { Report } = require("../models/report");
 
 // Get all users
 async function getUsers(req, res, next) {
@@ -103,6 +104,87 @@ async function login(req, res, next) {
     });
 }
 
+// Update an existing user
+async function updateUser(req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new HttpError("Invalid input passed, please check your data", 422));
+    }
+
+    const userId = req.params.uid;
+    const updates = req.body;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return next(new HttpError("Invalid user ID", 400));
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return next(new HttpError("Could not find a user for the provided ID", 404));
+        }
+
+        // Update user fields
+        for (const key in updates) {
+            if (user[key] !== undefined) {
+                user[key] = updates[key];
+            }
+        }
+
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+
+        await user.save({ session: sess });
+
+        await sess.commitTransaction();
+
+        res.status(200).json({ user: user.toObject({ getters: true }) });
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError("Updating user failed, please try again later.", 500));
+    }
+}
+
+// Delete user
+async function deleteUser(req, res, next) {
+    const userId = req.params.uid;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return next(new HttpError("Invalid user ID", 400));
+        }
+
+        const user = await User.findById(userId).populate('ideas').populate('reports');
+        if (!user) {
+            return next(new HttpError("Could not find a user for the provided ID", 404));
+        }
+
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+
+        // Delete associated Ideas and Reports
+        for (const idea of user.ideas) {
+            const reports = await Report.find({ ideaId: idea._id });
+            for (const report of reports) {
+                await report.deleteOne({ session: sess }); // Delete reports
+            }
+            await idea.deleteOne({ session: sess }); // Delete ideas
+        }
+
+        await user.deleteOne({ session: sess });
+
+        await sess.commitTransaction();
+
+        res.status(200).json({ message: "User and all associated data deleted successfully." });
+    } catch (error) {
+        sess.abortTransaction();
+        return next(new HttpError("Deleting user failed, please try again later.", 500));
+    }
+}
+
+
 exports.getUsers = getUsers
 exports.signup = signup
 exports.login = login
+exports.deleteUser = deleteUser
+exports.updateUser = updateUser
