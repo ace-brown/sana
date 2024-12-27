@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider, useLocale } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
 
 import NavBar from "@/components/navigation/nav-bar";
-import { routing } from "@/i18n/routing";
 import Footer from "@/components/footer";
 import { Providers } from "./providers";
-import "../globals.css";
+import "./globals.css";
 
 // const geistSans = localFont({
 //   src: "../fonts/GeistVF.woff",
@@ -27,32 +23,20 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
 }>) {
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
-
-  // Providing all messages to the client
-  const messages = await getMessages();
-
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="fa" suppressHydrationWarning>
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <NextIntlClientProvider messages={messages}>
-            <div className="flex min-h-screen flex-col justify-between">
-              <NavBar />
-              <main className="w-[90%] mx-auto md:w-[80%]">{children}</main>
-              <Footer />
-            </div>
-          </NextIntlClientProvider>
+          <div className="flex min-h-screen flex-col justify-between">
+            <NavBar />
+            <main className="w-[90%] mx-auto md:w-[80%]">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

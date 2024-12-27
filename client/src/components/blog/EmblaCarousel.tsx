@@ -9,7 +9,6 @@ import {
 } from "./EmblaCarouselDotArrow";
 import useEmblaCarousel from "embla-carousel-react";
 import { NewsCard1, NewsCard2, NewsCard3, NewsCard4 } from "./newsCard";
-import { useTranslations } from "next-intl";
 import "./embla.css";
 import SectionTitle from "../common/section-title";
 import Section from "../common/section";
@@ -29,7 +28,6 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const { slides, options } = props;
-  const t = useTranslations();
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -44,7 +42,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   return (
     <Section>
-      <SectionTitle>{t("navigation.blog")}</SectionTitle>
+      <SectionTitle>وبلاگ</SectionTitle>
       <section className="news-swiper">
         <div className="embla">
           <div className="embla__viewport" ref={emblaRef}>

@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,8 +9,6 @@ import launchImg from "@/images/launch.jpg";
 import planImg from "@/images/planning.jpg";
 
 export default function CompetitionsPage() {
-  const t = useTranslations();
-
   const competitions = [
     {
       title: "المپیاد ریاضی بین‌المللی",
@@ -94,7 +91,7 @@ export default function CompetitionsPage() {
         <div className="flex gap-8 justify-around w-fit mt-10 mx-auto">
           <Link href="/research">
             <Button type="button" variant="outline">
-              {t("registerIdeaForm.backToForms")}
+              بازگشت به همه فرم‌ها
             </Button>
           </Link>
           <Link href="#">

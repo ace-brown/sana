@@ -2,7 +2,6 @@
 
 import React, { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Toaster, toast } from "sonner";
 
@@ -16,7 +15,6 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 
 export default function LoginPage() {
-  const t = useTranslations();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { isLoading, sendRequest } = useHttpClient();
@@ -48,15 +46,13 @@ export default function LoginPage() {
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">
-              {t("signup.login")}
-            </CardTitle>
+            <CardTitle className="text-center text-2xl">ورود</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin}>
               {/* Email */}
               <div className="mb-4">
-                <Label htmlFor="email">{t("signup.email")}</Label>
+                <Label htmlFor="email">ایمیل</Label>
                 <Input
                   type="email"
                   id="email"
@@ -69,7 +65,7 @@ export default function LoginPage() {
 
               {/* Password */}
               <div className="mb-4">
-                <Label htmlFor="password">{t("signup.password")}</Label>
+                <Label htmlFor="password">رمز عبور</Label>
                 <Input
                   type="password"
                   id="password"
@@ -83,18 +79,18 @@ export default function LoginPage() {
               {/* Submit Button */}
               <div className="mt-6">
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {t("signup.login")}
+                  ورود
                 </Button>
               </div>
             </form>
 
             <p className="text-sm text-center mt-4 text-gray-600">
-              {t("signup.noAccount")}{" "}
+              حساب کاربری ندارید؟{" "}
               <Link
                 href="/signup"
                 className="text-indigo-600 hover:underline focus:outline-none"
               >
-                {t("signup.signup")}
+                خروج
               </Link>
             </p>
           </CardContent>

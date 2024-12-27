@@ -15,7 +15,6 @@ import { Toggle } from "@/components/ui/toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ThemeSwitch from "./ThemeSwitch";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import LocaleSwitcher from "./LocaleSwitcher";
 import { AuthContext } from "@/context/auth-context";
 
 export default function NavBar() {
@@ -74,9 +73,7 @@ export default function NavBar() {
           </Link>
         </nav>
         <div className="flex items-center gap-4">
-          <div className="hidden items-center gap-2 text-sm font-medium md:flex">
-            <LocaleSwitcher />
-          </div>
+          <div className="hidden items-center gap-2 text-sm font-medium md:flex"></div>
           {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">

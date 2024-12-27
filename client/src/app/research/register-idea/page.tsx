@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
@@ -33,185 +32,58 @@ export default function RegisterIdeaForm() {
     "branchDetail",
     "branchOfStudy",
   ]);
-  const t = useTranslations();
-  const locale = useLocale();
-  const rtl = locale === "fa";
-
-  // Translations
-  const basicInfoTxt = t("registerIdeaForm.firstStep.title");
-  const nameTxt = t("registerIdeaForm.firstStep.fullName");
-  const fatherNameTxt = t("registerIdeaForm.firstStep.fatherName");
-  const countryTxt = t("registerIdeaForm.firstStep.country");
-  const cityTxt = t("registerIdeaForm.firstStep.city");
-  const careerTxt = t("registerIdeaForm.firstStep.career");
-  const genderTxt = t("registerIdeaForm.firstStep.gender");
-  const selectGenderTxt = t("registerIdeaForm.firstStep.selectGender");
-  const maleTxt = t("signup.male");
-  const femaleTxt = t("signup.female");
-  const mobileNumberTxt = t("registerIdeaForm.firstStep.mobileNumber");
-  const ageTxt = t("registerIdeaForm.firstStep.age");
-  const maritalStatusTxt = t("registerIdeaForm.firstStep.maritalStatus");
-  const selectMaritalStatusTxt = t(
-    "registerIdeaForm.firstStep.selectMaritalStatus"
-  );
-  const singleTxt = t("registerIdeaForm.firstStep.single");
-  const marriedTxt = t("registerIdeaForm.firstStep.married");
-  const stateTxt = t("registerIdeaForm.firstStep.state");
-  const branchOfStudyTxt = t("registerIdeaForm.firstStep.branch.title");
-  const SelectBranchOfStudyTxt = t("registerIdeaForm.firstStep.branch.select");
-  const spesificFieldTxt = t("registerIdeaForm.firstStep.subBranch.title");
-  const selectSpesificFieldTxt = t(
-    "registerIdeaForm.firstStep.subBranch.select"
-  );
-  const LiteratureTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Literature"
-  );
-  const LinguisticsTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Linguistics"
-  );
-  const PhilosophyTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Philosophy"
-  );
-  const GeographyTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Geography"
-  );
-  const HistoryTxt = t("registerIdeaForm.firstStep.subBranch.literal.History");
-  const ReligionTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Religion"
-  );
-  const PsychologyTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Psychology"
-  );
-  const SociologyTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Sociology"
-  );
-  const MarketingTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Marketing"
-  );
-  const FinanceTxt = t("registerIdeaForm.firstStep.subBranch.literal.Finance");
-  const EconomicsTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Economics"
-  );
-  const MBATxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.BusinessAdministration"
-  );
-  const TourismTxt = t("registerIdeaForm.firstStep.subBranch.literal.Tourism");
-  const AccountingTxt = t(
-    "registerIdeaForm.firstStep.subBranch.literal.Accounting"
-  );
-  const lawTxt = t("registerIdeaForm.firstStep.subBranch.literal.law");
-  const PaintingTxt = t("registerIdeaForm.firstStep.subBranch.art.Painting");
-  const SculptureTxt = t("registerIdeaForm.firstStep.subBranch.art.Sculpture");
-  const PhotographyTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.Photography"
-  );
-  const PerformingArtsTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.PerformingArts"
-  );
-  const ClothDesignTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.ClothDesign"
-  );
-  const fashionDesignTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.fashionDesign"
-  );
-  const sewingDesignTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.sewingDesign"
-  );
-  const textileDesignTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.textileDesign"
-  );
-  const calliIlluminationTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.calliIllumination"
-  );
-  const MusicTxt = t("registerIdeaForm.firstStep.subBranch.art.Music");
-  const industrialDesignTxt = t(
-    "registerIdeaForm.firstStep.subBranch.art.industrialDesign"
-  );
-  const carpetTxt = t("registerIdeaForm.firstStep.subBranch.art.carpet");
-  const jewleryTxt = t("registerIdeaForm.firstStep.subBranch.art.jewlery");
-  const graphicsTxt = t("registerIdeaForm.firstStep.subBranch.art.graphics");
-  const ElectricalEnginTxt = t(
-    "registerIdeaForm.firstStep.subBranch.engin.ElectricalEngin"
-  );
-  const MechanicalEnginTxt = t(
-    "registerIdeaForm.firstStep.subBranch.engin.MechanicalEngin"
-  );
-  const ComputerSciTxt = t(
-    "registerIdeaForm.firstStep.subBranch.engin.ComputerSci"
-  );
-  const architecTxt = t("registerIdeaForm.firstStep.subBranch.engin.architec");
-  const compEnginTxt = t(
-    "registerIdeaForm.firstStep.subBranch.engin.compEngin"
-  );
-  const envEnginTxt = t("registerIdeaForm.firstStep.subBranch.engin.envEngin");
-  const BiotechTxt = t("registerIdeaForm.firstStep.subBranch.expSci.Biotech");
-  const MedicineTxt = t("registerIdeaForm.firstStep.subBranch.expSci.Medicine");
-  const BioEnginTxt = t("registerIdeaForm.firstStep.subBranch.expSci.BioEngin");
-  const GeologyTxt = t("registerIdeaForm.firstStep.subBranch.expSci.Geology");
-  const backToFormsTxt = t("registerIdeaForm.backToForms");
-  const nextTxt = t("next");
-  const submitTxt = t("submit");
-  const backTxt = t("back");
-  const SecSteptitleTxt = t("registerIdeaForm.secondStep.title");
-  const ideaTitleTxt = t("ideaTitle");
-  const SecStepDescribeIdeaTxt = t("registerIdeaForm.secondStep.describeIdea");
 
   const branchesOptions = {
-    "registerIdeaForm.firstStep.branch.options.literal": [
-      LiteratureTxt,
-      LinguisticsTxt,
-      PhilosophyTxt,
-      GeographyTxt,
-      HistoryTxt,
-      ReligionTxt,
-      PsychologyTxt,
-      SociologyTxt,
-      MarketingTxt,
-      FinanceTxt,
-      EconomicsTxt,
-      MBATxt,
-      TourismTxt,
-      AccountingTxt,
-      lawTxt,
+    "علوم انسانی": [
+      "ادبیات",
+      "زبان‌شناسی",
+      "فلسفه",
+      "جغرافیا",
+      "تاریخ",
+      "دین",
+      "روان‌شناسی",
+      "جامعه‌شناسی",
+      "بازاریابی",
+      "امور مالی",
+      "اقتصاد",
+      "مدیریت بازرگانی",
+      "گردشگری",
+      "حسابداری",
+      "حقوق",
     ],
-    "registerIdeaForm.firstStep.branch.options.art": [
-      PaintingTxt,
-      SculptureTxt,
-      PhotographyTxt,
-      PerformingArtsTxt,
-      industrialDesignTxt,
-      ClothDesignTxt,
-      carpetTxt,
-      jewleryTxt,
-      graphicsTxt,
-      fashionDesignTxt,
-      sewingDesignTxt,
-      textileDesignTxt,
-      calliIlluminationTxt,
-      MusicTxt,
+    هنر: [
+      "نقاشی",
+      "مجسمه‌سازی",
+      "عکاسی",
+      "هنرهای نمایشی",
+      "طراحی لباس",
+      "طراحی مد",
+      "طراحی دوخت",
+      "طراحی پارچه",
+      "کتابت و نگارگری",
+      "موسیقی",
+      "طراحی صنعتی",
+      "فرش",
+      "طلا و جواهر",
+      "گرافیک",
     ],
-    "registerIdeaForm.firstStep.branch.options.expSci": [
-      BiotechTxt,
-      MedicineTxt,
-      BioEnginTxt,
-      GeologyTxt,
+    "علوم تجربی": ["زیست‌ فناوری", "پزشکی", "مهندسی پزشکی", "زمین‌ شناسی"],
+    مهندسی: [
+      "مهندسی برق",
+      "مهندسی مکانیک",
+      "علوم کامپیوتر",
+      "معماری",
+      "مهندسی محاسباتی",
+      "مهندسی زیست‌ محیطی",
     ],
-    "registerIdeaForm.firstStep.branch.options.engin": [
-      ElectricalEnginTxt,
-      MechanicalEnginTxt,
-      ComputerSciTxt,
-      architecTxt,
-      compEnginTxt,
-      envEnginTxt,
-    ],
-    "registerIdeaForm.firstStep.branch.options.physical": [],
-    "registerIdeaForm.firstStep.branch.options.others": [],
+    "تربیت بدنی": [],
+    سایر: [],
   };
 
   type BranchKey = keyof typeof branchesOptions;
 
   const handleBranchChange = (value: BranchKey) => {
-    setValue("branchOfStudy", t(value));
+    setValue("branchOfStudy", value);
     setSubOptions(branchesOptions[value]);
     // setValue("branchDetail", ""); // Reset the sub-category field
   };
@@ -246,21 +118,18 @@ export default function RegisterIdeaForm() {
 
   return (
     <Container>
-      <div
-        className="max-w-md mx-auto p-6"
-        style={{ direction: rtl ? "rtl" : "ltr" }}
-      >
+      <div className="max-w-md mx-auto p-6" style={{ direction: "rtl" }}>
         {step === 1 && (
           <form
             onSubmit={handleSubmit(handleNextStep)}
             className="space-y-4 p-6 shadow-2xl rounded-lg border-sm"
           >
-            <h1 className="text-2xl font-bold mb-4">{basicInfoTxt}</h1>
+            <h1 className="text-2xl font-bold mb-4">مرحله ۱: اطلاعات پایه</h1>
 
             {/* Full Name Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {nameTxt}
+                نام و نام خانوادگی
                 <span className="text-red-500"> *</span>
               </label>
               <Input
@@ -272,7 +141,7 @@ export default function RegisterIdeaForm() {
             {/* Father's Name Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {fatherNameTxt}
+                نام پدر
                 <span className="text-red-500"> *</span>
               </label>
               <Input
@@ -285,23 +154,19 @@ export default function RegisterIdeaForm() {
 
             {/* Country Field */}
             <div>
-              <label className="block text-sm font-medium mb-2">
-                {countryTxt}
-              </label>
+              <label className="block text-sm font-medium mb-2">کشور</label>
               <Input type="text" {...register("country")} />
             </div>
 
             {/* State and City Fields */}
             <div className="flex gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">
-                  {stateTxt}
-                </label>
+                <label className="block text-sm font-medium mb-2">استان</label>
                 <Input type="text" {...register("state")} />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {cityTxt}
+                  شهر
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
@@ -314,7 +179,7 @@ export default function RegisterIdeaForm() {
             {/* Career Fields */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {careerTxt}
+                شغل
                 <span className="text-red-500"> *</span>
               </label>
               <Input
@@ -328,18 +193,18 @@ export default function RegisterIdeaForm() {
               {/* Marital Status Select */}
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  {maritalStatusTxt}
+                  وضعیت تاهل
                 </label>
                 <Select
                   onValueChange={(value) => setValue("maritalStatus", value)}
                   value={maritalStatus}
                 >
-                  <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectValue placeholder={selectMaritalStatusTxt} />
+                  <SelectTrigger>
+                    <SelectValue placeholder="انتخاب وضعیت تاهل" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectItem value="single">{singleTxt}</SelectItem>
-                    <SelectItem value="married">{marriedTxt}</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="single">مجرد</SelectItem>
+                    <SelectItem value="married">متاهل</SelectItem>
                   </SelectContent>
                 </Select>
                 <input type="hidden" {...register("maritalStatus")} />
@@ -347,19 +212,19 @@ export default function RegisterIdeaForm() {
               {/* Gender Select */}
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  {genderTxt}
+                  جنسیت
                   <span className="text-red-500"> *</span>
                 </label>
                 <Select
                   onValueChange={(value) => setValue("gender", value)}
                   value={gender}
                 >
-                  <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectValue placeholder={selectGenderTxt} />
+                  <SelectTrigger>
+                    <SelectValue placeholder="انتخاب جنسیت" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectItem value="male">{maleTxt}</SelectItem>
-                    <SelectItem value="female">{femaleTxt}</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="male">مرد</SelectItem>
+                    <SelectItem value="female">زن</SelectItem>
                   </SelectContent>
                 </Select>
                 <input
@@ -373,7 +238,7 @@ export default function RegisterIdeaForm() {
             <div className="flex gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {mobileNumberTxt}
+                  شماره تماس (موبایل)
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
@@ -385,7 +250,7 @@ export default function RegisterIdeaForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {ageTxt}
+                  سن
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
@@ -398,11 +263,11 @@ export default function RegisterIdeaForm() {
             <div className="flex justify-between">
               <Link href="/research" className="w-1/3">
                 <Button type="button" variant="outline">
-                  {backToFormsTxt}
+                  بازگشت به همه فرم‌ها
                 </Button>
               </Link>
               <Button type="submit" className="w-1/3">
-                {nextTxt}
+                بعدی
               </Button>
             </div>
           </form>
@@ -412,12 +277,12 @@ export default function RegisterIdeaForm() {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-4 p-6 shadow-lg rounded-lg"
           >
-            <h1 className="text-2xl font-bold mb-4">{SecSteptitleTxt}</h1>
+            <h1 className="text-2xl font-bold mb-4">زمینه تخصصی</h1>
 
             {/* Branch of Study */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {branchOfStudyTxt}
+                {branchOfStudy}
                 <span className="text-red-500"> *</span>
               </label>
               <Select
@@ -426,13 +291,13 @@ export default function RegisterIdeaForm() {
                 }
                 // value={branchOfStudy}
               >
-                <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                  <SelectValue placeholder={SelectBranchOfStudyTxt} />
+                <SelectTrigger>
+                  <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
                 </SelectTrigger>
-                <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
+                <SelectContent>
                   {Object.keys(branchesOptions).map((branch) => (
                     <SelectItem key={branch} value={branch}>
-                      {t(branch)}
+                      {branch}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -444,17 +309,17 @@ export default function RegisterIdeaForm() {
             {branchOfStudy && subOptions.length > 0 && (
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {spesificFieldTxt}
+                  زمینه تخصصی
                   <span className="text-red-500"> *</span>
                 </label>
                 <Select
                   onValueChange={(value) => setValue("branchDetail", value)}
                   value={branchDetail}
                 >
-                  <SelectTrigger style={{ direction: rtl ? "rtl" : "ltr" }}>
-                    <SelectValue placeholder={selectSpesificFieldTxt} />
+                  <SelectTrigger>
+                    <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: rtl ? "rtl" : "ltr" }}>
+                  <SelectContent>
                     {subOptions.map((option) => (
                       <SelectItem key={option} value={option}>
                         {option}
@@ -469,7 +334,7 @@ export default function RegisterIdeaForm() {
             {/* Idea Title Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {ideaTitleTxt}
+                عنوان ایده
                 <span className="text-red-500"> *</span>
               </label>
               <Input
@@ -483,7 +348,7 @@ export default function RegisterIdeaForm() {
             {/* Idea Details Field*/}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {SecStepDescribeIdeaTxt}
+                ایده خود را توصیف کنید
                 <span className="text-red-500"> *</span>
               </label>
               <Textarea
@@ -511,10 +376,10 @@ export default function RegisterIdeaForm() {
                 variant="outline"
                 className="w-1/3"
               >
-                {backTxt}
+                بازگشت
               </Button>
               <Button type="submit" className="w-1/3">
-                {submitTxt}
+                ارسال
               </Button>
             </div>
           </form>

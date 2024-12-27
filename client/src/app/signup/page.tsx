@@ -3,7 +3,6 @@
 import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { Toaster } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,6 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 
 export default function SignupPage() {
-  const t = useTranslations();
   const auth = useContext(AuthContext);
   const router = useRouter();
   const { isLoading, error, sendRequest } = useHttpClient();
@@ -64,15 +62,13 @@ export default function SignupPage() {
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">
-              {t("signup.signup")}
-            </CardTitle>
+            <CardTitle className="text-center text-2xl">ثبت‌ نام</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
               {/* User Name */}
               <div className="mb-4">
-                <Label htmlFor="username">{t("signup.userName")}</Label>
+                <Label htmlFor="username">نام کاربری</Label>
                 <Input
                   type="text"
                   id="username"
@@ -85,7 +81,7 @@ export default function SignupPage() {
 
               {/* Full Name */}
               <div className="mb-4">
-                <Label htmlFor="fullName">{t("signup.fullName")}</Label>
+                <Label htmlFor="fullName">نام و نام خانوادگی</Label>
                 <Input
                   type="text"
                   id="fullName"
@@ -98,7 +94,7 @@ export default function SignupPage() {
 
               {/* Email */}
               <div className="mb-4">
-                <Label htmlFor="email">{t("signup.email")}</Label>
+                <Label htmlFor="email">ایمیل</Label>
                 <Input
                   type="email"
                   id="email"
@@ -111,7 +107,7 @@ export default function SignupPage() {
 
               {/* Password */}
               <div className="mb-4">
-                <Label htmlFor="password">{t("signup.password")}</Label>
+                <Label htmlFor="password">رمز عبور</Label>
                 <Input
                   type="password"
                   id="password"
@@ -125,7 +121,7 @@ export default function SignupPage() {
               {/* Submit Button */}
               <div className="mt-6">
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {t("signup.signup")}
+                  ثبت‌ نام
                 </Button>
               </div>
             </form>
@@ -135,12 +131,12 @@ export default function SignupPage() {
             )}
 
             <p className="text-sm text-center mt-4 text-gray-600">
-              {t("signup.alreadyAccount")}{" "}
+              آیا قبلاً حساب کاربری دارید؟{" "}
               <Link
                 href="/login"
                 className="text-indigo-600 hover:underline focus:outline-none"
               >
-                {t("signup.login")}
+                ورود
               </Link>
             </p>
           </CardContent>

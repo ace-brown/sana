@@ -1,22 +1,13 @@
 import { FaTelegram, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useLocale } from "next-intl";
 
 export default function Footer() {
-  const t = useTranslations();
-  const locale = useLocale();
-  const alignment = locale === "en" ? "text-left" : "text-right";
-  const justify = locale === "en" ? "justify-start" : "justify-end";
-
   return (
     <footer className="bg-gray-800 text-gray-300 p-8 mt-20">
-      <div
-        className={`max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-sm ${alignment}`}
-      >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-sm text-right">
         {/* Social Media Icons and address */}
         <div className="grid grid-rows-2 gap-4">
-          <div className={`flex items-center ${justify} space-x-reverse`}>
+          <div className="flex items-center justify-end space-x-reverse">
             <a
               href="#"
               aria-label="Telegram"
@@ -50,119 +41,115 @@ export default function Footer() {
               <FaLinkedin className="text-2xl" />
             </a>
           </div>
-          <div className={`text-gray-600 ${alignment}`}>
-            <p>{t("address.street")}</p>
-            <p>{t("address.city")}</p>
-            {locale === "en" ? (
-              <p>Phone: info@example.com</p>
-            ) : (
-              <p>info@example.com :تلفن</p>
-            )}
-            <p>{t("address.email")}: +49 123 456 789</p>
+          <div className="text-gray-600 text-right">
+            <p>خیابان ولیعصر، بلوار کشاورز، شماره ۱۲۳</p>
+            <p>تهران، ایران</p>
+
+            <p>info@example.com :تلفن</p>
+
+            <p>ایمیل: +49 123 456 789</p>
           </div>
         </div>
         {/* Resources */}
         <div className="space-y-2">
-          <h3 className="text-white font-bold"> {t("navigation.resources")}</h3>
+          <h3 className="text-white font-bold">منابع</h3>
           <ul className="space-y-1">
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.publication")}
+                انتشارات
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.consultation")}
+                مشاوره
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.research")}
+                پژوهش
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.patentRegistration")}
+                ثبت اختراع
               </Link>
             </li>
           </ul>
         </div>
         {/* Company */}
         <div className="space-y-2">
-          <h3 className="text-white font-bold">{t("navigation.company")}</h3>
+          <h3 className="text-white font-bold">شرکت</h3>
           <ul className="space-y-1">
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.careers")}
+                فرصت‌های شغلی
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.partners")}
+                همکاران
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.sales")}
+                فروش
               </Link>
             </li>
           </ul>
         </div>
         {/* Support */}
         <div className="space-y-2">
-          <h3 className="text-white font-bold">{t("navigation.support")}</h3>
+          <h3 className="text-white font-bold">پشتیبانی</h3>
           <ul className="space-y-1">
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.helpCenter")}
+                مرکز کمک
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.faq")}
+                سؤالات متداول
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.terms")}
+                قوانین
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.privacy")}
+                حریم خصوصی{" "}
               </Link>
             </li>
           </ul>
         </div>
         {/* Useful Links */}
         <div className="space-y-2">
-          <h3 className="text-white font-bold">
-            {t("navigation.usefullLinks")}
-          </h3>
+          <h3 className="text-white font-bold">لینک‌های مفید</h3>
           <ul className="space-y-1">
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.home")}
+                خانه
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.about")}
+                درباره ما
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.blog")}
+                وبلاگ
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.contact")}
+                تماس
               </Link>
             </li>
             <li>
               <Link href="#" className="hover:text-gray-100">
-                {t("navigation.news")}
+                اخبار
               </Link>
             </li>
           </ul>
@@ -170,7 +157,8 @@ export default function Footer() {
       </div>
       {/* Footer Bottom */}
       <div className="mt-8 text-center text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} {t("navigation.copyRight")}
+        &copy; {new Date().getFullYear()}.کلیه حقوق این وب سایت متعلق به خیام
+        سانا است
       </div>
     </footer>
   );

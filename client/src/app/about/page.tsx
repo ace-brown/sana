@@ -1,15 +1,12 @@
-import { useTranslations } from "next-intl";
-
 import P from "@/components/common/ptag";
 import Text from "@/components/common/text";
 import ReadContainer from "@/components/common/read-container";
 import PageTitle from "@/components/common/page-title";
 
 export default function AboutPage() {
-  const t = useTranslations();
   return (
     <ReadContainer>
-      <PageTitle>{t("AboutPage.title")}</PageTitle>
+      <PageTitle>درباره ما</PageTitle>
       <Text>
         <p>
           ما در [نام وبسایت یا شرکت شما] ،با هدف حمایت از کارآفرینان

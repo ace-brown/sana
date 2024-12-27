@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTranslations } from "next-intl";
 
 import { Input } from "@/components/ui/input";
 import PageTitle from "@/components/common/page-title";
@@ -13,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function ReportPage() {
-  const t = useTranslations();
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [trackingCode, setTrackingCode] = useState("");
   const [error, setError] = useState("");
@@ -25,31 +23,39 @@ export default function ReportPage() {
 
   function handleProgressBarClick() {
     if (trackingCode.trim() === "") {
-      setError(t("report.inputError"));
+      setError("لطفا کد پیگیری خود را وارد کنید");
       return;
     }
     if (trackingCode === "TC-1001") {
       setShowProgressBar(true);
     } else {
-      setError(t("report.invalidCode"));
+      setError("کد پیگیری نامعتبر است");
     }
   }
 
   return (
     <>
       <ReadContainer>
-        <PageTitle>{t("report.title")}</PageTitle>
-        <P>{t("report.body")}</P>
+        <PageTitle>پیگیری روند پیشرفت ایده</PageTitle>
+        <P>
+          .در این بخش می‌توانید روند پیشرفت ایده خود را که برای ما ارسال
+          کرده‌اید، مشاهده کنید. ما تلاش می‌کنیم که در هر مرحله، شما را در جریان
+          وضعیت توسعه ایده‌تان قرار دهیم و اطمینان حاصل کنیم که همیشه از وضعیت
+          پروژه خود مطلع هستید. کافیست کد پیگیری اختصاصی خود را وارد کنید تا
+          اطلاعات کامل مراحل انجام شده و برنامه‌های آتی نمایش داده شود. هدف ما
+          این است که با شفافیت کامل و به‌روزترین اطلاعات، شما را در مسیر تحقق
+          ایده‌تان همراهی کنیم"
+        </P>
         <div className="flex items-center gap-8 mt-8">
           <Input
             type="text"
-            placeholder={t("report.input")}
+            placeholder="کد پیگیری خود را وارد کنید"
             onChange={handleTrackingCodeChange}
             value={trackingCode}
             className="w-[300px]"
           />
           <Button onClick={handleProgressBarClick}>
-            {t("report.findBtn")}
+            نوار پیشرفت را پیدا کن
           </Button>
         </div>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -62,7 +68,7 @@ export default function ReportPage() {
       <div className="text-center mt-12">
         <Link href="/research">
           <Button variant="outline" type="button">
-            {t("registerIdeaForm.backToForms")}
+            بازگشت به همه فرم‌ها
           </Button>
         </Link>
       </div>

@@ -1,11 +1,9 @@
-import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function DemoPage() {
-  const t = useTranslations();
   return (
     <>
-      <h1>{t("back")}</h1>
+      <h1>something</h1>
       <div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae ad aut
         earum dolores blanditiis reiciendis quia accusamus explicabo molestiae

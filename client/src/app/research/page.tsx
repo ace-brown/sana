@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 
 import {
   Card,
@@ -16,58 +15,69 @@ import SubSectionTitle from "@/components/common/subsection-title";
 import SubSection from "@/components/common/subsection";
 
 export default function ResearchPage() {
-  const t = useTranslations();
-
   return (
     <>
       <ReadContainer>
-        <PageTitle>{t("research.title")}</PageTitle>
-        <P>{t("research.body")}</P>
+        <PageTitle>ثبت ایده‌های </PageTitle>
+        <P>
+          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. لورم ایپسوم
+          متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن فقط برای پر
+          کردن فضا قرار داده شده است و ارزش معنایی ندارد
+        </P>
       </ReadContainer>
       <SubSection>
         <SubSectionTitle textAlign="center">
-          {t("research.forms.title")}
+          تمام فرم‌های مورد نیاز
         </SubSectionTitle>
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] pl-16 pr-16">
           <Card>
             <CardHeader>
-              <CardTitle>{t("research.forms.report.title")}</CardTitle>
+              <CardTitle>گزارش</CardTitle>
             </CardHeader>
-            <CardContent>{t("research.forms.report.body")}</CardContent>
+            <CardContent>
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
+              برای پر کردن فضا قرار داده شده است
+            </CardContent>
             <CardFooter>
               <Link
                 href="/research/report"
                 className="text-blue-500 font-medium hover:underline"
               >
-                {t("readMore")}
+                بیشتر بخوانید
               </Link>
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>{t("research.forms.register.title")}</CardTitle>
+              <CardTitle>ثبت ایده‌های شما</CardTitle>
             </CardHeader>
-            <CardContent>{t("research.forms.register.body")}</CardContent>
+            <CardContent>
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
+              برای پر کردن فضا قرار داده شده است
+            </CardContent>
             <CardFooter>
               <Link
                 href="/research/register-idea"
                 className="text-blue-500 font-medium hover:underline"
               >
-                {t("readMore")}
+                بیشتر بخوانید
               </Link>
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>{t("research.forms.competitions.title")}</CardTitle>
+              <CardTitle>مسابقات علمی</CardTitle>
             </CardHeader>
-            <CardContent>{t("research.forms.competitions.body")}</CardContent>
+            <CardContent>
+              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
+              برای پر کردن فضا قرار داده شده است
+            </CardContent>
             <CardFooter>
               <Link
                 href="/research/competitions"
                 className="text-blue-500 font-medium hover:underline"
               >
-                {t("readMore")}
+                بیشتر بخوانید
               </Link>
             </CardFooter>
           </Card>
