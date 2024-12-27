@@ -13,7 +13,6 @@ const IdeaSchema = new mongoose.Schema({
     gender: { type: String, required: true, },
     mobileNumber: { type: String, required: true },
     age: { type: Number, required: true, min: 0 },
-    identificationNumber: { type: String, required: true, trim: true, },
     branchOfStudy: { type: String, required: true, trim: true },
     branchDetail: { type: String, required: true, trim: true, },
     ideaTitle: { type: String, required: true, trim: true, },

@@ -56,7 +56,6 @@ export default function RegisterIdeaForm() {
   );
   const singleTxt = t("registerIdeaForm.firstStep.single");
   const marriedTxt = t("registerIdeaForm.firstStep.married");
-  const idNumberTxt = t("registerIdeaForm.firstStep.idNumber");
   const stateTxt = t("registerIdeaForm.firstStep.state");
   const branchOfStudyTxt = t("registerIdeaForm.firstStep.branch.title");
   const SelectBranchOfStudyTxt = t("registerIdeaForm.firstStep.branch.select");
@@ -376,20 +375,6 @@ export default function RegisterIdeaForm() {
                   {...register("age", { required: "Age is required" })}
                 />
               </div>
-            </div>
-
-            {/* Identification Number Field */}
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                {idNumberTxt}
-                <span className="text-red-500"> *</span>
-              </label>
-              <Input
-                type="text"
-                {...register("identificationNumber", {
-                  required: "Identification Number is required",
-                })}
-              />
             </div>
 
             <div className="flex justify-between">
