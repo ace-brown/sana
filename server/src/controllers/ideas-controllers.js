@@ -64,7 +64,6 @@ async function createIdea(req, res, next) {
         gender,
         mobileNumber,
         age,
-        email,
         identificationNumber,
         branchOfStudy,
         branchDetail,
@@ -87,7 +86,6 @@ async function createIdea(req, res, next) {
         gender,
         mobileNumber,
         age,
-        email,
         identificationNumber,
         branchOfStudy,
         branchDetail,
@@ -141,9 +139,9 @@ async function createIdea(req, res, next) {
 
 // Update a specific idea
 async function updateIdea(req, res, next) {
-    const errors = validationResult(req)
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422)
+        throw new HttpError("Invalid input passed, please check your data", 422);
     }
 
     const ideaId = req.params.eid;
@@ -154,19 +152,30 @@ async function updateIdea(req, res, next) {
             return next(new HttpError("Invalid idea ID", 400));
         }
 
+        const idea = await Idea.findById(ideaId);
+        if (!idea) {
+            return next(new HttpError("Could not find an idea for the provided ID", 404));
+        }
+
+        // Check if ideaTitle is being updated
+        if (updates.ideaTitle && updates.ideaTitle !== idea.ideaTitle) {
+            const report = await Report.findOne({ ideaId: idea._id });
+            if (report) {
+                report.ideaTitle = updates.ideaTitle;
+                await report.save();
+            }
+        }
+
+        // Update the Idea document
         const updatedIdea = await Idea.findByIdAndUpdate(
             ideaId,
             updates,
             { new: true, runValidators: true }
         );
 
-        if (!updatedIdea) {
-            return next(new HttpError("Could not find a idea for the provided ID", 404));
-        }
-
         res.status(200).json({ idea: updatedIdea.toObject({ getters: true }) });
-
     } catch (error) {
+        console.error(error);
         return next(new HttpError("Updating idea failed, please try again later.", 500));
     }
 }
@@ -183,22 +192,41 @@ async function deleteIdea(req, res, next) {
     }
 
     if (!idea) {
-        return next(new HttpError("Could not find a idea for the provided id", 404));
+        return next(new HttpError("Could not find an idea for the provided id", 404));
     }
+
+    let report;
+    try {
+        report = await Report.findOne({ ideaId: idea._id }).populate('ownerId');
+    } catch (err) {
+        return next(new HttpError("Something went wrong, could not delete idea.", 500));
+    }
+
 
     try {
         const sess = await mongoose.startSession()
         sess.startTransaction()
-        await idea.deleteOne({ _id: idea._id }, { session: sess });
+
+        // Delete the idea and report
+        await idea.deleteOne({ session: sess });
+        await report.deleteOne({ session: sess });
+
+        // Update the user with the deleted idea and report
         idea.ownerId.ideas.pull(idea._id)
+        report.ownerId.reports.pull(report._id)
+
         await idea.ownerId.save({ session: sess });
+        await report.ownerId.save({ session: sess });
         await sess.commitTransaction()
     } catch (err) {
-        console.log('error 2', err)
+        await sess.abortTransaction();
         return next(new HttpError("Deleting idea failed.", 500));
     }
 
-    res.status(200).json({ message: "idea deleted successfully." });
+    res.status(200).json(
+        {
+            message: `idea with ideaId ${idea._id} and report with reportId ${report._id} deleted successfully.`
+        });
 
 }
 

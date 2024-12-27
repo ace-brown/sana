@@ -25,6 +25,6 @@ router.post(
 router.patch('/:rid', reportsControllers.updateReport)
 
 // Delete a report
-router.delete('/:rid', reportsControllers.deleteReport)
+// router.delete('/:rid', reportsControllers.deleteReport)
 
 module.exports = router

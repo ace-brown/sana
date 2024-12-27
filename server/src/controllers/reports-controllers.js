@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const HttpError = require('../models/http-error')
 const { Report, defaultStages } = require('../models/report')
 const User = require('../models/user')
+const Idea = require('../models/idea')
 
 
 // Get a spesific report by a specific id 
@@ -86,9 +87,9 @@ async function createReport(req, res, next) {
 
 // Update a specific report
 async function updateReport(req, res, next) {
-    const errors = validationResult(req)
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422)
+        throw new HttpError("Invalid input passed, please check your data", 422);
     }
 
     const reportId = req.params.rid;
@@ -99,56 +100,99 @@ async function updateReport(req, res, next) {
             return next(new HttpError("Invalid report ID", 400));
         }
 
+        const report = await Report.findById(reportId);
+        if (!report) {
+            return next(new HttpError("Could not find a report for the provided ID", 404));
+        }
+
+        // Check if ideaTitle is being updated
+        if (updates.ideaTitle && updates.ideaTitle !== report.ideaTitle) {
+            const idea = await Idea.findById(report.ideaId);
+            if (idea) {
+                idea.ideaTitle = updates.ideaTitle;
+                await idea.save();
+            }
+        }
+
+        // Update the Report document
         const updatedReport = await Report.findByIdAndUpdate(
             reportId,
             updates,
             { new: true, runValidators: true }
         );
 
-        if (!updatedReport) {
-            return next(new HttpError("Could not find a report for the provided ID", 404));
-        }
-
         res.status(200).json({ report: updatedReport.toObject({ getters: true }) });
-
     } catch (error) {
+        console.error(error);
         return next(new HttpError("Updating report failed, please try again later.", 500));
     }
 }
 
+// async function updateReport(req, res, next) {
+//     const errors = validationResult(req)
+//     if (!errors.isEmpty()) {
+//         throw new HttpError("Invalid input passed, please check your data", 422)
+//     }
+
+//     const reportId = req.params.rid;
+//     const updates = req.body;
+
+//     try {
+//         if (!mongoose.Types.ObjectId.isValid(reportId)) {
+//             return next(new HttpError("Invalid report ID", 400));
+//         }
+
+//         const updatedReport = await Report.findByIdAndUpdate(
+//             reportId,
+//             updates,
+//             { new: true, runValidators: true }
+//         );
+
+//         if (!updatedReport) {
+//             return next(new HttpError("Could not find a report for the provided ID", 404));
+//         }
+
+//         res.status(200).json({ report: updatedReport.toObject({ getters: true }) });
+
+//     } catch (error) {
+//         return next(new HttpError("Updating report failed, please try again later.", 500));
+//     }
+// }
+
 // Delete a specific report
-async function deleteReport(req, res, next) {
-    const reportId = req.params.rid;
+// Note: for deleting a reoprt its idea must be deleted as well
+// async function deleteReport(req, res, next) {
+//     const reportId = req.params.rid;
 
-    let report;
-    try {
-        report = await Report.findById(reportId).populate('ownerId');
-    } catch (err) {
-        return next(new HttpError("Something went wrong, could not delete report.", 500));
-    }
+//     let report;
+//     try {
+//         report = await Report.findById(reportId).populate('ownerId');
+//     } catch (err) {
+//         return next(new HttpError("Something went wrong, could not delete report.", 500));
+//     }
 
-    if (!report) {
-        return next(new HttpError("Could not find a report for the provided id", 404));
-    }
+//     if (!report) {
+//         return next(new HttpError("Could not find a report for the provided id", 404));
+//     }
 
-    try {
-        const sess = await mongoose.startSession()
-        sess.startTransaction()
-        await report.deleteOne({ _id: report._id }, { session: sess });
-        report.ownerId.reports.pull(report._id)
-        await report.ownerId.save({ session: sess });
-        await sess.commitTransaction()
-    } catch (err) {
-        return next(new HttpError("Deleting report failed.", 500));
-    }
+//     try {
+//         const sess = await mongoose.startSession()
+//         sess.startTransaction()
+//         await report.deleteOne({ _id: report._id }, { session: sess });
+//         report.ownerId.reports.pull(report._id)
+//         await report.ownerId.save({ session: sess });
+//         await sess.commitTransaction()
+//     } catch (err) {
+//         return next(new HttpError("Deleting report failed.", 500));
+//     }
 
-    res.status(200).json({ message: "Report deleted successfully." });
+//     res.status(200).json({ message: "Report deleted successfully." });
 
-}
+// }
 
 
 exports.getReportById = getReportById
 exports.getReportsByUserId = getReportsByUserId
 exports.createReport = createReport
 exports.updateReport = updateReport
-exports.deleteReport = deleteReport
+// exports.deleteReport = deleteReport
