@@ -226,6 +226,24 @@ export default function RegisterIdeaForm() {
     alert("Form submitted successfully!");
   };
 
+  const mockUser = {
+    username: "johndoe",
+    email: "johndoe@example.com",
+    role: "user",
+    createdAt: "2024-01-01T00:00:00Z",
+    profile: {
+      fullName: "John Doe",
+      bio: "Passionate developer.",
+      avatar: null,
+    },
+    settings: {
+      language: "en",
+      notifications: true,
+    },
+    reports: ["Report 1", "Report 2"],
+    ideas: ["Idea 1", "Idea 2"],
+  };
+
   return (
     <Container>
       <div
@@ -501,6 +519,9 @@ export default function RegisterIdeaForm() {
             </div>
           </form>
         )}
+        <Link href="/account">
+          <Button>Account</Button>
+        </Link>
       </div>
     </Container>
   );
