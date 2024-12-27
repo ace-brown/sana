@@ -20,7 +20,13 @@ import Container from "@/components/common/container";
 export default function RegisterIdeaForm() {
   const [step, setStep] = useState(1);
   const [subOptions, setSubOptions] = useState<string[]>([]);
-  const { register, handleSubmit, watch, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const [maritalStatus, gender, branchDetail, branchOfStudy] = watch([
     "maritalStatus",
     "gender",
@@ -52,7 +58,6 @@ export default function RegisterIdeaForm() {
   const marriedTxt = t("registerIdeaForm.firstStep.married");
   const idNumberTxt = t("registerIdeaForm.firstStep.idNumber");
   const stateTxt = t("registerIdeaForm.firstStep.state");
-  const emailTxt = t("registerIdeaForm.firstStep.email");
   const branchOfStudyTxt = t("registerIdeaForm.firstStep.branch.title");
   const SelectBranchOfStudyTxt = t("registerIdeaForm.firstStep.branch.select");
   const spesificFieldTxt = t("registerIdeaForm.firstStep.subBranch.title");
@@ -373,17 +378,6 @@ export default function RegisterIdeaForm() {
               </div>
             </div>
 
-            {/* Email Field */}
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                {emailTxt}
-              </label>
-              <Input
-                type="email"
-                {...register("email", { required: "Email is required" })}
-              />
-            </div>
-
             {/* Identification Number Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -493,8 +487,17 @@ export default function RegisterIdeaForm() {
                 className="min-h-[10rem]"
                 {...register("ideaDescription", {
                   required: "Please describe your idea",
+                  validate: (value) =>
+                    value.trim() !== "" || "Description cannot be empty",
                 })}
               />
+              {/* Show error message */}
+              {errors.ideaDescription &&
+                typeof errors.ideaDescription.message === "string" && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.ideaDescription.message}
+                  </p>
+                )}
             </div>
 
             {/* Back and Submit Buttons */}
