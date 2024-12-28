@@ -10,13 +10,7 @@ export default function SubSectionTitle({
   textAlign = "right",
 }: SubSectionTitleProps) {
   return (
-    <h2
-      className="text-3xl sm:text-2xl font-bold text-gray-800 mb-12"
-      // style={{
-      //   direction: "rtl" ,
-      //   textAlign: "right",
-      // }}
-    >
+    <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-12">
       {children}
     </h2>
   );

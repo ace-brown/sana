@@ -9,6 +9,7 @@ import SectionTitle from "@/components/common/section-title";
 import Section from "../common/section";
 
 export default function StartupPath() {
+  const rightSide = true;
   const cardData = [
     {
       id: 1,
@@ -43,27 +44,31 @@ export default function StartupPath() {
   ];
   return (
     <Section>
-      <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
-      {cardData.map((item, _) => {
-        return (
-          <div key={item.id} className="grid">
-            <div className="mb-4 grid gap-4 lg:grid-cols-[2fr_5px_2fr] lg:m-0">
-              {/* The left side of the axis */}
-              <div className="lg:grid justify-items-end lg:mx-0">
-                {item.id % 2 !== 0 && <StartUpCard item={item} />}
-              </div>
-              {/* The axis itself */}
-              <div className="bg-gray-500 lg:grid lg:content-center lg:items-center">
-                <div className="bg-red-500 transform lg:translate-x-[-35%] lg:h-4 lg:w-4 lg:rounded-full"></div>
-              </div>
-              {/* The left side of the axis */}
-              <div className="lg:grid lg:mx-0">
-                {item.id % 2 === 0 && <StartUpCard item={item} />}
+      <div style={{ direction: "ltr" }}>
+        <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
+        {cardData.map((item, _) => {
+          return (
+            <div key={item.id} className="grid">
+              <div className="sm:mb-4 grid gap-4 grid-cols-[2fr_5px_2fr] lg:m-0 md:m-0">
+                {/* The left side of the axis */}
+                <div className="grid justify-items-end mx-0">
+                  {item.id % 2 === 0 && <StartUpCard item={item} />}
+                </div>
+                {/* The axis itself */}
+                <div className="bg-gray-500 grid content-center items-center">
+                  <div className="bg-red-500 transform translate-x-[-35%] h-4 w-4 rounded-full"></div>
+                </div>
+                {/* The right side of the axis */}
+                <div className="grid justify-items-start  mx-0">
+                  {item.id % 2 !== 0 && (
+                    <StartUpCard rightSide={rightSide} item={item} />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </Section>
   );
 }
