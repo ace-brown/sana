@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslations } from "next-intl";
 
 import Container from "../common/container";
 
@@ -8,21 +7,6 @@ export default function ProgressBar({
 }: {
   trackingCode: string;
 }) {
-  const t = useTranslations();
-
-  // Translations
-  const completedTxt = t("progressBar.completed");
-  const inProgressTxt = t("progressBar.inProgress");
-  const pendingTxt = t("progressBar.pending");
-  const ideaEvaluationTxt = t("progressBar.stages.ideaEvaluation.title");
-  const prototypeTxt = t("progressBar.stages.prototype.title");
-  const testTxt = t("progressBar.stages.test.title");
-  const deployTxt = t("progressBar.stages.deploy.title");
-  const ideaEvaluationP1Txt = t("progressBar.stages.ideaEvaluation.point1");
-  const ideaEvaluationP2Txt = t("progressBar.stages.ideaEvaluation.point2");
-  const ideaEvaluationP3Txt = t("progressBar.stages.ideaEvaluation.point3");
-  const ideaEvaluationP4Txt = t("progressBar.stages.ideaEvaluation.point4");
-
   const reports = [
     {
       trackingId: "TC-1001",
@@ -30,40 +14,40 @@ export default function ProgressBar({
       owner: "u1",
       stages: [
         {
-          title: ideaEvaluationTxt,
-          status: completedTxt,
+          title: "ارزیابی ایده",
+          status: "تکمیل شده",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: true },
-            { title: ideaEvaluationP2Txt, completed: true },
-            { title: ideaEvaluationP3Txt, completed: true },
-            { title: ideaEvaluationP4Txt, completed: true },
+            { title: "تحلیل اولیه", completed: true },
+            { title: "بررسی امکانات", completed: true },
+            { title: "تخمین هزینه‌ها", completed: true },
+            { title: "گزارش نهایی", completed: true },
           ],
         },
         {
-          title: prototypeTxt,
-          status: inProgressTxt,
+          title: "نمونه‌سازی",
+          status: "در حال انجام",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: true },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: true },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
         {
-          title: testTxt,
-          status: pendingTxt,
+          title: "آزمایش",
+          status: "در انتظار",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: false },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: false },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
         {
-          title: deployTxt,
-          status: pendingTxt,
+          title: "پیاده‌سازی",
+          status: "در انتظار",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: false },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: false },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
       ],
@@ -74,40 +58,40 @@ export default function ProgressBar({
       owner: "u2",
       stages: [
         {
-          title: ideaEvaluationTxt,
-          status: completedTxt,
+          title: "ارزیابی ایده",
+          status: "تکمیل شده",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: true },
-            { title: ideaEvaluationP2Txt, completed: true },
-            { title: ideaEvaluationP3Txt, completed: true },
-            { title: ideaEvaluationP4Txt, completed: true },
+            { title: "تحلیل اولیه", completed: true },
+            { title: "بررسی امکانات", completed: true },
+            { title: "تخمین هزینه‌ها", completed: true },
+            { title: "گزارش نهایی", completed: true },
           ],
         },
         {
-          title: prototypeTxt,
-          status: inProgressTxt,
+          title: "نمونه‌سازی",
+          status: "در حال انجام",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: true },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: true },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
         {
-          title: testTxt,
-          status: pendingTxt,
+          title: "آزمایش",
+          status: "در انتظار",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: false },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: false },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
         {
-          title: deployTxt,
-          status: pendingTxt,
+          title: "پیاده‌سازی",
+          status: "در انتظار",
           tasks: [
-            { title: ideaEvaluationP1Txt, completed: false },
-            { title: ideaEvaluationP2Txt, completed: false },
-            { title: ideaEvaluationP3Txt, completed: false },
+            { title: "تحلیل اولیه", completed: false },
+            { title: "بررسی امکانات", completed: false },
+            { title: "تخمین هزینه‌ها", completed: false },
           ],
         },
       ],
@@ -115,12 +99,10 @@ export default function ProgressBar({
   ];
 
   // Helper function to check if the status is "Completed"
-  const isStatusCompleted = (status: string) =>
-    status === completedTxt || status === "تکمیل‌شده";
+  const isStatusCompleted = (status: string) => status === "تکمیل‌شده";
 
   // Helper function to check if the status is "In Progress"
-  const isStatusInProgress = (status: string) =>
-    status === inProgressTxt || status === "در حال اجرا";
+  const isStatusInProgress = (status: string) => status === "در حال اجرا";
 
   // Find the report for the given trackingCode
   const report = reports.find((report) => report.trackingId === trackingCode);
@@ -130,9 +112,9 @@ export default function ProgressBar({
       <Container>
         <div className="container mx-auto p-6">
           <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
-            {t("progressBar.title")}
+            خط زمانی پیشرفت
           </h2>
-          <p>{t("progressBar.notFound")}</p>
+          <p> خط زمانی پیشرفت پیدا نشد</p>
         </div>
       </Container>
     );
@@ -142,10 +124,10 @@ export default function ProgressBar({
     <Container>
       <div className="container mx-auto p-6">
         <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
-          {t("progressBar.title")}
+          خط زمانی پیشرفت
         </h2>
-        <p>{`${t("report.trackingCode")} : ${trackingCode}`}</p>
-        <p className="mb-12">{`${t("ideaTitle")} : ${report.ideaTitle}`}</p>
+        <p>{`کد پیگیری : ${trackingCode}`}</p>
+        <p className="mb-12">{`عنوان ایده : ${report.ideaTitle}`}</p>
         <div className="flex items-center justify-between relative">
           {report.stages.map((stage, index) => (
             <React.Fragment key={index}>

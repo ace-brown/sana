@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslations } from "next-intl";
 
 import StartUpCard from "./startup-card";
 import validateImg from "@/images/vallidate-idea.jpg";
@@ -10,41 +9,41 @@ import SectionTitle from "@/components/common/section-title";
 import Section from "../common/section";
 
 export default function StartupPath() {
-  const t = useTranslations("startupPath");
-
   const cardData = [
     {
       id: 1,
-      title: t("validate.title"),
-      description: t("validate.description"),
+      title: "اعتبارسنجی ایده",
+      description:
+        "مفهوم خود را با کاربران واقعی و بینش‌های ارزشمند آزمایش کنید",
       imgSrc: validateImg,
       link: "#",
     },
     {
       id: 2,
-      title: t("plan.title"),
-      description: t("plan.description"),
+      title: "برنامه‌ریزی و نمونه‌سازی اولیه",
+      description: "یک نقشه راه طراحی کنید و نسخه اولیه محصول خود را بسازید",
       imgSrc: planingImg,
       link: "#",
     },
     {
       id: 3,
-      title: t("launch.title"),
-      description: t("launch.description"),
+      title: "راه‌اندازی و اجرا",
+      description:
+        "با اطمینان و استفاده از ابزارهای حرفه‌ای کسب‌وکار خود را راه‌اندازی کنید",
       imgSrc: launchImg,
       link: "#",
     },
     {
       id: 4,
-      title: t("growth.title"),
-      description: t("growth.description"),
+      title: "رشد و توسعه",
+      description: "جذب کاربران را افزایش دهید و استارتاپ خود را گسترش دهید",
       imgSrc: growthImg,
       link: "#",
     },
   ];
   return (
     <Section>
-      <SectionTitle>{t("header")}</SectionTitle>
+      <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
       {cardData.map((item, _) => {
         return (
           <div key={item.id} className="grid">

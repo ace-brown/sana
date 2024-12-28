@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { JSX, SVGProps, useContext } from "react";
-import { useTranslations } from "next-intl";
 
 import {
   DropdownMenu,
@@ -18,7 +17,6 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { AuthContext } from "@/context/auth-context";
 
 export default function NavBar() {
-  const t = useTranslations();
   const auth = useContext(AuthContext);
 
   return (
@@ -34,42 +32,42 @@ export default function NavBar() {
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.sales")}
+            فروش
           </Link>
           <Link
             href="/research"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.research")}
+            پژوهش
           </Link>
           <Link
             href=""
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.education")}
+            آموزش
           </Link>
           <Link
             href="/patent-registration"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.patentRegistration")}
+            ثبت اختراع
           </Link>
           <Link
             href="/about"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.about")}
+            درباره ما
           </Link>
           <Link
             href="/"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            {t("navigation.home")}
+            خانه
           </Link>
         </nav>
         <div className="flex items-center gap-4">
@@ -99,10 +97,10 @@ export default function NavBar() {
           {!auth.isLoggedIn && (
             <>
               <Link href="/signup">
-                <Button>{t("signup.signup")}</Button>
+                <Button>ثبت‌ نام</Button>
               </Link>
               <Link href="/login">
-                <Button>{t("signup.login")}</Button>
+                <Button>ورود</Button>
               </Link>
             </>
           )}
@@ -119,7 +117,7 @@ export default function NavBar() {
                   auth.logout();
                 }}
               >
-                {t("signup.logout")}
+                خروج
               </Button>
             </>
           )}

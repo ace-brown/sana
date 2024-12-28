@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@fontsource/vazir";
 
 import NavBar from "@/components/navigation/nav-bar";
 import Footer from "@/components/footer";
@@ -27,7 +28,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" suppressHydrationWarning>
+    <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

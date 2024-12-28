@@ -1,12 +1,10 @@
 import React from "react";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 import { SatrtUpCardDataType } from "@/types";
 
 export default function StartUpCard({ item }: { item: SatrtUpCardDataType }) {
-  const t = useTranslations();
   return (
     <div
       key={item.id}
@@ -22,7 +20,7 @@ export default function StartUpCard({ item }: { item: SatrtUpCardDataType }) {
       <div className="pl-0 p-4 h-[250px]">
         <h2 className="text-3xl">{item.title}</h2>
         <p className="mb-2 mt-2 text-[12px]">{item.description}</p>
-        <Link href={item.link}>{t("readMore")}</Link>
+        <Link href={item.link}>بیشتر بخوانید</Link>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
 
 import {
   Card,
@@ -13,70 +12,64 @@ import SectionTitle from "../common/section-title";
 import Section from "../common/section";
 
 export default function WhyUs() {
-  const t = useTranslations();
-
-  const locale = useLocale();
-
-  const isRightToLeft = locale === "fa";
-
   const cardData = [
     {
       id: 1,
-      title: t("whyUs.card1.title"),
+      title: "اعتبارسنجی هدایت‌ شده",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
     {
       id: 2,
-      title: t("whyUs.card1.title"),
+      title: "عنوان اولین پست وبلاگ",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
     {
       id: 3,
-      title: t("whyUs.card1.title"),
+      title: "عنوان دومین پست وبلاگ",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
     {
       id: 4,
-      title: t("whyUs.card1.title"),
+      title: "عنوان سومین پست وبلاگ",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
     {
       id: 5,
-      title: t("whyUs.card1.title"),
+      title: "عنوان چهارمین پست وبلاگ",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
     {
       id: 6,
-      title: t("whyUs.card1.title"),
+      title: "عنوان چهارمین پست وبلاگ",
       bulletPoints: [
-        t("whyUs.card1.bulletPoints.point1"),
-        t("whyUs.card1.bulletPoints.point2"),
-        t("whyUs.card1.bulletPoints.point3"),
+        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
+        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
+        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
       ],
       link: "#",
     },
@@ -84,7 +77,7 @@ export default function WhyUs() {
 
   return (
     <Section>
-      <SectionTitle>{t("whyUs.title")}</SectionTitle>
+      <SectionTitle>چرا خیام سانا؟</SectionTitle>
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {cardData.map((item) => {
           return (
@@ -100,19 +93,19 @@ export default function WhyUs() {
               <CardContent>
                 <ul
                   className="list-disc list-inside text-gray-600 space-y-2"
-                  style={{ direction: isRightToLeft ? "rtl" : "ltr" }}
+                  // style={{ direction: "rtl" }}
                 >
                   {item.bulletPoints.map((bulletPoint, index) => (
                     <li key={index}>{bulletPoint}</li>
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className={`mt-4 ${isRightToLeft && "justify-end"}`}>
+              <CardFooter className="mt-4 justify-end">
                 <Link
                   href={item.link}
                   className="text-blue-500 font-medium hover:underline"
                 >
-                  {t("readMore")}
+                  بیشتر بخوانید
                 </Link>
               </CardFooter>
             </Card>

@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { useLocale } from "next-intl";
 
 interface TitleProps {
   children: ReactNode;
@@ -7,13 +6,9 @@ interface TitleProps {
 }
 
 export default function PageTitle({ children, className }: TitleProps) {
-  const locale = useLocale();
-
-  const alignment = locale === "en" ? "text-left" : "text-right";
-
   return (
     <h1
-      className={`text-4xl font-bold ${alignment} ${
+      className={`text-4xl font-bold text-right ${
         className ?? "text-gray-800"
       }`}
     >
