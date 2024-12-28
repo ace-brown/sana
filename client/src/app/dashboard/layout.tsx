@@ -9,11 +9,11 @@ import { AuthContext } from "@/context/auth-context";
 
 const links = [
   { href: "/dashboard", label: "پروفایل" },
-  { href: "/dashboard/settings", label: "تنظیمات" },
   { href: "/dashboard/ideas", label: "ایده های من" },
   { href: "/dashboard/reports", label: "گزارش های من" },
   { href: "/dashboard/users", label: "کاربران" },
   { href: "/dashboard/analytics", label: "نمودارها" },
+  { href: "/dashboard/settings", label: "تنظیمات" },
 ];
 
 export default async function LocaleLayout({
@@ -31,7 +31,7 @@ export default async function LocaleLayout({
     <div className="w-[80%] ml-auto mr-[8rem] shadow border p-8 mt-8 rounded-[0.5rem]">
       <h1 className="text-2xl">{heading}</h1>
       <Separator className="bg-border h-[1px] w-full mt-6 mb-4" />
-      <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+      <div>
         <aside className="fixed top-[4rem] right-0 w-[200px] h-screen border shadow">
           <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 mt-2">
             {links.map((link) => (

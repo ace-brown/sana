@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { JSX, SVGProps, useContext } from "react";
+import Image from "next/image";
 
 import {
   DropdownMenu,
@@ -15,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ThemeSwitch from "./ThemeSwitch";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { AuthContext } from "@/context/auth-context";
+import logo from "@/images/logo.jpg";
 
 export default function NavBar() {
   const auth = useContext(AuthContext);
@@ -23,9 +25,13 @@ export default function NavBar() {
     <header className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 dark:bg-gray-950">
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
+          <Image src={logo} alt="sth" width="50" />
           <span className="sr-only">Sana Inc</span>
         </Link>
+        {/* <Link href="#" className="flex items-center gap-2" prefetch={false}>
+          <MountainIcon className="h-6 w-6" />
+          <span className="sr-only">Sana Inc</span>
+        </Link> */}
         <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           <Link
             href="/"

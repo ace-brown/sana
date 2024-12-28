@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ import { Textarea } from "@/components/ui/textarea";
 import Container from "@/components/common/container";
 
 export default function IdeasPage() {
-  const [step, setStep] = useState(1);
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const {
     register,
@@ -88,11 +86,6 @@ export default function IdeasPage() {
     // setValue("branchDetail", ""); // Reset the sub-category field
   };
 
-  const handleNextStep = () => {
-    setStep(2);
-    window.scrollTo({ top: 0, behavior: "instant" });
-  };
-
   const onSubmit = (data: any) => {
     console.log("Final Form Data:", data);
     alert("Form submitted successfully!");
@@ -117,15 +110,11 @@ export default function IdeasPage() {
   };
 
   return (
-    <Container>
-      <div className="max-w-md mx-auto p-6">
-        {step === 1 && (
-          <form
-            onSubmit={handleSubmit(handleNextStep)}
-            className="space-y-4 p-6 shadow-2xl rounded-lg border-sm"
-          >
-            <h1 className="text-2xl font-bold mb-4">مرحله ۱: اطلاعات پایه</h1>
-
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div className="grid grid-cols-2 gap-8">
+          {/* First Column */}
+          <div className="space-y-4">
             {/* Full Name Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -160,11 +149,11 @@ export default function IdeasPage() {
 
             {/* State and City Fields */}
             <div className="flex gap-4">
-              <div>
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">استان</label>
                 <Input type="text" {...register("state")} />
               </div>
-              <div>
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   شهر
                   <span className="text-red-500"> *</span>
@@ -199,10 +188,10 @@ export default function IdeasPage() {
                   onValueChange={(value) => setValue("maritalStatus", value)}
                   value={maritalStatus}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ direction: "rtl" }}>
                     <SelectValue placeholder="انتخاب وضعیت تاهل" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent style={{ direction: "rtl" }}>
                     <SelectItem value="single">مجرد</SelectItem>
                     <SelectItem value="married">متاهل</SelectItem>
                   </SelectContent>
@@ -219,10 +208,10 @@ export default function IdeasPage() {
                   onValueChange={(value) => setValue("gender", value)}
                   value={gender}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ direction: "rtl" }}>
                     <SelectValue placeholder="انتخاب جنسیت" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent style={{ direction: "rtl" }}>
                     <SelectItem value="male">مرد</SelectItem>
                     <SelectItem value="female">زن</SelectItem>
                   </SelectContent>
@@ -236,7 +225,7 @@ export default function IdeasPage() {
 
             {/* Mobile Number and age Field */}
             <div className="flex gap-4">
-              <div>
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   شماره تماس (موبایل)
                   <span className="text-red-500"> *</span>
@@ -248,7 +237,7 @@ export default function IdeasPage() {
                   })}
                 />
               </div>
-              <div>
+              <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   سن
                   <span className="text-red-500"> *</span>
@@ -259,42 +248,25 @@ export default function IdeasPage() {
                 />
               </div>
             </div>
+          </div>
 
-            <div className="flex justify-between">
-              <Link href="#" className="w-1/3">
-                <Button type="button" variant="outline">
-                  بازگشت به همه فرم‌ها
-                </Button>
-              </Link>
-              <Button type="submit" className="w-1/3">
-                بعدی
-              </Button>
-            </div>
-          </form>
-        )}
-        {step === 2 && (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 p-6 shadow-lg rounded-lg"
-          >
-            <h1 className="text-2xl font-bold mb-4">زمینه تخصصی</h1>
-
+          {/* Second Column */}
+          <div className="space-y-4">
             {/* Branch of Study */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                {branchOfStudy}
+                رشته ی تحصیلی
                 <span className="text-red-500"> *</span>
               </label>
               <Select
                 onValueChange={(value) =>
                   handleBranchChange(value as BranchKey)
                 }
-                // value={branchOfStudy}
               >
-                <SelectTrigger>
+                <SelectTrigger style={{ direction: "rtl" }}>
                   <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent style={{ direction: "rtl" }}>
                   {Object.keys(branchesOptions).map((branch) => (
                     <SelectItem key={branch} value={branch}>
                       {branch}
@@ -316,10 +288,10 @@ export default function IdeasPage() {
                   onValueChange={(value) => setValue("branchDetail", value)}
                   value={branchDetail}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger style={{ direction: "rtl" }}>
                     <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent style={{ direction: "rtl" }}>
                     {subOptions.map((option) => (
                       <SelectItem key={option} value={option}>
                         {option}
@@ -352,7 +324,7 @@ export default function IdeasPage() {
                 <span className="text-red-500"> *</span>
               </label>
               <Textarea
-                className="min-h-[10rem]"
+                className="min-h-[13rem]"
                 {...register("ideaDescription", {
                   required: "Please describe your idea",
                   validate: (value) =>
@@ -368,26 +340,13 @@ export default function IdeasPage() {
                 )}
             </div>
 
-            {/* Back and Submit Buttons */}
-            <div className="flex justify-between">
-              <Button
-                type="button"
-                onClick={() => setStep(1)}
-                variant="outline"
-                className="w-1/3"
-              >
-                بازگشت
-              </Button>
-              <Button type="submit" className="w-1/3">
-                ارسال
-              </Button>
-            </div>
-          </form>
-        )}
-        <Link href="/dashboard">
-          <Button>Account</Button>
-        </Link>
-      </div>
-    </Container>
+            {/* Submit Button */}
+            <Button type="submit" className="w-full">
+              ارسال
+            </Button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
