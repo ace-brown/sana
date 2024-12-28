@@ -22,16 +22,19 @@ export default function Main({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="shadow border p-8 mt-8 rounded-[0.5rem] min-h-[65vh]">
-      <h1 className="text-2xl ">بیشتر بخوانید</h1>
+      <h1 className="text-2xl mr-[100px]">بیشتر بخوانید</h1>
       <Separator className="bg-border h-[1px] w-full mt-6 mb-4" />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="-mx-4 lg:w-1/5">
-          <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1">
+        <aside
+          // className="lg:w-1/5 bg-gray-200"
+          className="fixed top-[4rem] right-0 w-[200px] h-screen bg-gray-100 bg-opacity-50 border shadow"
+        >
+          <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 mt-2">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`inline-flex items-center gap-2 text-sm font-medium rounded-md py-2 px-4 ${
+                className={`inline-flex items-center gap-2 text-sm font-medium rounded-md py-2 px-6 ${
                   pathname === link.href
                     ? "text-blue-500 font-bold"
                     : "text-gray-500"
@@ -43,11 +46,11 @@ export default function Main({ children }: { children: React.ReactNode }) {
           </nav>
         </aside>
         <div>
-          <div>
+          <div className="mr-[100px]">
             <h3 className="text-lg font-medium">title</h3>
             <p className="text-sm text-muted-foreground">description.</p>
+            <Separator className="bg-border h-[1px] w-full" />
           </div>
-          <Separator className="bg-border h-[1px] w-full" />
           {children}
         </div>
       </div>
