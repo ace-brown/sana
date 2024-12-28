@@ -15,7 +15,7 @@ export default function AccountPage() {
           <div className="space-y-6">
             <form className="space-y-8">
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username">نام کاربری</Label>
                 <Input
                   id="username"
                   name="username"
@@ -23,13 +23,13 @@ export default function AccountPage() {
                   className="w-full"
                 />
                 <p className="text-[0.8rem] text-muted-foreground">
-                  This is your public display name. You can only change this
-                  once every 30 days.
+                  این نام نمایش عمومی شماست. شما فقط می توانید این را تغییر دهید
+                  هر روز
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">ایمیل</Label>
                 <Input
                   id="email"
                   name="email"
@@ -37,7 +37,7 @@ export default function AccountPage() {
                   className="w-full"
                 />
                 <p className="text-[0.8rem] text-muted-foreground">
-                  Manage your email settings in your account settings.
+                  تنظیمات ایمیل خود را در تنظیمات حساب خود مدیریت کنید.
                 </p>
               </div>
 
@@ -50,7 +50,7 @@ export default function AccountPage() {
                   className="w-full"
                 />
                 <p className="text-[0.8rem] text-muted-foreground">
-                  You can @mention other users to link to them.
+                  برای لینک دادن به کاربران دیگر می توانید به آنها اشاره کنید.
                 </p>
               </div>
 
@@ -63,15 +63,16 @@ export default function AccountPage() {
                   className="w-full"
                 />
                 <p className="text-[0.8rem] text-muted-foreground">
-                  Add links to your website, blog, or social media profiles.
+                  پیوندهایی را به وب سایت، وبلاگ یا پروفایل های رسانه های
+                  اجتماعی خود اضافه کنید.
                 </p>
               </div>
 
               <Button variant="outline" className="w-full mt-2">
-                Add URL
+                URL را اضافه کنید
               </Button>
 
-              <Button className="w-full mt-4">Update Profile</Button>
+              <Button className="w-full mt-4">به روز رسانی پروفایل ها</Button>
             </form>
           </div>
         </div>

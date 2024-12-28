@@ -16,7 +16,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import Container from "@/components/common/container";
 
-export default function RegisterIdeaForm() {
+export default function IdeasPage() {
   const [step, setStep] = useState(1);
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const {
@@ -118,7 +118,7 @@ export default function RegisterIdeaForm() {
 
   return (
     <Container>
-      <div className="max-w-md mx-auto p-6" style={{ direction: "rtl" }}>
+      <div className="max-w-md mx-auto p-6">
         {step === 1 && (
           <form
             onSubmit={handleSubmit(handleNextStep)}
@@ -261,7 +261,7 @@ export default function RegisterIdeaForm() {
             </div>
 
             <div className="flex justify-between">
-              <Link href="/research" className="w-1/3">
+              <Link href="#" className="w-1/3">
                 <Button type="button" variant="outline">
                   بازگشت به همه فرم‌ها
                 </Button>
@@ -384,7 +384,7 @@ export default function RegisterIdeaForm() {
             </div>
           </form>
         )}
-        <Link href="/account">
+        <Link href="/dashboard">
           <Button>Account</Button>
         </Link>
       </div>

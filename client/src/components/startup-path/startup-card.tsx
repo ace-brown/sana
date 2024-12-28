@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { SatrtUpCardDataType } from "@/types";
+import { CardFooter } from "../ui/card";
 
 export default function StartUpCard({
   item,
@@ -32,7 +33,14 @@ export default function StartUpCard({
       <div className={`p-4 h-[250px] ${rightSide ? "order-1" : "order-2"}`}>
         <h2 className="text-3xl">{item.title}</h2>
         <p className="mb-2 mt-2 text-[12px]">{item.description}</p>
-        <Link href={item.link}>بیشتر بخوانید</Link>
+        <CardFooter className="mt-4">
+          <Link
+            href={item.link}
+            className="text-blue-500 font-medium hover:underline"
+          >
+            بیشتر بخوانید
+          </Link>
+        </CardFooter>
       </div>
     </div>
   );

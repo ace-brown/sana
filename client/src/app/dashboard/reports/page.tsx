@@ -66,7 +66,7 @@ export default function ReportPage() {
         </SubSection>
       )}
       <div className="text-center mt-12">
-        <Link href="/research">
+        <Link href="#">
           <Button variant="outline" type="button">
             بازگشت به همه فرم‌ها
           </Button>

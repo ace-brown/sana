@@ -91,16 +91,13 @@ export default function WhyUs() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul
-                  className="list-disc list-inside text-gray-600 space-y-2"
-                  // style={{ direction: "rtl" }}
-                >
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
                   {item.bulletPoints.map((bulletPoint, index) => (
                     <li key={index}>{bulletPoint}</li>
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className="mt-4 justify-end">
+              <CardFooter className="mt-4 justify-center">
                 <Link
                   href={item.link}
                   className="text-blue-500 font-medium hover:underline"

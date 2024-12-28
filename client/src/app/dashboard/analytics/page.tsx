@@ -5,12 +5,11 @@ export default function DemoPage() {
     <>
       <h1>something</h1>
       <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae ad aut
-        earum dolores blanditiis reiciendis quia accusamus explicabo molestiae
-        tempore! Accusantium perferendis, laborum consequuntur quis culpa quos
-        veritatis eius quia, corrupti aperiam, eum magnam saepe. Provident quos
-        libero, expedita quibusdam fugiat assumenda officiis, fugit id quis
-        dolorum praesentium saepe hic. Fugiat praesentium hic magni incidunt.
+        خود این شرکت یک شرکت بسیار موفق است. او بزرگ متولد شد این اتفاق می افتد
+        که یک خطای پر زحمت از انتخاب شده وجود دارد او بپرسد که چه زمانی از مدح
+        کنندگان او را پس می زند، اما این که چه روشی را باید دفع کرد یا چه چیزی
+        را که فکرش را می کند. او را با چاپلوسی برکت دهد. اغلب درد انتخاب خود را
+        دفع می کند او، زیرا به ما مربوط نیست که در مشکل باشیم خوشحالی؟
       </div>
     </>
   );

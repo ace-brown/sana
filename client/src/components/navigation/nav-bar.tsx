@@ -94,7 +94,7 @@ export default function NavBar() {
             <MoonIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
           </Toggle> */}
           <ThemeSwitch />
-          {!auth.isLoggedIn && (
+          {/* {!auth.isLoggedIn && (
             <>
               <Link href="/signup">
                 <Button>ثبت‌ نام</Button>
@@ -103,24 +103,24 @@ export default function NavBar() {
                 <Button>ورود</Button>
               </Link>
             </>
-          )}
-          {auth.isLoggedIn && (
-            <>
-              <Link href="/users">
-                <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </Link>
-              <Button
-                onClick={() => {
-                  auth.logout();
-                }}
-              >
-                خروج
-              </Button>
-            </>
-          )}
+          )} */}
+          {/* {auth.isLoggedIn && ( */}
+          <>
+            <Link href="/dashboard">
+              <Avatar className="cursor-pointer">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </Link>
+            <Button
+              onClick={() => {
+                auth.logout();
+              }}
+            >
+              خروج
+            </Button>
+          </>
+          {/* )} */}
           <Sheet>
             <SheetTrigger asChild>
               <Button

@@ -32,23 +32,6 @@ export default function ResearchPage() {
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] pl-16 pr-16">
           <Card>
             <CardHeader>
-              <CardTitle>گزارش</CardTitle>
-            </CardHeader>
-            <CardContent>
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
-            <CardFooter>
-              <Link
-                href="/research/report"
-                className="text-blue-500 font-medium hover:underline"
-              >
-                بیشتر بخوانید
-              </Link>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader>
               <CardTitle>ثبت ایده‌های شما</CardTitle>
             </CardHeader>
             <CardContent>
@@ -64,6 +47,24 @@ export default function ResearchPage() {
               </Link>
             </CardFooter>
           </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>گزارش</CardTitle>
+            </CardHeader>
+            <CardContent>
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
+              برای پر کردن فضا قرار داده شده است
+            </CardContent>
+            <CardFooter>
+              <Link
+                href="/research/report"
+                className="text-blue-500 font-medium hover:underline"
+              >
+                بیشتر بخوانید
+              </Link>
+            </CardFooter>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>مسابقات علمی</CardTitle>

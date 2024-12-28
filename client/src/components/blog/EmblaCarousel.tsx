@@ -42,43 +42,45 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
   return (
     <Section>
-      <SectionTitle>وبلاگ</SectionTitle>
-      <section className="news-swiper">
-        <div className="embla">
-          <div className="embla__viewport" ref={emblaRef}>
-            <div className="embla__container">
-              {slides.map((index) => (
-                <>
-                  <div className="embla__slide" key={index}>
-                    <NewsCard1 />
-                  </div>
-                  <div className="embla__slide" key={index}>
-                    <NewsCard2 />
-                  </div>
-                  <div className="embla__slide" key={index}>
-                    <NewsCard3 />
-                  </div>
-                  <div className="embla__slide" key={index}>
-                    <NewsCard4 />
-                  </div>
-                </>
-              ))}
+      <div>
+        <SectionTitle>وبلاگ</SectionTitle>
+        <section className="news-swiper">
+          {/* dir="rtl" for fa routes */}
+          <div className="embla" dir="rtl">
+            <div className="embla__viewport" ref={emblaRef}>
+              <div className="embla__container">
+                {slides.map((index) => (
+                  <>
+                    <div className="embla__slide" key={index}>
+                      <NewsCard1 />
+                    </div>
+                    <div className="embla__slide" key={index}>
+                      <NewsCard2 />
+                    </div>
+                    <div className="embla__slide" key={index}>
+                      <NewsCard3 />
+                    </div>
+                    <div className="embla__slide" key={index}>
+                      <NewsCard4 />
+                    </div>
+                  </>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="embla__controls">
-            <div className="embla__buttons">
-              <PrevButton
-                className="prev-btn"
-                onClick={onPrevButtonClick}
-                disabled={prevBtnDisabled}
-              />
-              <NextButton
-                className="next-btn"
-                onClick={onNextButtonClick}
-                disabled={nextBtnDisabled}
-              />
-            </div>
-            {/* <div className="embla__dots">
+            <div className="embla__controls">
+              <div className="embla__buttons">
+                <PrevButton
+                  className="prev-btn"
+                  onClick={onPrevButtonClick}
+                  disabled={prevBtnDisabled}
+                />
+                <NextButton
+                  className="next-btn"
+                  onClick={onNextButtonClick}
+                  disabled={nextBtnDisabled}
+                />
+              </div>
+              {/* <div className="embla__dots">
             {scrollSnaps.map((_, index) => (
               <DotButton
                 key={index}
@@ -89,9 +91,10 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               />
             ))}
           </div> */}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </Section>
   );
 };
