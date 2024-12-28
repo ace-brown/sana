@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function AccountPage() {
   return (
-    <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 mr-[100px]">
+    <div className="flex flex-col space-y-8 lg:flex-row lg:space-y-0 bg-red-">
       <div className="flex-1 lg:max-w-2xl">
         <div className="space-y-6">
           <form className="space-y-8">
