@@ -14,7 +14,7 @@ const IdeaSchema = new mongoose.Schema({
     mobileNumber: { type: String, required: true },
     age: { type: Number, required: true, min: 0 },
     branchOfStudy: { type: String, required: true, trim: true },
-    branchDetail: { type: String, required: true, trim: true, },
+    branchDetail: { type: String, trim: true, },
     ideaTitle: { type: String, required: true, trim: true, },
     ideaDescription: { type: String, required: true, trim: true, },
     createdAt: { type: Date, default: Date.now },

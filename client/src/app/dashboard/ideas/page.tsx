@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Toaster, toast } from "sonner";
+
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { RegisterIdeaType } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -12,12 +14,20 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useHttpClient } from "@/hooks/http-hook";
+
+// New type that extends RegisterIdeaType by adding trackingCode and createdAt
+export type IdeaDataType = RegisterIdeaType & {
+  trackingCode: string;
+  createdAt: string;
+};
 
 export default function IdeasPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [ideaData, setIdeaData] = useState<RegisterIdeaType[]>([]);
+  const [ideaData, setIdeaData] = useState<IdeaDataType[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
+  const { isLoading, error, sendRequest } = useHttpClient();
 
   // Handle Delete idea
   function handleDeleteIdea() {
@@ -25,23 +35,38 @@ export default function IdeasPage() {
       setIdeaData((prev) => prev.filter((_, index) => index !== ideaToDelete));
       setIdeaToDelete(null);
       setIsDeleteDialogOpen(false);
+      toast.success("ایده با موفقیت حذف شد");
     }
   }
 
   // Handle form submission
-  function handleIdeaSubmission(formData: RegisterIdeaType) {
-    const newIdea = {
-      ...formData,
-      trackingCode: Math.random().toString(36).substring(2, 10).toUpperCase(), // Random tracking code
-      createdAt: new Date().toLocaleString(), // Current date and time
-    };
+  async function handleIdeaSubmission(formData: RegisterIdeaType) {
+    const ownerId = "6771c47ef18c36052e06a2e0";
+    const fullName = "Adam Smith";
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/ideas",
+        "POST",
+        JSON.stringify({ ...formData, ownerId, fullName }),
+        { "Content-Type": "application/json" }
+      );
 
-    setIdeaData((prevIdeas) => [...prevIdeas, newIdea]); // Add new idea to the list
-    setIsDialogOpen(false); // Close modal
+      const newIdea: IdeaDataType = {
+        ...formData,
+        trackingCode: responseData.idea.trackingId,
+        createdAt: responseData.idea.createdAt,
+      };
+
+      setIdeaData((prevIdeas) => [...prevIdeas, newIdea]);
+      setIsDialogOpen(false);
+      toast.success("ایده با موفقیت ایجاد شد");
+      // history.push('/');
+    } catch (err) {}
   }
 
   return (
     <div className="p-6">
+      <Toaster position="top-center" richColors />
       {/* Check if there are ideas */}
       {ideaData.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 mb-6">

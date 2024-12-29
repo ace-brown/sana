@@ -16,7 +16,6 @@ export type SatrtUpCardDataType = {
 };
 
 export type RegisterIdeaType = {
-  name: string;
   fatherName: string;
   country?: string;
   state?: string;
@@ -30,6 +29,4 @@ export type RegisterIdeaType = {
   branchDetail?: string;
   ideaTitle: string;
   ideaDescription: string;
-  trackingCode?: string;
-  createdAt?: string;
 };
