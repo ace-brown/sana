@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import PageTitle from "@/components/common/page-title";
 import P from "@/components/common/ptag";
-import ProgressBar from "@/components/report-bar/ProgressBar";
+import ProgressBar from "@/components/reports/ProgressBar";
 import SubSection from "@/components/common/subsection";
 import ReadContainer from "@/components/common/read-container";
 import { Button } from "@/components/ui/button";

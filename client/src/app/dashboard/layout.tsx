@@ -3,20 +3,28 @@
 import React, { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  FaUser,
+  FaLightbulb,
+  FaChartBar,
+  FaUsers,
+  FaCog,
+  FaFileAlt,
+} from "react-icons/fa";
 
 import { Separator } from "@/components/ui/separator";
 import { AuthContext } from "@/context/auth-context";
 
 const links = [
-  { href: "/dashboard", label: "پروفایل" },
-  { href: "/dashboard/ideas", label: "ایده های من" },
-  { href: "/dashboard/reports", label: "گزارش های من" },
-  { href: "/dashboard/users", label: "کاربران" },
-  { href: "/dashboard/analytics", label: "نمودارها" },
-  { href: "/dashboard/settings", label: "تنظیمات" },
+  { href: "/dashboard", label: "پروفایل", icon: <FaUser /> },
+  { href: "/dashboard/ideas", label: "ایده های من", icon: <FaLightbulb /> },
+  { href: "/dashboard/reports", label: "گزارش های من", icon: <FaFileAlt /> },
+  { href: "/dashboard/users", label: "کاربران", icon: <FaUsers /> },
+  { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },
+  { href: "/dashboard/settings", label: "تنظیمات", icon: <FaCog /> },
 ];
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -44,6 +52,7 @@ export default async function LocaleLayout({
                     : "text-gray-500"
                 }`}
               >
+                {link.icon}
                 {link.label}
               </Link>
             ))}
