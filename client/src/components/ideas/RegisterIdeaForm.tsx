@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { RegisterIdeaType } from "@/types";
+import { RenderError } from "@/lib/FormUtils";
 
 type RegisterIdeaFormProps = {
   onSubmit: (data: RegisterIdeaType) => void;
@@ -82,7 +83,7 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
   type BranchKey = keyof typeof branchesOptions;
 
   function handleBranchChange(value: BranchKey) {
-    setValue("branchOfStudy", value);
+    setValue("branchOfStudy", value, { shouldValidate: true });
     setSubOptions(branchesOptions[value]);
     // setValue("branchDetail", ""); // Reset the sub-category field
   }
@@ -115,18 +116,6 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
         <div className="grid grid-cols-2 gap-8">
           {/* First Column */}
           <div className="space-y-2">
-            {/* Full Name Field */}
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                نام و نام خانوادگی
-                <span className="text-red-500"> *</span>
-              </label>
-              <Input
-                type="text"
-                {...register("name", { required: "Name is required" })}
-              />
-            </div>
-
             {/* Father's Name Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
@@ -136,9 +125,10 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
               <Input
                 type="text"
                 {...register("fatherName", {
-                  required: "Father Name is required",
+                  required: "نام پدر الزامی است",
                 })}
               />
+              {RenderError(errors, "fatherName")}
             </div>
 
             {/* Country Field */}
@@ -160,8 +150,9 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 </label>
                 <Input
                   type="text"
-                  {...register("city", { required: "City is required" })}
+                  {...register("city", { required: "شهر الزامی است" })}
                 />
+                {RenderError(errors, "city")}
               </div>
             </div>
 
@@ -173,8 +164,9 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
               </label>
               <Input
                 type="text"
-                {...register("career", { required: "Career is required" })}
+                {...register("career", { required: "شغل الزامی است" })}
               />
+              {RenderError(errors, "career")}
             </div>
 
             {/* Marital Status and Gender Field */}
@@ -205,7 +197,9 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                   <span className="text-red-500"> *</span>
                 </label>
                 <Select
-                  onValueChange={(value) => setValue("gender", value)}
+                  onValueChange={(value) => {
+                    setValue("gender", value, { shouldValidate: true });
+                  }}
                   value={gender}
                 >
                   <SelectTrigger style={{ direction: "rtl" }}>
@@ -218,8 +212,9 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 </Select>
                 <input
                   type="hidden"
-                  {...register("gender", { required: "Gender is required" })}
+                  {...register("gender", { required: "جنسیت الزامی است" })}
                 />
+                {RenderError(errors, "gender")}
               </div>
             </div>
 
@@ -233,9 +228,10 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 <Input
                   type="text"
                   {...register("mobileNumber", {
-                    required: "Mobile Number is required",
+                    required: "شماره موبایل الزامی است",
                   })}
                 />
+                {RenderError(errors, "mobileNumber")}
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
@@ -244,8 +240,9 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 </label>
                 <Input
                   type="number"
-                  {...register("age", { required: "Age is required" })}
+                  {...register("age", { required: "سن الزامی است" })}
                 />
+                {RenderError(errors, "age")}
               </div>
             </div>
           </div>
@@ -264,7 +261,7 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 }
               >
                 <SelectTrigger style={{ direction: "rtl" }}>
-                  <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
+                  <SelectValue placeholder="رشته تحصیلی را انتخاب کنید" />
                 </SelectTrigger>
                 <SelectContent style={{ direction: "rtl" }}>
                   {Object.keys(branchesOptions).map((branch) => (
@@ -274,7 +271,13 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                   ))}
                 </SelectContent>
               </Select>
-              <input type="hidden" {...register("branchOfStudy")} />
+              <input
+                type="hidden"
+                {...register("branchOfStudy", {
+                  required: "رشته تحصیلی الزامی است",
+                })}
+              />
+              {RenderError(errors, "branchOfStudy")}
             </div>
 
             {/* Sub-options based on branch */}
@@ -282,10 +285,11 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
               <div>
                 <label className="block text-sm font-medium mb-2">
                   زمینه تخصصی
-                  <span className="text-red-500"> *</span>
                 </label>
                 <Select
-                  onValueChange={(value) => setValue("branchDetail", value)}
+                  onValueChange={(value) =>
+                    setValue("branchDetail", value, { shouldValidate: true })
+                  }
                   value={branchDetail}
                 >
                   <SelectTrigger style={{ direction: "rtl" }}>
@@ -312,9 +316,10 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
               <Input
                 type="text"
                 {...register("ideaTitle", {
-                  required: "Idea Title is required",
+                  required: "عنوان ایده الزامی است",
                 })}
               />
+              {RenderError(errors, "ideaTitle")}
             </div>
 
             {/* Idea Details Field*/}
@@ -324,20 +329,12 @@ export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
                 <span className="text-red-500"> *</span>
               </label>
               <Textarea
-                className="min-h-[13rem]"
+                className="min-h-[10rem]"
                 {...register("ideaDescription", {
-                  required: "Please describe your idea",
-                  validate: (value) =>
-                    value.trim() !== "" || "Description cannot be empty",
+                  required: "توصیف ایده الزامی است",
                 })}
               />
-              {/* Show error message */}
-              {errors.ideaDescription &&
-                typeof errors.ideaDescription.message === "string" && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.ideaDescription.message}
-                  </p>
-                )}
+              {RenderError(errors, "ideaDescription")}
             </div>
 
             {/* Submit Button */}

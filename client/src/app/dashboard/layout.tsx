@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   FaUser,
-  FaLightbulb,
+  FaSeedling,
   FaChartBar,
   FaUsers,
   FaCog,
@@ -17,7 +17,7 @@ import { AuthContext } from "@/context/auth-context";
 
 const links = [
   { href: "/dashboard", label: "پروفایل", icon: <FaUser /> },
-  { href: "/dashboard/ideas", label: "ایده های من", icon: <FaLightbulb /> },
+  { href: "/dashboard/ideas", label: "ایده های من", icon: <FaSeedling /> },
   { href: "/dashboard/reports", label: "گزارش های من", icon: <FaFileAlt /> },
   { href: "/dashboard/users", label: "کاربران", icon: <FaUsers /> },
   { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },

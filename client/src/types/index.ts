@@ -18,16 +18,18 @@ export type SatrtUpCardDataType = {
 export type RegisterIdeaType = {
   name: string;
   fatherName: string;
-  country: string;
-  state: string;
+  country?: string;
+  state?: string;
   city: string;
   career: string;
-  maritalStatus: string;
+  maritalStatus?: string;
   gender: string;
   mobileNumber: string;
-  age: string; // You can change this to `number` if you expect a numeric value
+  age: string;
   branchOfStudy: string;
+  branchDetail?: string;
   ideaTitle: string;
   ideaDescription: string;
-  branchDetail: string;
+  trackingCode?: string;
+  createdAt?: string;
 };
