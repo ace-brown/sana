@@ -3,42 +3,43 @@
 import React, { useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import PageTitle from "@/components/common/page-title";
 import P from "@/components/common/ptag";
 import ProgressBar from "@/components/reports/ProgressBar";
 import SubSection from "@/components/common/subsection";
-import ReadContainer from "@/components/common/read-container";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { useHttpClient } from "@/hooks/http-hook";
+import { Report } from "@/types";
 
 export default function ReportPage() {
   const [showProgressBar, setShowProgressBar] = useState(false);
-  const [trackingCode, setTrackingCode] = useState("");
-  const [error, setError] = useState("");
+  const [reportId, setReportId] = useState("");
+  const [report, setReport] = useState<Report | undefined>();
+  const { isLoading, error, sendRequest } = useHttpClient();
 
-  function handleTrackingCodeChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTrackingCode(e.target.value);
-    setError("");
+  function handleReportIdChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setReportId(e.target.value);
   }
 
-  function handleProgressBarClick() {
-    if (trackingCode.trim() === "") {
-      setError("لطفا کد پیگیری خود را وارد کنید");
-      return;
-    }
-    if (trackingCode === "TC-1001") {
+  async function handleProgressBarClick() {
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/reports/${reportId}`,
+        "GET",
+        null,
+        { "Content-Type": "application/json" },
+        "گزارش با موفقیت پیدا شد"
+      );
+
+      setReport(responseData.report);
       setShowProgressBar(true);
-    } else {
-      setError("کد پیگیری نامعتبر است");
-    }
+    } catch (err) {}
   }
 
   return (
     <>
-      <ReadContainer>
-        <PageTitle>پیگیری روند پیشرفت ایده</PageTitle>
+      <div>
         <P>
-          .در این بخش می‌توانید روند پیشرفت ایده خود را که برای ما ارسال
+          در این بخش می‌توانید روند پیشرفت ایده خود را که برای ما ارسال
           کرده‌اید، مشاهده کنید. ما تلاش می‌کنیم که در هر مرحله، شما را در جریان
           وضعیت توسعه ایده‌تان قرار دهیم و اطمینان حاصل کنیم که همیشه از وضعیت
           پروژه خود مطلع هستید. کافیست کد پیگیری اختصاصی خود را وارد کنید تا
@@ -50,8 +51,8 @@ export default function ReportPage() {
           <Input
             type="text"
             placeholder="کد پیگیری خود را وارد کنید"
-            onChange={handleTrackingCodeChange}
-            value={trackingCode}
+            onChange={handleReportIdChange}
+            value={reportId}
             className="w-[300px]"
           />
           <Button onClick={handleProgressBarClick}>
@@ -59,19 +60,12 @@ export default function ReportPage() {
           </Button>
         </div>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-      </ReadContainer>
+      </div>
       {showProgressBar && (
         <SubSection>
-          <ProgressBar trackingCode={trackingCode} />
+          <ProgressBar foundReport={report} />
         </SubSection>
       )}
-      <div className="text-center mt-12">
-        <Link href="#">
-          <Button variant="outline" type="button">
-            بازگشت به همه فرم‌ها
-          </Button>
-        </Link>
-      </div>
     </>
   );
 }

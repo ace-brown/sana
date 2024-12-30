@@ -26,22 +26,22 @@ async function getReportById(req, res, next) {
 }
 
 // Get all reports for a specific user with a userId
-async function getReportsByUserId(req, res, next) {
-    const userId = req.params.uid;
+// async function getReportsByUserId(req, res, next) {
+//     const userId = req.params.uid;
 
-    let reportsForUser;
-    try {
-        reportsForUser = await Report.find({ ownerId: userId })
-    } catch (err) {
-        return next(new HttpError("Fetching reports faild, please try again later", 500))
-    }
+//     let reportsForUser;
+//     try {
+//         reportsForUser = await Report.find({ ownerId: userId })
+//     } catch (err) {
+//         return next(new HttpError("Fetching reports faild, please try again later", 500))
+//     }
 
-    if (!reportsForUser || reportsForUser.length === 0) {
-        return next(new HttpError("Could not find reports for the provided user id", 404))
-    }
+//     if (!reportsForUser || reportsForUser.length === 0) {
+//         return next(new HttpError("Could not find reports for the provided user id", 404))
+//     }
 
-    res.json({ reportsForUser: reportsForUser.map(r => r.toObject({ getters: true })) })
-}
+//     res.json({ reportsForUser: reportsForUser.map(r => r.toObject({ getters: true })) })
+// }
 
 // Create a new report
 async function createReport(req, res, next) {
@@ -51,10 +51,9 @@ async function createReport(req, res, next) {
         throw new HttpError("Invalid input passed, please check your data", 422)
     }
 
-    const { ideaTitle, ownerId, trackingId } = req.body;
+    const { ideaTitle, ownerId } = req.body;
 
     const createdReport = new Report({
-        trackingId,
         ideaTitle,
         ownerId,
         stages: defaultStages,
@@ -79,6 +78,7 @@ async function createReport(req, res, next) {
         await user.save({ session: sess })
         await sess.commitTransaction()
     } catch (err) {
+        console.log(err)
         return next(new HttpError("Creating report failed, please try again later.", 500))
     }
 
@@ -192,7 +192,7 @@ async function updateReport(req, res, next) {
 
 
 exports.getReportById = getReportById
-exports.getReportsByUserId = getReportsByUserId
 exports.createReport = createReport
 exports.updateReport = updateReport
+// exports.getReportsByUserId = getReportsByUserId
 // exports.deleteReport = deleteReport

@@ -25,8 +25,6 @@ export default function IdeasPage() {
 
   // Handle form submission
   async function handleIdeaSubmission(formData: RegisterIdeaType) {
-    const ownerId = "6771c47ef18c36052e06a2e0";
-    const fullName = "Adam Smith";
     try {
       await sendRequest(
         "http://localhost:5000/api/ideas",

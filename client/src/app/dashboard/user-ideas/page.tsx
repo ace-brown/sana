@@ -25,12 +25,11 @@ export default function UserIdeas() {
   const [ideaToEdit, setIdeaToEdit] = useState<UserIdeaType | null>(null);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
   const { isLoading, error, sendRequest } = useHttpClient();
-  const userId = "6771c47ef18c36052e06a2e0";
 
   // Update idea handler
   async function handleUpdateIdea(updatedIdea: RegisterIdeaType) {
     try {
-      const response = await sendRequest(
+      await sendRequest(
         `http://localhost:5000/api/ideas/${ideaToEdit?.id}`,
         "PATCH",
         JSON.stringify(updatedIdea),
@@ -38,17 +37,14 @@ export default function UserIdeas() {
         "ایده با موفقیت ویرایش شد"
       );
 
-      if (response) {
-        setIdeaData((prev) =>
-          prev.map((idea) =>
-            idea.id === ideaToEdit?.id ? { ...idea, ...updatedIdea } : idea
-          )
-        );
-        fetchIdeas();
-        setIsEditDialogOpen(false);
-        setIdeaToEdit(null);
-      }
+      setIdeaData((prev) =>
+        prev.map((idea) =>
+          idea.id === ideaToEdit?.id ? { ...idea, ...updatedIdea } : idea
+        )
+      );
+      fetchIdeas();
       setIsEditDialogOpen(false);
+      setIdeaToEdit(null);
     } catch (err) {}
   }
 
@@ -59,7 +55,7 @@ export default function UserIdeas() {
       console.log("delteId", idea.id);
 
       try {
-        const response = await sendRequest(
+        await sendRequest(
           `http://localhost:5000/api/ideas/${idea.id}`,
           "DELETE",
           null,
@@ -67,16 +63,14 @@ export default function UserIdeas() {
           "ایده با موفقیت حذف شد"
         );
 
-        if (response.message) {
-          // Update the state to remove the deleted idea
-          setIdeaData((prev) =>
-            prev.filter((_, index) => index !== ideaToDelete)
-          );
+        // Update the state to remove the deleted idea
+        setIdeaData((prev) =>
+          prev.filter((_, index) => index !== ideaToDelete)
+        );
 
-          // Reset dialog state
-          setIdeaToDelete(null);
-          setIsDeleteDialogOpen(false);
-        }
+        // Reset dialog state
+        setIdeaToDelete(null);
+        setIsDeleteDialogOpen(false);
       } catch (err) {}
     }
   }
@@ -107,6 +101,13 @@ export default function UserIdeas() {
           </div>
         </div>
       )}
+
+      {!isLoading && ideaData?.length == 0 && (
+        <p>
+          در حال حاضر هیچ ایده‌ای وجود ندارد. لطفاً اگر هنوز ایده‌ای ثبت
+          نکرده‌اید، از بخش ثبت ایده جدید یک ایده جدید ایجاد کنید.
+        </p>
+      )}
       {/* Check if there are ideas */}
       {!isLoading && ideaData?.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mb-6">
@@ -121,8 +122,8 @@ export default function UserIdeas() {
                 <p>{idea.ideaTitle}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">کد پیگیری</h2>
-                <p>{idea.trackingId}</p>
+                <h2 className="font-bold text-lg">شناسه گزارش</h2>
+                <p>{idea.reportId}</p>
               </div>
               <div>
                 <h2 className="font-bold text-lg">تاریخ ایجاد</h2>

@@ -35,7 +35,6 @@ export type UserIdeaType = {
   id: string;
   ownerId: string;
   reportId?: string;
-  trackingId: string;
   fatherName: string;
   country?: string;
   state?: string;
@@ -51,3 +50,21 @@ export type UserIdeaType = {
   ideaDescription: string;
   createdAt?: Date;
 };
+
+export interface Report {
+  id?: string;
+  ideaTitle: string;
+  ideaId: string;
+  ownerId: string;
+  stages: {
+    _id?: string;
+    stageTitle: string;
+    status: "Completed" | "In Progress" | "Not Started";
+    tasks: {
+      _id?: string;
+      taskTitle: string;
+      completed: boolean;
+    }[];
+  }[];
+  createdAt?: Date;
+}

@@ -7,7 +7,7 @@ const { Report, defaultStages } = require('../models/report')
 const Idea = require('../models/idea')
 
 
-// Get a spesific idea by a specific tracking id 
+// Get a spesific idea by a specific report id 
 async function getIdeaById(req, res, next) {
     const ideaId = req.params.eid;
 
@@ -45,7 +45,6 @@ async function getIdeasByUserId(req, res, next) {
 
 // Create a new idea
 async function createIdea(req, res, next) {
-    const { nanoid } = await import('nanoid');
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -69,11 +68,9 @@ async function createIdea(req, res, next) {
         ideaDescription,
     } = req.body;
 
-    const trackingId = `t-${nanoid(10)}`;
 
     const createdIdea = new Idea({
         ownerId,
-        trackingId,
         fatherName,
         country,
         state,
@@ -101,7 +98,6 @@ async function createIdea(req, res, next) {
     }
 
     const createdReport = new Report({
-        trackingId,
         ideaTitle,
         ideaId: createdIdea._id,
         ownerId,
@@ -127,6 +123,7 @@ async function createIdea(req, res, next) {
 
         await sess.commitTransaction();
     } catch (err) {
+        console.log(err)
         return next(new HttpError("Creating idea and report failed, please try again later.", 500));
     }
 
