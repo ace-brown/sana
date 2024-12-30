@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 
-import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
-import { RegisterIdeaType } from "@/types";
+import { useHttpClient } from "@/hooks/http-hook";
+import { UserIdeaType } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,61 +14,72 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useHttpClient } from "@/hooks/http-hook";
+import { formatDate } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
-// New type that extends RegisterIdeaType by adding trackingCode and createdAt
-export type IdeaDataType = RegisterIdeaType & {
-  trackingCode: string;
-  createdAt: string;
-};
-
-export default function IdeasPage() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [ideaData, setIdeaData] = useState<IdeaDataType[]>([]);
+export default function UserIdeas() {
+  const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
   const { isLoading, error, sendRequest } = useHttpClient();
+  const userId = "6771c47ef18c36052e06a2e0";
 
-  // Handle Delete idea
-  function handleDeleteIdea() {
+  // Delete Idea Handler
+  async function handleDeleteIdea() {
     if (ideaToDelete !== null) {
-      setIdeaData((prev) => prev.filter((_, index) => index !== ideaToDelete));
-      setIdeaToDelete(null);
-      setIsDeleteDialogOpen(false);
-      toast.success("ایده با موفقیت حذف شد");
+      const idea = ideaData[ideaToDelete];
+      console.log("delteId", idea.id);
+
+      try {
+        const response = await sendRequest(
+          `http://localhost:5000/api/ideas/${idea.id}`,
+          "DELETE",
+          null,
+          {},
+          "ایده با موفقیت حذف شد"
+        );
+
+        if (response.message) {
+          // Update the state to remove the deleted idea
+          setIdeaData((prev) =>
+            prev.filter((_, index) => index !== ideaToDelete)
+          );
+
+          // Reset dialog state
+          setIdeaToDelete(null);
+          setIsDeleteDialogOpen(false);
+        }
+      } catch (err) {}
     }
   }
 
-  // Handle form submission
-  async function handleIdeaSubmission(formData: RegisterIdeaType) {
-    const ownerId = "6771c47ef18c36052e06a2e0";
-    const fullName = "Adam Smith";
-    try {
-      const responseData = await sendRequest(
-        "http://localhost:5000/api/ideas",
-        "POST",
-        JSON.stringify({ ...formData, ownerId, fullName }),
-        { "Content-Type": "application/json" }
-      );
+  useEffect(() => {
+    async function fetchIdeas() {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/ideas/user/${userId}`
+        );
 
-      const newIdea: IdeaDataType = {
-        ...formData,
-        trackingCode: responseData.idea.trackingId,
-        createdAt: responseData.idea.createdAt,
-      };
-
-      setIdeaData((prevIdeas) => [...prevIdeas, newIdea]);
-      setIsDialogOpen(false);
-      toast.success("ایده با موفقیت ایجاد شد");
-      // history.push('/');
-    } catch (err) {}
-  }
+        setIdeaData(responseData.ideasForUser);
+      } catch (err) {}
+    }
+    fetchIdeas();
+  }, [sendRequest, userId]);
 
   return (
-    <div className="p-6">
+    <div>
       <Toaster position="top-center" richColors />
+      {isLoading && (
+        <div className="center">
+          <div>
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
+          </div>
+        </div>
+      )}
       {/* Check if there are ideas */}
-      {ideaData.length > 0 ? (
+      {!isLoading && ideaData?.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mb-6">
           {ideaData.map((idea, index) => (
             <div
@@ -82,11 +93,11 @@ export default function IdeasPage() {
               </div>
               <div>
                 <h2 className="font-bold text-lg">کد پیگیری</h2>
-                <p>{idea.trackingCode}</p>
+                <p>{idea.trackingId}</p>
               </div>
               <div>
                 <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
-                <p>{idea.createdAt}</p>
+                <p>{formatDate(idea.createdAt)}</p>
               </div>
 
               {/* Second Row */}
@@ -112,32 +123,7 @@ export default function IdeasPage() {
             </div>
           ))}
         </div>
-      ) : (
-        <p className="text-gray-500 text-center mb-6">
-          هنوز هیچ ایده‌ای ثبت نشده است. برای ثبت ایده جدید، روی دکمه زیر کلیک
-          کنید.
-        </p>
       )}
-
-      {/* Register Idea Button */}
-      <Button
-        onClick={() => setIsDialogOpen(true)}
-        className="w-full bg-blue-500 text-white"
-      >
-        ثبت ایده جدید
-      </Button>
-
-      {/* Dialog for Modal */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
-          <DialogHeader>
-            <DialogTitle className="text-lg font-bold text-center">
-              ثبت ایده جدید
-            </DialogTitle>
-          </DialogHeader>
-          <RegisterIdeaForm onSubmit={handleIdeaSubmission} />
-        </DialogContent>
-      </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>

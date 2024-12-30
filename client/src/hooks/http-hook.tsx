@@ -44,6 +44,11 @@ export function useHttpClient() {
         return responseData;
       } catch (err) {
         if (err instanceof Error) {
+          // Prevent throwing an error for aborted requests
+          if (err.name === "AbortError") {
+            console.warn("Request was aborted:", url);
+            return;
+          }
           setError(err.message);
           toast.error(err.message || "An unknown error occurred.");
         } else {

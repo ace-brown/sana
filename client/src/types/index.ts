@@ -24,9 +24,30 @@ export type RegisterIdeaType = {
   maritalStatus?: string;
   gender: string;
   mobileNumber: string;
-  age: string;
+  age: number;
   branchOfStudy: string;
   branchDetail?: string;
   ideaTitle: string;
   ideaDescription: string;
+};
+
+export type UserIdeaType = {
+  id: string;
+  ownerId: string;
+  reportId?: string;
+  trackingId: string;
+  fatherName: string;
+  country?: string;
+  state?: string;
+  city: string;
+  career: string;
+  maritalStatus?: string;
+  gender: string;
+  mobileNumber: string;
+  age: number;
+  branchOfStudy: string;
+  branchDetail?: string;
+  ideaTitle: string;
+  ideaDescription: string;
+  createdAt?: Date;
 };
