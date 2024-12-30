@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -16,22 +16,35 @@ import { RenderError } from "@/lib/FormUtils";
 
 type RegisterIdeaFormProps = {
   onSubmit: (data: RegisterIdeaType) => void;
+  defaultValues?: RegisterIdeaType;
 };
-export default function RegisterIdeaForm({ onSubmit }: RegisterIdeaFormProps) {
+
+export default function RegisterIdeaForm({
+  onSubmit,
+  defaultValues,
+}: RegisterIdeaFormProps) {
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
-  } = useForm<RegisterIdeaType>();
+  } = useForm<RegisterIdeaType>({ defaultValues });
   const [maritalStatus, gender, branchDetail, branchOfStudy] = watch([
     "maritalStatus",
     "gender",
     "branchDetail",
     "branchOfStudy",
   ]);
+
+  // Reset form with the default values
+  useEffect(() => {
+    if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset]);
 
   const branchesOptions = {
     "علوم انسانی": [

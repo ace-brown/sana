@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 
 import { useHttpClient } from "@/hooks/http-hook";
-import { UserIdeaType } from "@/types";
+import { RegisterIdeaType, UserIdeaType } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,13 +16,41 @@ import {
 } from "@/components/ui/dialog";
 import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [ideaToEdit, setIdeaToEdit] = useState<UserIdeaType | null>(null);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
   const { isLoading, error, sendRequest } = useHttpClient();
   const userId = "6771c47ef18c36052e06a2e0";
+
+  // Update idea handler
+  async function handleUpdateIdea(updatedIdea: RegisterIdeaType) {
+    try {
+      const response = await sendRequest(
+        `http://localhost:5000/api/ideas/${ideaToEdit?.id}`,
+        "PATCH",
+        JSON.stringify(updatedIdea),
+        { "Content-Type": "application/json" },
+        "ایده با موفقیت ویرایش شد"
+      );
+
+      if (response) {
+        setIdeaData((prev) =>
+          prev.map((idea) =>
+            idea.id === ideaToEdit?.id ? { ...idea, ...updatedIdea } : idea
+          )
+        );
+        fetchIdeas();
+        setIsEditDialogOpen(false);
+        setIdeaToEdit(null);
+      }
+      setIsEditDialogOpen(false);
+    } catch (err) {}
+  }
 
   // Delete Idea Handler
   async function handleDeleteIdea() {
@@ -53,16 +81,17 @@ export default function UserIdeas() {
     }
   }
 
-  useEffect(() => {
-    async function fetchIdeas() {
-      try {
-        const responseData = await sendRequest(
-          `http://localhost:5000/api/ideas/user/${userId}`
-        );
+  async function fetchIdeas() {
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/ideas/user/${userId}`
+      );
 
-        setIdeaData(responseData.ideasForUser);
-      } catch (err) {}
-    }
+      setIdeaData(responseData.ideasForUser);
+    } catch (err) {}
+  }
+
+  useEffect(() => {
     fetchIdeas();
   }, [sendRequest, userId]);
 
@@ -107,7 +136,13 @@ export default function UserIdeas() {
               </div>
               {/* Action Buttons */}
               <div className="flex gap-2 justify-end md:col-span-3">
-                <Button variant="outline" onClick={() => alert("Update logic")}>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setIdeaToEdit(idea);
+                    setIsEditDialogOpen(true);
+                  }}
+                >
                   ویرایش
                 </Button>
                 <Button
@@ -147,6 +182,35 @@ export default function UserIdeas() {
               حذف
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Idea Modal */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+          <DialogHeader>
+            <DialogTitle>ویرایش ایده</DialogTitle>
+          </DialogHeader>
+          {ideaToEdit && (
+            <RegisterIdeaForm
+              onSubmit={(data) => handleUpdateIdea(data)}
+              defaultValues={{
+                fatherName: ideaToEdit.fatherName,
+                country: ideaToEdit.country,
+                state: ideaToEdit.state,
+                city: ideaToEdit.city,
+                career: ideaToEdit.career,
+                maritalStatus: ideaToEdit.maritalStatus,
+                gender: ideaToEdit.gender,
+                mobileNumber: ideaToEdit.mobileNumber,
+                age: ideaToEdit.age,
+                branchOfStudy: ideaToEdit.branchOfStudy,
+                branchDetail: ideaToEdit.branchDetail,
+                ideaTitle: ideaToEdit.ideaTitle,
+                ideaDescription: ideaToEdit.ideaDescription,
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
