@@ -1,28 +1,91 @@
-import React from "react";
-import Link from "next/link";
+"use client";
+
+import React, { useContext, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
+import { useHttpClient } from "@/hooks/http-hook";
+import { AuthContext } from "@/context/auth-context";
+import { UserType } from "@/types";
 
 export default function AccountPage() {
+  const { isLoading, error, sendRequest } = useHttpClient();
+  const auth = useContext(AuthContext);
+  const userId = auth.userId;
+  const [profileData, setProfileData] = useState<UserType>();
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    bio: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Update profile handler
+  async function handleUpdateProfile(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/users/${userId}`,
+        "PATCH",
+        JSON.stringify(formData),
+        { "Content-Type": "application/json" },
+        "پروفایل با موفقیت به‌روزرسانی شد"
+      );
+      fetchUserProfile();
+    } catch (err) {}
+  }
+
+  async function fetchUserProfile() {
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/users/${userId}`
+      );
+
+      setProfileData(responseData.user);
+    } catch (err) {}
+  }
+  useEffect(() => {
+    fetchUserProfile();
+  }, [sendRequest, userId]);
+
+  console.log("PrifileData", profileData);
   return (
     <div className="w-[500px]">
       <div>
-        <form className="space-y-8">
+        <form onSubmit={handleUpdateProfile} className="space-y-8">
+          <div className="space-y-2">
+            <Label htmlFor="fullName">نام و نام خانوادگی</Label>
+            <Input
+              id="fullName"
+              name="fullName"
+              placeholder={profileData?.profile.fullName}
+              className="w-full"
+            />
+            <p className="text-[0.8rem] text-muted-foreground">
+              نام و نام خانوادگی{" "}
+            </p>
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="username">نام کاربری</Label>
             <Input
               id="username"
               name="username"
-              placeholder="shadcn"
+              placeholder={profileData?.username}
               className="w-full"
             />
             <p className="text-[0.8rem] text-muted-foreground">
-              این نام نمایش عمومی شماست. شما فقط می توانید این را تغییر دهید هر
-              روز
+              این نام نمایش عمومی شماست
             </p>
           </div>
 
@@ -31,46 +94,43 @@ export default function AccountPage() {
             <Input
               id="email"
               name="email"
-              placeholder="email@example.com"
+              placeholder={profileData?.email}
               className="w-full"
             />
             <p className="text-[0.8rem] text-muted-foreground">
-              تنظیمات ایمیل خود را در تنظیمات حساب خود مدیریت کنید.
+              تنظیمات ایمیل خود را در تنظیمات حساب خود مدیریت کنید
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bio">Bio</Label>
+            <Label htmlFor="bio">بیوگرافی</Label>
             <Textarea
               id="bio"
               name="bio"
-              placeholder="Tell us a little bit about yourself"
+              placeholder={profileData?.profile.bio}
               className="w-full"
             />
             <p className="text-[0.8rem] text-muted-foreground">
-              برای لینک دادن به کاربران دیگر می توانید به آنها اشاره کنید.
+              این بیوگرافی درباره شما است
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="urls">URLs</Label>
+            <Label htmlFor="password">رمز عبور</Label>
             <Input
-              id="urls"
-              name="urls"
-              value="https://shadcn.com"
+              id="password"
+              name="password"
+              value={profileData?.password}
               className="w-full"
             />
             <p className="text-[0.8rem] text-muted-foreground">
-              پیوندهایی را به وب سایت، وبلاگ یا پروفایل های رسانه های اجتماعی
-              خود اضافه کنید.
+              این رمز عبور شما برای ورود به حساب کاربری‌تان است
             </p>
           </div>
-
-          <Button variant="outline" className="w-full mt-2">
-            URL را اضافه کنید
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          <Button type="submit" className="w-full mt-4">
+            به روز رسانی پروفایل ها
           </Button>
-
-          <Button className="w-full mt-4">به روز رسانی پروفایل ها</Button>
         </form>
       </div>
     </div>

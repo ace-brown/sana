@@ -16,7 +16,6 @@ router.post(
     '/',
     [
         check('ownerId').notEmpty(),
-        check('fullName').notEmpty(),
         check('fatherName').notEmpty(),
         check('city').notEmpty(),
         check('career').notEmpty(),

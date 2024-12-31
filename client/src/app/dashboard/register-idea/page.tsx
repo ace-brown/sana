@@ -28,12 +28,11 @@ export default function IdeasPage() {
   // Handle form submission
   async function handleIdeaSubmission(formData: RegisterIdeaType) {
     const ownerId = auth.userId;
-    const fullName = auth.fullName;
     try {
       await sendRequest(
         "http://localhost:5000/api/ideas",
         "POST",
-        JSON.stringify({ ...formData, ownerId, fullName }),
+        JSON.stringify({ ...formData, ownerId }),
         { "Content-Type": "application/json" },
         "ایده با موفقیت ایجاد شد"
       );

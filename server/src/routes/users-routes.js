@@ -4,6 +4,9 @@ const router = express.Router()
 const usersControllers = require('../controllers/users-controllers')
 const { check } = require('express-validator')
 
+// Get current user 
+router.get('/:uid', usersControllers.getCurrentUser)
+
 // Get the list of users 
 router.get('/', usersControllers.getUsers)
 

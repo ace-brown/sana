@@ -5,6 +5,27 @@ const HttpError = require("../models/http-error");
 const User = require("../models/user");
 const { Report } = require("../models/report");
 
+
+// Get the current user data
+async function getCurrentUser(req, res, next) {
+    try {
+        const { uid } = req.params;
+
+        // const user = await User.findById(uid).select('-password');
+        const user = await User.findById(uid);
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        res.status(200).json({ user: user.toObject({ getters: true }) });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Fetching user failed. Please try again later.' });
+    }
+}
+
+
 // Get all users
 async function getUsers(req, res, next) {
     try {
@@ -183,6 +204,7 @@ async function deleteUser(req, res, next) {
 }
 
 
+exports.getCurrentUser = getCurrentUser
 exports.getUsers = getUsers
 exports.signup = signup
 exports.login = login
