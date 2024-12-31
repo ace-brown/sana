@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 
 import { useHttpClient } from "@/hooks/http-hook";
@@ -17,6 +17,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
+import { AuthContext } from "@/context/auth-context";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
@@ -25,6 +26,8 @@ export default function UserIdeas() {
   const [ideaToEdit, setIdeaToEdit] = useState<UserIdeaType | null>(null);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
   const { isLoading, error, sendRequest } = useHttpClient();
+  const auth = useContext(AuthContext);
+  const userId = auth.userId;
 
   // Update idea handler
   async function handleUpdateIdea(updatedIdea: RegisterIdeaType) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Toaster, toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -17,14 +17,18 @@ import {
 } from "@/components/ui/dialog";
 import { useHttpClient } from "@/hooks/http-hook";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { AuthContext } from "@/context/auth-context";
 
 export default function IdeasPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { isLoading, error, sendRequest } = useHttpClient();
   const router = useRouter();
+  const auth = useContext(AuthContext);
 
   // Handle form submission
   async function handleIdeaSubmission(formData: RegisterIdeaType) {
+    const ownerId = auth.userId;
+    const fullName = auth.fullName;
     try {
       await sendRequest(
         "http://localhost:5000/api/ideas",

@@ -41,7 +41,7 @@ export default function SignupPage() {
     e.preventDefault();
 
     try {
-      await sendRequest(
+      const responseData = await sendRequest(
         "http://localhost:5000/api/users/signup",
         "POST",
         JSON.stringify(formData),
@@ -50,8 +50,8 @@ export default function SignupPage() {
         },
         "Account created successfully"
       );
-      auth.login();
-      router.push("/research");
+      auth.login(responseData.user.id, responseData.user.profile.fullName);
+      router.push("/dashboard");
     } catch (err) {}
   }
 
