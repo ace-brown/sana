@@ -147,7 +147,11 @@ async function updateUser(req, res, next) {
 
         // Update user fields
         for (const key in updates) {
-            if (user[key] !== undefined) {
+            if (key === 'fullName' || key === 'bio' || key === 'avatar') {
+                // Update fields inside profile object
+                user.profile[key] = updates[key];
+            } else if (user[key] !== undefined) {
+                // Update top-level fields
                 user[key] = updates[key];
             }
         }

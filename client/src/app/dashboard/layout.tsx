@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { AuthContext } from "@/context/auth-context";
 
 const links = [
-  { href: "/dashboard", label: "پروفایل", icon: <FaUser /> },
+  { href: "/dashboard", label: "رخ‌نما", icon: <FaUser /> },
   { href: "/dashboard/user-ideas", label: "ایده های من", icon: <FaSeedling /> },
   { href: "/dashboard/reports", label: "گزارش های من", icon: <FaFileAlt /> },
   {

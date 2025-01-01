@@ -1,49 +1,31 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { useHttpClient } from "@/hooks/http-hook";
-import { AuthContext } from "@/context/auth-context";
 import { UserType } from "@/types";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AuthContext } from "@/context/auth-context";
+import EditUserProfile from "@/components/users/EditUserProfile";
 
 export default function AccountPage() {
+  const [profileData, setProfileData] = useState<UserType>();
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { isLoading, error, sendRequest } = useHttpClient();
+
   const auth = useContext(AuthContext);
   const userId = auth.userId;
-  const [profileData, setProfileData] = useState<UserType>();
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    username: "",
-    email: "",
-    bio: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Update profile handler
-  async function handleUpdateProfile(e: React.FormEvent) {
-    e.preventDefault();
-    try {
-      await sendRequest(
-        `http://localhost:5000/api/users/${userId}`,
-        "PATCH",
-        JSON.stringify(formData),
-        { "Content-Type": "application/json" },
-        "پروفایل با موفقیت به‌روزرسانی شد"
-      );
-      fetchUserProfile();
-    } catch (err) {}
-  }
 
   async function fetchUserProfile() {
     try {
@@ -58,81 +40,111 @@ export default function AccountPage() {
     fetchUserProfile();
   }, [sendRequest, userId]);
 
-  console.log("PrifileData", profileData);
   return (
-    <div className="w-[500px]">
-      <div>
-        <form onSubmit={handleUpdateProfile} className="space-y-8">
-          <div className="space-y-2">
-            <Label htmlFor="fullName">نام و نام خانوادگی</Label>
-            <Input
-              id="fullName"
-              name="fullName"
-              placeholder={profileData?.profile.fullName}
-              className="w-full"
-            />
-            <p className="text-[0.8rem] text-muted-foreground">
-              نام و نام خانوادگی{" "}
-            </p>
+    <div>
+      <Toaster position="top-center" richColors />
+      {isLoading && (
+        <div className="center">
+          <div>
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
           </div>
+        </div>
+      )}
 
-          <div className="space-y-2">
-            <Label htmlFor="username">نام کاربری</Label>
-            <Input
-              id="username"
-              name="username"
-              placeholder={profileData?.username}
-              className="w-full"
-            />
-            <p className="text-[0.8rem] text-muted-foreground">
-              این نام نمایش عمومی شماست
-            </p>
-          </div>
+      {/* Check if there is profile */}
+      {!isLoading && profileData && (
+        <div className="mb-6">
+          <div className="p-4 space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* First Row */}
+              <div>
+                <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                <p>{profileData?.profile.fullName}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">نام کاربری</h2>
+                <p>{profileData?.username}</p>
+              </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">ایمیل</Label>
-            <Input
-              id="email"
-              name="email"
-              placeholder={profileData?.email}
-              className="w-full"
-            />
-            <p className="text-[0.8rem] text-muted-foreground">
-              تنظیمات ایمیل خود را در تنظیمات حساب خود مدیریت کنید
-            </p>
-          </div>
+              {/* Second Row */}
+              <div>
+                <h2 className="font-bold text-lg">رايانامه</h2>
+                <p>{profileData?.email}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">رمز عبور</h2>
+                <p>{profileData?.password}</p>
+              </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="bio">بیوگرافی</Label>
-            <Textarea
-              id="bio"
-              name="bio"
-              placeholder={profileData?.profile.bio}
-              className="w-full"
-            />
-            <p className="text-[0.8rem] text-muted-foreground">
-              این بیوگرافی درباره شما است
-            </p>
-          </div>
+              {/* Third Row */}
+              <div className="md:col-span-2">
+                <h2 className="font-bold text-lg">درباره من</h2>
+                <p>{profileData?.profile.bio}</p>
+              </div>
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">رمز عبور</Label>
-            <Input
-              id="password"
-              name="password"
-              value={profileData?.password}
-              className="w-full"
-            />
-            <p className="text-[0.8rem] text-muted-foreground">
-              این رمز عبور شما برای ورود به حساب کاربری‌تان است
-            </p>
+            {/* Action Buttons */}
+            <div className="flex gap-2 justify-start mt-4">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditDialogOpen(true);
+                }}
+              >
+                ویرایش رخ‌نما
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  setIsDeleteDialogOpen(true);
+                }}
+              >
+                حذف حساب کاربری
+              </Button>
+            </div>
           </div>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-          <Button type="submit" className="w-full mt-4">
-            به روز رسانی پروفایل ها
-          </Button>
-        </form>
-      </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="max-w-md mx-auto">
+          <DialogHeader>
+            <DialogTitle className="text-center">
+              آیا می‌خواهید حساب کاربری خود را حذف کنید؟
+            </DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            اگر دکمه حذف را فشار دهید، حساب کاربری شما همراه با تمامی ایده‌های
+            ایجادشده و گزارش‌های مرتبط حذف خواهد شد.
+          </DialogDescription>
+          <DialogFooter className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              لغو
+            </Button>
+            <Button variant="destructive">حذف حساب کاربری</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Profile Modal */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+          <DialogHeader>
+            <DialogTitle className="text-center">ویرایش رخ‌نما</DialogTitle>
+          </DialogHeader>
+          <EditUserProfile
+            profileData={profileData}
+            setProfileData={setProfileData}
+            closeDialog={() => setIsEditDialogOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
