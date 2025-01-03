@@ -2,6 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 import { useHttpClient } from "@/hooks/http-hook";
 import { UserType } from "@/types";
@@ -23,9 +24,28 @@ export default function AccountPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { isLoading, error, sendRequest } = useHttpClient();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const auth = useContext(AuthContext);
   const userId = auth.userId;
+
+  async function handleDeleteAccount() {
+    try {
+      const response = await sendRequest(
+        `http://localhost:5000/api/users/${userId}`,
+        "DELETE",
+        null,
+        {},
+        "حساب کاربری شما با موفقیت حذف شد"
+      );
+
+      auth.logout();
+    } catch (err) {
+      toast.error("حذف حساب کاربری با مشکل مواجه شد. لطفاً دوباره تلاش کنید.");
+    } finally {
+      setIsDeleteDialogOpen(false);
+    }
+  }
 
   async function fetchUserProfile() {
     try {
@@ -75,7 +95,22 @@ export default function AccountPage() {
               </div>
               <div>
                 <h2 className="font-bold text-lg">رمز عبور</h2>
-                <p>{profileData?.password}</p>
+                <div className="relative flex items-center">
+                  <input
+                    type={isPasswordVisible ? "text" : "password"}
+                    value={profileData?.password}
+                    readOnly
+                    className="px-2 py-1 w-full pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    className="absolute right-2 text-gray-500 hover:text-gray-700"
+                    aria-label="Toggle password visibility"
+                  >
+                    {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
 
               {/* Third Row */}
@@ -127,7 +162,9 @@ export default function AccountPage() {
             >
               لغو
             </Button>
-            <Button variant="destructive">حذف حساب کاربری</Button>
+            <Button variant="destructive" onClick={handleDeleteAccount}>
+              حذف حساب کاربری
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

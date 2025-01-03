@@ -90,7 +90,7 @@ export default function LoginPage() {
                 href="/signup"
                 className="text-indigo-600 hover:underline focus:outline-none"
               >
-                خروج
+                ثبت‌ نام
               </Link>
             </p>
           </CardContent>

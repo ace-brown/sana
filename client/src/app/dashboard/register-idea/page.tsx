@@ -56,7 +56,7 @@ export default function IdeasPage() {
       {/* Register Idea Button */}
       <Button
         onClick={() => setIsDialogOpen(true)}
-        className="w-full bg-blue-500 text-white mt-8"
+        className="w-full bg-blue-500 text-white mt-4"
       >
         ثبت ایده جدید
       </Button>

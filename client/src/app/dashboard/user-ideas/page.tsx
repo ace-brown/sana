@@ -106,7 +106,7 @@ export default function UserIdeas() {
       )}
 
       {!isLoading && ideaData?.length == 0 && (
-        <p>
+        <p className="text-red-400">
           در حال حاضر هیچ ایده‌ای وجود ندارد. لطفاً اگر هنوز ایده‌ای ثبت
           نکرده‌اید، از بخش ثبت ایده جدید یک ایده جدید ایجاد کنید.
         </p>
