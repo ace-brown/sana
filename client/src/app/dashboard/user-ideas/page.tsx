@@ -18,6 +18,7 @@ import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
+import ShortenAndCopy from "@/lib/ShortenAndCopy";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
@@ -125,8 +126,8 @@ export default function UserIdeas() {
                 <p>{idea.ideaTitle}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">شناسه گزارش</h2>
-                <p>{idea.reportId}</p>
+                <h2 className="font-bold text-lg mr-4">شناسه گزارش</h2>
+                <ShortenAndCopy id={idea.reportId} length={4} />
               </div>
               <div>
                 <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
