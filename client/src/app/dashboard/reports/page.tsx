@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
+import { Toaster } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import P from "@/components/common/ptag";
 import ProgressBar from "@/components/reports/ProgressBar";
-import SubSection from "@/components/common/subsection";
 import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
 import { Report } from "@/types";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 export default function ReportPage() {
   const [showProgressBar, setShowProgressBar] = useState(false);
@@ -29,7 +30,6 @@ export default function ReportPage() {
         { "Content-Type": "application/json" },
         "گزارش با موفقیت پیدا شد"
       );
-
       setReport(responseData.report);
       setShowProgressBar(true);
     } catch (err) {}
@@ -37,6 +37,8 @@ export default function ReportPage() {
 
   return (
     <>
+      <Toaster position="top-center" richColors />
+      {isLoading && <LoadingSpinner asOverlay />}
       <div>
         <P>
           در این بخش می‌توانید روند پیشرفت ایده خود را که برای ما ارسال
@@ -62,9 +64,11 @@ export default function ReportPage() {
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
       {showProgressBar && (
-        <SubSection>
-          <ProgressBar foundReport={report} />
-        </SubSection>
+        <div>
+          <div className="mt-8">
+            <ProgressBar foundReport={report} />
+          </div>
+        </div>
       )}
     </>
   );

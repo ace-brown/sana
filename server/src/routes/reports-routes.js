@@ -8,9 +8,6 @@ const reportsControllers = require('../controllers/reports-controllers')
 // Get a spesific report by a specific report id 
 router.get('/:rid', reportsControllers.getReportById)
 
-// Get all reports for a specific user with a userId
-// router.get('/user/:uid', reportsControllers.getReportsByUserId)
-
 // Create a new report
 router.post(
     '/',

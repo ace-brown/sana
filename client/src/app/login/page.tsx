@@ -17,7 +17,7 @@ import { AuthContext } from "@/context/auth-context";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest, error } = useHttpClient();
   const auth = useContext(AuthContext);
   const router = useRouter();
 
@@ -96,6 +96,7 @@ export default function LoginPage() {
           </CardContent>
         </Card>
       </div>
+      {error && <p className="text-center text-red-500 mb-8">{error}</p>}
     </Container>
   );
 }

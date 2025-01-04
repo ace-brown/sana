@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import Container from "../common/container";
 import { Report, SelectedTaskType } from "@/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import TaskModalContent from "./TaskModalContent";
 
 type ProgressBarType = {
   foundReport: Report | undefined;
@@ -56,13 +53,20 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
     );
   }
 
+  // Close the task modal
+  const handleCloseTaskModal = () => {
+    setIsTaskDialogOpen(false);
+  };
+
   return (
     <div className="container">
       <h2 className="text-3xl sm:text-xl font-semibold text-gray-800 mb-2">
         خط زمانی پیشرفت
       </h2>
-      <p>{`شناسه گزارش  : ${foundReport.id}`}</p>
-      <p className="mb-12">{`عنوان ایده : ${foundReport.ideaTitle}`}</p>
+      <div className="flex  gap-12 mb-12">
+        <p>{`عنوان ایده : ${foundReport.ideaTitle}`}</p>
+        <p>{`شناسه گزارش  : ${foundReport.id}`}</p>
+      </div>
       <div className="flex items-center justify-between relative">
         {foundReport.stages.map((stage, index) => (
           <React.Fragment key={index}>
@@ -121,13 +125,13 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
                       setSelectedTask(task);
                       setIsTaskDialogOpen(true);
                     }}
-                    className={`flex gap-2 w-full text-right ${
+                    className={`flex gap-2 w-full mb-2 text-right transition-colors duration-200 ${
                       task.taskStatus === "Completed"
-                        ? "text-green-600"
+                        ? "text-green-600 hover:text-green-800"
                         : task.taskStatus === "In Progress"
-                        ? "text-yellow-600"
-                        : "text-gray-600"
-                    }`}
+                        ? "text-yellow-600 hover:text-yellow-800"
+                        : "text-gray-600 hover:text-gray-800"
+                    } hover:underline hover:cursor-pointer`}
                   >
                     <span
                       className={`h-4 w-4 flex-shrink-0 rounded-full border ${
@@ -169,51 +173,13 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
               {selectedTask?.taskTitle}
             </DialogTitle>
           </DialogHeader>
-          <TaskModalContent task={selectedTask} />
+          <TaskModalContent
+            task={selectedTask}
+            foundReport={foundReport}
+            closeTaskModal={handleCloseTaskModal}
+          />
         </DialogContent>
       </Dialog>
-    </div>
-  );
-}
-
-export function TaskModalContent({
-  task,
-}: {
-  task: SelectedTaskType | undefined;
-}) {
-  return (
-    <div>
-      <div className="flex flex-col space-y-2">
-        <Label htmlFor="measures" className="font-medium">
-          اقدامات لازم
-        </Label>
-        <Textarea id="measures" className="resize-none" />
-      </div>
-      <div className="flex gap-4 mt-4">
-        <RadioGroup
-          defaultValue={
-            task?.taskStatus === "Completed"
-              ? "Completed"
-              : task?.taskStatus === "In Progress"
-              ? "In Progress"
-              : "Not Started"
-          }
-          className="flex"
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Completed" id="completed" />
-            <Label htmlFor="completed">وظیفه تکمیل‌شده است</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="In Progress" id="in-progress" />
-            <Label htmlFor="in-progress">وظیفه در حال اجراست</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="Not Started" id="not-started" />
-            <Label htmlFor="not-started">وظیفه شروع نشده است</Label>
-          </div>
-        </RadioGroup>
-      </div>
     </div>
   );
 }
