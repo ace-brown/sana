@@ -9,11 +9,30 @@ export default function ProgressBar({
   foundReport: Report | undefined;
 }) {
   // Helper function to check if the status is "Completed"
-  const isStatusCompleted = (status: string) => status === "تکمیل‌شده";
+  function isStatusCompleted(status: string): boolean {
+    return status === "Completed";
+  }
 
   // Helper function to check if the status is "In Progress"
-  const isStatusInProgress = (status: string) => status === "در حال اجرا";
+  function isStatusInProgress(status: string): boolean {
+    return status === "In Progress";
+  }
 
+  // Helper function to translate the status
+  function translateStatus(status: string) {
+    switch (status) {
+      case "Completed":
+        return "تکمیل‌شده";
+      case "In Progress":
+        return "در حال اجرا";
+      case "Not Started":
+        return "شروع نشده";
+      default:
+        return "نامشخص";
+    }
+  }
+
+  // Check if any report found
   if (!foundReport) {
     return (
       <Container>
@@ -68,14 +87,14 @@ export default function ProgressBar({
           ))}
         </div>
         {/* Cards */}
-        <div className="flex justify-between mt-4 gap-8">
+        <div className="flex justify-between mt-4 gap-4">
           {foundReport.stages.map((stage, index) => (
             <div
               key={index}
               className="w-1/4 p-4 border rounded-lg shadow-lg bg-white"
             >
               <h4
-                className={`font-semibold  ${
+                className={`font-semibold  text-center ${
                   isStatusCompleted(stage.status)
                     ? "text-green-500"
                     : isStatusInProgress(stage.status)
@@ -83,13 +102,13 @@ export default function ProgressBar({
                     : "text-gray-400"
                 }`}
               >
-                {stage.status}
+                {translateStatus(stage.status)}
               </h4>
               <ul className="mt-2 text-sm text-gray-600">
                 {stage.tasks.map((task, i) => (
                   <li
                     key={i}
-                    className={`flex items-center gap-2 ${
+                    className={`flex items-center gap-4 ${
                       task.completed ? "text-green-600" : "text-gray-600"
                     }`}
                   >

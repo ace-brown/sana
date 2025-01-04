@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-gray-300 px-8 pb-2 pt-6 mt-20 relative z-10">
+    <footer className="bg-gray-800 text-gray-300 px-8 pb-2 pt-5 mt-20 relative z-10">
       {/* Footer Content */}
       <div className="flex justify-between gap-4 text-[1rem]">
         {/* Links */}
@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Footer Bottom */}
-      <div className="text-center text-[0.6rem] text-gray-500 mt-4">
+      <div className="text-center text-[0.75rem] text-gray-500 mt-2">
         کلیه حقوق این وبسایت متعلق به خیام سانا است.
       </div>
     </footer>

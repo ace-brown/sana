@@ -126,15 +126,67 @@ export default function UserIdeas() {
                 <p>{idea.ideaTitle}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg mr-4">شناسه گزارش</h2>
+                <h2 className="font-bold text-lg">شناسه گزارش</h2>
                 <ShortenAndCopy id={idea.reportId} length={4} />
               </div>
               <div>
                 <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
                 <p>{formatDate(idea.createdAt)}</p>
               </div>
-
               {/* Second Row */}
+              <div>
+                <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                <p>{auth.fullName}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">نام پدر</h2>
+                <p>{idea.fatherName}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">کشور</h2>
+                <p>{idea.country}</p>
+              </div>
+              {/* Third Row */}
+              <div>
+                <h2 className="font-bold text-lg">استان</h2>
+                <p>{idea.state}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">شهر</h2>
+                <p>{idea.city}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">شغل</h2>
+                <p>{idea.career}</p>
+              </div>
+              {/* ّFourth Row */}
+              <div>
+                <h2 className="font-bold text-lg">وضعیت تاهل</h2>
+                <p>{idea.maritalStatus}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">جنسیت</h2>
+                <p>{idea.gender}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">سن</h2>
+                <p>{idea.age}</p>
+              </div>
+              {/* Fifth Row */}
+              <div>
+                <h2 className="font-bold text-lg">شماره تماس</h2>
+                <p>{idea.mobileNumber}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">رشته تحصیلی</h2>
+                <p>{idea.branchOfStudy}</p>
+              </div>
+              <div>
+                <h2 className="font-bold text-lg">زمینه تخصصی</h2>
+                <p>{idea.branchDetail}</p>
+              </div>
+
+              {/* Sexth Row */}
               <div className="md:col-span-3">
                 <h2 className="font-bold text-lg">توضیحات</h2>
                 <p>{idea.ideaDescription}</p>

@@ -3,43 +3,44 @@ const mongoose = require('mongoose')
 
 const defaultStages = [
     {
-        stageTitle: "Idea Evaluation",
+        stageTitle: "ارزیابی ایده",
         status: "Not Started",
         tasks: [
-            { taskTitle: "Brainstorming Session", completed: false },
-            { taskTitle: "Market Research", completed: false },
-            { taskTitle: "Competitor Analysis", completed: false },
-            { taskTitle: "Feasibility Study", completed: false },
+            { taskTitle: "جلسه طوفان فکری", completed: false },
+            { taskTitle: "تحقیق بازار", completed: false },
+            { taskTitle: "تحلیل رقبا", completed: false },
+            { taskTitle: "مطالعه امکان‌سنجی", completed: false },
         ],
     },
     {
-        stageTitle: "Prototype Development",
+        stageTitle: "توسعه نمونه اولیه",
         status: "Not Started",
         tasks: [
-            { taskTitle: "Sketch Initial Design", completed: false },
-            { taskTitle: "Build MVP", completed: false },
-            { taskTitle: "Test Prototype", completed: false },
+            { taskTitle: "طراحی اولیه", completed: false },
+            { taskTitle: "ساخت MVP", completed: false },
+            { taskTitle: "آزمایش نمونه اولیه", completed: false },
         ],
     },
     {
-        stageTitle: "Testing Phase",
+        stageTitle: "مرحله آزمایش",
         status: "Not Started",
         tasks: [
-            { taskTitle: "Unit Testing", completed: false },
-            { taskTitle: "Integration Testing", completed: false },
-            { taskTitle: "User Feedback", completed: false },
+            { taskTitle: "آزمایش واحد", completed: false },
+            { taskTitle: "آزمایش یکپارچه‌سازی", completed: false },
+            { taskTitle: "بازخورد کاربران", completed: false },
         ],
     },
     {
-        stageTitle: "Deployment",
+        stageTitle: "توسعه و استقرار",
         status: "Not Started",
         tasks: [
-            { taskTitle: "Setup Hosting", completed: false },
-            { taskTitle: "Configure Production", completed: false },
-            { taskTitle: "Launch Product", completed: false },
+            { taskTitle: "راه‌اندازی هاست", completed: false },
+            { taskTitle: "پیکربندی تولید", completed: false },
+            { taskTitle: "عرضه محصول", completed: false },
         ],
     },
-]
+];
+
 
 const taskSchema = new mongoose.Schema({
     taskTitle: { type: String, required: true, immutable: true },

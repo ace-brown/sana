@@ -52,7 +52,7 @@ export default function LocaleLayout({
               <Link
                 key={link.href}
                 href={link.href}
-                className={`inline-flex items-center gap-2 text-sm font-medium rounded-md py-2 px-6 ${
+                className={`inline-flex items-center gap-2 font-medium rounded-md py-2 px-6 ${
                   pathname === link.href
                     ? "text-blue-500 font-bold"
                     : "text-gray-500"
