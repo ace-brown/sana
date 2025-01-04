@@ -39,15 +39,13 @@ export default function UsersPage() {
         `http://localhost:5000/api/users?page=${currentPage}&limit=10`
       );
       if (!response.ok) {
-        throw new Error("Failed to fetch users");
+        throw new Error("دریافت کاربران با شکست مواجه شد");
       }
       const data = await response.json();
       setUsers(data.users);
       setTotalPages(data.totalPages);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
-      );
+      setError(err instanceof Error ? err.message : "خطای ناشناخته‌ای رخ داد");
     } finally {
       setIsLoading(false);
     }

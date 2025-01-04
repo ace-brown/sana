@@ -32,7 +32,7 @@ export default function LoginPage() {
         {
           "Content-Type": "application/json",
         },
-        "Logged in successfully"
+        "با موفقیت وارد شدید"
       );
       auth.login(responseData.user.id, responseData.user.profile.fullName);
       router.push("/dashboard");

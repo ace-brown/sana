@@ -129,7 +129,7 @@ export default function AccountPage() {
                   setIsEditDialogOpen(true);
                 }}
               >
-                ویرایش رخ‌نما
+                ویرایش رخ‌ نما
               </Button>
               <Button
                 variant="destructive"
@@ -174,7 +174,7 @@ export default function AccountPage() {
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
           <DialogHeader>
-            <DialogTitle className="text-center">ویرایش رخ‌نما</DialogTitle>
+            <DialogTitle className="text-center">ویرایش رخ‌ نما</DialogTitle>
           </DialogHeader>
           <EditUserProfile
             profileData={profileData}

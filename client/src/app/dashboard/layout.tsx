@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { AuthContext } from "@/context/auth-context";
 
 const links = [
-  { href: "/dashboard", label: "رخ‌نما", icon: <FaUser /> },
+  { href: "/dashboard", label: "رخ‌ نما", icon: <FaUser /> },
   { href: "/dashboard/user-ideas", label: "ایده های من", icon: <FaSeedling /> },
   { href: "/dashboard/reports", label: "گزارش های من", icon: <FaFileAlt /> },
   {
@@ -26,8 +26,8 @@ const links = [
     icon: <FaPenFancy />,
   },
   { href: "/dashboard/users", label: "کاربران", icon: <FaUsers /> },
-  { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },
-  { href: "/dashboard/settings", label: "تنظیمات", icon: <FaCog /> },
+  // { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },
+  // { href: "/dashboard/settings", label: "تنظیمات", icon: <FaCog /> },
 ];
 
 export default function LocaleLayout({

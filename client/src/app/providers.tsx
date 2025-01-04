@@ -19,10 +19,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(function () {
+    router.push("/");
     setIsLoggedIn(false);
     setUserId(null);
     setFullName(null);
-    router.push("/");
   }, []);
 
   return (

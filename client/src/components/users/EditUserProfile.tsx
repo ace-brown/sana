@@ -117,7 +117,7 @@ export default function EditUserProfile({
           </div>
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           <Button type="submit" className="w-full mt-4" disabled={isLoading}>
-            به روز رسانی رخ‌نما
+            به روز رسانی رخ‌ نما
           </Button>
         </form>
       </div>

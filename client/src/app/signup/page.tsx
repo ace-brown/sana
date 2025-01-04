@@ -48,7 +48,7 @@ export default function SignupPage() {
         {
           "Content-Type": "application/json",
         },
-        "Account created successfully"
+        "حساب کاربری شما با موفقیت ایجاد شد "
       );
       auth.login(responseData.user.id, responseData.user.profile.fullName);
       router.push("/dashboard");
@@ -131,7 +131,7 @@ export default function SignupPage() {
             )}
 
             <p className="text-sm text-center mt-4 text-gray-600">
-              آیا قبلاً حساب کاربری دارید؟{" "}
+              آیا قبلاً حساب کاربری دارید؟
               <Link
                 href="/login"
                 className="text-indigo-600 hover:underline focus:outline-none"
