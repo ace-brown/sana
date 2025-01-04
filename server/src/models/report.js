@@ -4,39 +4,39 @@ const mongoose = require('mongoose')
 const defaultStages = [
     {
         stageTitle: "ارزیابی ایده",
-        status: "Not Started",
+        stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "جلسه طوفان فکری", completed: false },
-            { taskTitle: "تحقیق بازار", completed: false },
-            { taskTitle: "تحلیل رقبا", completed: false },
-            { taskTitle: "مطالعه امکان‌سنجی", completed: false },
+            { taskTitle: "جلسه طوفان فکری", taskStatus: "Not Started" },
+            { taskTitle: "تحقیق بازار", taskStatus: "Not Started" },
+            { taskTitle: "تحلیل رقبا", taskStatus: "Not Started" },
+            { taskTitle: "مطالعه امکان‌سنجی", taskStatus: "Not Started" },
         ],
     },
     {
         stageTitle: "توسعه نمونه اولیه",
-        status: "Not Started",
+        stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "طراحی اولیه", completed: false },
-            { taskTitle: "ساخت MVP", completed: false },
-            { taskTitle: "آزمایش نمونه اولیه", completed: false },
+            { taskTitle: "طراحی اولیه", taskStatus: "Not Started" },
+            { taskTitle: "ساخت MVP", taskStatus: "Not Started" },
+            { taskTitle: "آزمایش نمونه اولیه", taskStatus: "Not Started" },
         ],
     },
     {
-        stageTitle: "مرحله آزمایش",
-        status: "Not Started",
+        stageTitle: "آزمایش",
+        stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "آزمایش واحد", completed: false },
-            { taskTitle: "آزمایش یکپارچه‌سازی", completed: false },
-            { taskTitle: "بازخورد کاربران", completed: false },
+            { taskTitle: "آزمایش واحد", taskStatus: "Not Started" },
+            { taskTitle: "آزمایش یکپارچه‌سازی", taskStatus: "Not Started" },
+            { taskTitle: "بازخورد کاربران", taskStatus: "Not Started" },
         ],
     },
     {
         stageTitle: "توسعه و استقرار",
-        status: "Not Started",
+        stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "راه‌اندازی هاست", completed: false },
-            { taskTitle: "پیکربندی تولید", completed: false },
-            { taskTitle: "عرضه محصول", completed: false },
+            { taskTitle: "راه‌اندازی هاست", taskStatus: "Not Started" },
+            { taskTitle: "پیکربندی تولید", taskStatus: "Not Started" },
+            { taskTitle: "عرضه محصول", taskStatus: "Not Started" },
         ],
     },
 ];
@@ -44,12 +44,12 @@ const defaultStages = [
 
 const taskSchema = new mongoose.Schema({
     taskTitle: { type: String, required: true, immutable: true },
-    completed: { type: Boolean, required: true },
+    taskStatus: { type: String, required: true, enum: ['Completed', 'In Progress', 'Not Started'] },
 });
 
 const stageSchema = new mongoose.Schema({
     stageTitle: { type: String, required: true, immutable: true },
-    status: { type: String, required: true, enum: ['Completed', 'In Progress', 'Not Started'] },
+    stageStatus: { type: String, required: true, enum: ['Completed', 'In Progress', 'Not Started'] },
     tasks: { type: [taskSchema], required: true },
 });
 
