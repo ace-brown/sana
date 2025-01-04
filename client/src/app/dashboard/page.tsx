@@ -56,6 +56,7 @@ export default function AccountPage() {
       setProfileData(responseData.user);
     } catch (err) {}
   }
+
   useEffect(() => {
     fetchUserProfile();
   }, [sendRequest, userId]);

@@ -59,11 +59,11 @@ export interface Report {
   stages: {
     _id?: string;
     stageTitle: string;
-    status: "Completed" | "In Progress" | "Not Started";
+    stageStatus: "Completed" | "In Progress" | "Not Started";
     tasks: {
       _id?: string;
       taskTitle: string;
-      completed: boolean;
+      taskStatus: string;
     }[];
   }[];
   createdAt?: Date;
@@ -87,4 +87,10 @@ export interface UserType {
     language?: "en" | "fa";
     notifications?: boolean;
   };
+}
+
+export interface SelectedTaskType {
+  _id?: string;
+  taskTitle: string;
+  taskStatus: string;
 }

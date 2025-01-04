@@ -56,7 +56,7 @@ export default function ReportPage() {
             className="w-[300px]"
           />
           <Button onClick={handleProgressBarClick}>
-            نوار پیشرفت را پیدا کن
+            خط زمانی پیشرفت را پیدا کن
           </Button>
         </div>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

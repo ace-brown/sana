@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Container from "../common/container";
-import { Report } from "@/types";
+import { Report, SelectedTaskType } from "@/types";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export default function ProgressBar({
-  foundReport,
-}: {
+type ProgressBarType = {
   foundReport: Report | undefined;
-}) {
+};
+
+export default function ProgressBar({ foundReport }: ProgressBarType) {
+  const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<
+    SelectedTaskType | undefined
+  >();
+
   // Helper function to check if the status is "Completed"
   function isStatusCompleted(status: string): boolean {
     return status === "Completed";
@@ -47,79 +57,88 @@ export default function ProgressBar({
   }
 
   return (
-    <Container>
-      <div className="container mx-auto p-6">
-        <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
-          خط زمانی پیشرفت
-        </h2>
-        <p>{`شناسه گزارش  : ${foundReport.id}`}</p>
-        <p className="mb-12">{`عنوان ایده : ${foundReport.ideaTitle}`}</p>
-        <div className="flex items-center justify-between relative">
-          {foundReport.stages.map((stage, index) => (
-            <React.Fragment key={index}>
-              {/* Node Title */}
-              <div className="text-center w-1/4">
-                <h3 className="font-bold text-lg mb-2">{stage.stageTitle}</h3>
+    <div className="container">
+      <h2 className="text-3xl sm:text-xl font-semibold text-gray-800 mb-2">
+        خط زمانی پیشرفت
+      </h2>
+      <p>{`شناسه گزارش  : ${foundReport.id}`}</p>
+      <p className="mb-12">{`عنوان ایده : ${foundReport.ideaTitle}`}</p>
+      <div className="flex items-center justify-between relative">
+        {foundReport.stages.map((stage, index) => (
+          <React.Fragment key={index}>
+            {/* Node Title */}
+            <div className="text-center w-1/4">
+              <h3 className="text-lg mb-2">{stage.stageTitle}</h3>
+              <div
+                className={`h-4 w-4 rounded-full mx-auto ${
+                  isStatusCompleted(stage.stageStatus)
+                    ? "bg-green-500"
+                    : isStatusInProgress(stage.stageStatus)
+                    ? "bg-yellow-500"
+                    : "bg-gray-300"
+                }`}
+              ></div>
+            </div>
+            {/* Connecting Line */}
+            {index < foundReport.stages.length - 1 && (
+              <div className="absolute top-10 w-full h-1 -z-10">
                 <div
-                  className={`h-4 w-4 rounded-full mx-auto ${
-                    isStatusCompleted(stage.status)
-                      ? "bg-green-500"
-                      : isStatusInProgress(stage.status)
-                      ? "bg-yellow-500"
-                      : "bg-gray-300"
-                  }`}
+                  className="h-1 bg-gray-300"
+                  style={{
+                    width: `${
+                      ((index + 1) / (foundReport.stages.length - 1)) * 100
+                    }%`,
+                  }}
                 ></div>
               </div>
-              {/* Connecting Line */}
-              {index < foundReport.stages.length - 1 && (
-                <div className="absolute top-10 w-full h-1 -z-10">
-                  <div
-                    className="h-1 bg-gray-300"
-                    style={{
-                      width: `${
-                        ((index + 1) / (foundReport.stages.length - 1)) * 100
-                      }%`,
-                    }}
-                  ></div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-        {/* Cards */}
-        <div className="flex justify-between mt-4 gap-4">
-          {foundReport.stages.map((stage, index) => (
-            <div
-              key={index}
-              className="w-1/4 p-4 border rounded-lg shadow-lg bg-white"
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+      {/* Cards */}
+      <div className="flex justify-between mt-3 gap-3">
+        {foundReport.stages.map((stage, index) => (
+          <div
+            key={index}
+            className="w-1/4 p-2 pb-4 border rounded-lg shadow-lg bg-white"
+          >
+            <h4
+              className={`text-center ${
+                isStatusCompleted(stage.stageStatus)
+                  ? "text-green-500"
+                  : isStatusInProgress(stage.stageStatus)
+                  ? "text-yellow-500"
+                  : "text-gray-400"
+              }`}
             >
-              <h4
-                className={`font-semibold  text-center ${
-                  isStatusCompleted(stage.status)
-                    ? "text-green-500"
-                    : isStatusInProgress(stage.status)
-                    ? "text-yellow-500"
-                    : "text-gray-400"
-                }`}
-              >
-                {translateStatus(stage.status)}
-              </h4>
-              <ul className="mt-2 text-sm text-gray-600">
-                {stage.tasks.map((task, i) => (
-                  <li
-                    key={i}
-                    className={`flex items-center gap-4 ${
-                      task.completed ? "text-green-600" : "text-gray-600"
+              {translateStatus(stage.stageStatus)}
+            </h4>
+            <ul className="mt-2 text-sm text-gray-600">
+              {stage.tasks.map((task, i) => (
+                <li key={i}>
+                  <button
+                    onClick={() => {
+                      setSelectedTask(task);
+                      setIsTaskDialogOpen(true);
+                    }}
+                    className={`flex gap-2 w-full text-right ${
+                      task.taskStatus === "Completed"
+                        ? "text-green-600"
+                        : task.taskStatus === "In Progress"
+                        ? "text-yellow-600"
+                        : "text-gray-600"
                     }`}
                   >
                     <span
                       className={`h-4 w-4 flex-shrink-0 rounded-full border ${
-                        task.completed
+                        task.taskStatus === "Completed"
                           ? "bg-green-500 border-green-500"
+                          : task.taskStatus === "In Progress"
+                          ? "bg-yellow-500 border-yellow-500"
                           : "border-gray-300"
                       } flex items-center justify-center`}
                     >
-                      {task.completed && (
+                      {task.taskStatus === "Completed" && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-3 w-3 text-white"
@@ -135,13 +154,66 @@ export default function ProgressBar({
                       )}
                     </span>
                     {task.taskTitle}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </Container>
+      {/* Task Modal */}
+      <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
+        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+          <DialogHeader>
+            <DialogTitle className="text-center">
+              {selectedTask?.taskTitle}
+            </DialogTitle>
+          </DialogHeader>
+          <TaskModalContent task={selectedTask} />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+export function TaskModalContent({
+  task,
+}: {
+  task: SelectedTaskType | undefined;
+}) {
+  return (
+    <div>
+      <div className="flex flex-col space-y-2">
+        <Label htmlFor="measures" className="font-medium">
+          اقدامات لازم
+        </Label>
+        <Textarea id="measures" className="resize-none" />
+      </div>
+      <div className="flex gap-4 mt-4">
+        <RadioGroup
+          defaultValue={
+            task?.taskStatus === "Completed"
+              ? "Completed"
+              : task?.taskStatus === "In Progress"
+              ? "In Progress"
+              : "Not Started"
+          }
+          className="flex"
+        >
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="Completed" id="completed" />
+            <Label htmlFor="completed">وظیفه تکمیل‌شده است</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="In Progress" id="in-progress" />
+            <Label htmlFor="in-progress">وظیفه در حال اجراست</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="Not Started" id="not-started" />
+            <Label htmlFor="not-started">وظیفه شروع نشده است</Label>
+          </div>
+        </RadioGroup>
+      </div>
+    </div>
   );
 }
