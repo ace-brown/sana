@@ -33,7 +33,10 @@ export default function IdeasPage() {
         "http://localhost:5000/api/ideas",
         "POST",
         JSON.stringify({ ...formData, ownerId }),
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
         "ایده با موفقیت ایجاد شد"
       );
 

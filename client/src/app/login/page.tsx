@@ -34,7 +34,11 @@ export default function LoginPage() {
         },
         "با موفقیت وارد شدید"
       );
-      auth.login(responseData.user.id, responseData.user.profile.fullName);
+      auth.login(
+        responseData.userId,
+        responseData.fullName,
+        responseData.token
+      );
       router.push("/dashboard");
     } catch (err) {}
   };

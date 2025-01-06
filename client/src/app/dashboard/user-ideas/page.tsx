@@ -37,7 +37,10 @@ export default function UserIdeas() {
         `http://localhost:5000/api/ideas/${ideaToEdit?.id}`,
         "PATCH",
         JSON.stringify(updatedIdea),
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
         "ایده با موفقیت ویرایش شد"
       );
 
@@ -63,7 +66,7 @@ export default function UserIdeas() {
           `http://localhost:5000/api/ideas/${idea.id}`,
           "DELETE",
           null,
-          {},
+          { Authorization: "Bearer " + auth.token },
           "ایده با موفقیت حذف شد"
         );
 
@@ -82,7 +85,10 @@ export default function UserIdeas() {
   async function fetchIdeas() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/ideas/user/${userId}`
+        `http://localhost:5000/api/ideas/user/${userId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
       );
 
       setIdeaData(responseData.ideasForUser);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Toaster } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
 import { Report } from "@/types";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { AuthContext } from "@/context/auth-context";
 
 export default function ReportPage() {
   const [showProgressBar, setShowProgressBar] = useState(false);
   const [reportId, setReportId] = useState("");
-  const [report, setReport] = useState<Report | undefined>();
   const { isLoading, error, sendRequest } = useHttpClient();
+  const [report, setReport] = useState<Report | undefined>();
+  const auth = useContext(AuthContext);
 
   function handleReportIdChange(e: React.ChangeEvent<HTMLInputElement>) {
     setReportId(e.target.value);
@@ -27,7 +29,10 @@ export default function ReportPage() {
         `http://localhost:5000/api/reports/${reportId}`,
         "GET",
         null,
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
         "گزارش با موفقیت پیدا شد"
       );
       setReport(responseData.report);

@@ -49,7 +49,10 @@ export default function EditUserProfile({
         `http://localhost:5000/api/users/${userId}`,
         "PATCH",
         JSON.stringify(formData),
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
         "رخ‌نما با موفقیت به‌روزرسانی شد"
       );
       setProfileData(responseData.user);

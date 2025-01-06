@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";
+import { AuthContext } from "@/context/auth-context";
 
 interface User {
   _id: string;
@@ -30,13 +31,20 @@ export default function UsersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const auth = useContext(AuthContext);
 
   async function fetchUsers(currentPage: number) {
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/users?page=${currentPage}&limit=10`
+        `http://localhost:5000/api/users?page=${currentPage}&limit=10`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + auth.token,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("دریافت کاربران با شکست مواجه شد");

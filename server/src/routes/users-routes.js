@@ -1,14 +1,10 @@
 const express = require('express')
-const router = express.Router()
-
-const usersControllers = require('../controllers/users-controllers')
 const { check } = require('express-validator')
 
-// Get current user 
-router.get('/:uid', usersControllers.getCurrentUser)
+const usersControllers = require('../controllers/users-controllers')
+const checkAuth = require('../middleware/check-auth');
 
-// Get the list of users 
-router.get('/', usersControllers.getUsers)
+const router = express.Router()
 
 // Create a new user
 router.post('/signup', [
@@ -25,6 +21,15 @@ router.post('/signup', [
 
 // Log in a user
 router.post('/login', usersControllers.login)
+
+// Middleware to block any requests that dosen't have jwt credentials
+router.use(checkAuth);
+
+// Get current user 
+router.get('/:uid', usersControllers.getCurrentUser)
+
+// Get the list of users 
+router.get('/', usersControllers.getUsers)
 
 // Update a user
 router.patch('/:uid', usersControllers.updateUser)

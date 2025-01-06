@@ -56,7 +56,10 @@ export default function TaskModalContent({
         `http://localhost:5000/api/reports/${foundReport.id}`,
         "PATCH",
         JSON.stringify(updatedReport),
-        { "Content-Type": "application/json" },
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
         "گزارش‌ با موفقیت به‌روزرسانی شد"
       );
       closeTaskModal();

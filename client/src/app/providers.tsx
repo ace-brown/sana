@@ -7,20 +7,25 @@ import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/auth-context";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
   const router = useRouter();
 
-  const login = useCallback(function (uid: string, fullName: string) {
-    setIsLoggedIn(true);
+  const login = useCallback(function (
+    uid: string,
+    fullName: string,
+    token: string
+  ) {
+    setToken(token);
     setUserId(uid);
     setFullName(fullName);
-  }, []);
+  },
+  []);
 
   const logout = useCallback(function () {
     router.push("/");
-    setIsLoggedIn(false);
+    setToken(null);
     setUserId(null);
     setFullName(null);
   }, []);
@@ -29,7 +34,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AuthContext.Provider
         value={{
-          isLoggedIn: isLoggedIn,
+          isLoggedIn: !!token,
+          token: token,
           login: login,
           logout: logout,
           userId: userId,

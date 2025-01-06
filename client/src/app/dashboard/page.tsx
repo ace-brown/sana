@@ -35,7 +35,7 @@ export default function AccountPage() {
         `http://localhost:5000/api/users/${userId}`,
         "DELETE",
         null,
-        {},
+        { Authorization: "Bearer " + auth.token },
         "حساب کاربری شما با موفقیت حذف شد"
       );
 
@@ -50,7 +50,10 @@ export default function AccountPage() {
   async function fetchUserProfile() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/${userId}`
+        `http://localhost:5000/api/users/${userId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
       );
 
       setProfileData(responseData.user);

@@ -1,9 +1,13 @@
 const express = require('express')
 const { check } = require('express-validator')
 
+const ideasControllers = require('../controllers/ideas-controllers')
+const checkAuth = require('../middleware/check-auth');
+
 const router = express.Router()
 
-const ideasControllers = require('../controllers/ideas-controllers')
+// Middleware to block any requests that dosen't have jwt credentials
+router.use(checkAuth);
 
 // Get a spesific idea by a specific idea id 
 router.get('/:eid', ideasControllers.getIdeaById)
