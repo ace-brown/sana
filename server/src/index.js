@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const usersRoutes = require('./routes/users-routes')
 const reportsRoutes = require('./routes/reports-routes')
 const ideasRoutes = require('./routes/ideas-routes')
+const downloadRoutes = require('./routes/download-routes')
 const HttpError = require('./models/http-error')
 
 const app = express();
@@ -12,16 +13,22 @@ const port = 5000;
 // Middleware to parse JSON requests
 app.use(express.json());
 
+// Middleware to handle CORS (Cross-Origin Resource Sharing)
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     );
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204); // Preflight response
+    }
     next();
 });
+
+// Download Routes
+app.use('/api/download', downloadRoutes);
 
 // Reports routes
 app.use('/api/reports', reportsRoutes);
