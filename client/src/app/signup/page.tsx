@@ -139,6 +139,7 @@ export default function SignupPage() {
                 ورود
               </Link>
             </p>
+            {error && <p className="text-center text-red-500 mb-8">{error}</p>}
           </CardContent>
         </Card>
       </div>

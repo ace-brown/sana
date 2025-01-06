@@ -50,7 +50,7 @@ export function useHttpClient() {
             return;
           }
           setError(err.message);
-          toast.error(err.message || "An unknown error occurred.");
+          // toast.error(err.message || "An unknown error occurred.");
         } else {
           setError("An unknown error occurred");
         }

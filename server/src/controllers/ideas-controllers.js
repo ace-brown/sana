@@ -150,6 +150,15 @@ async function updateIdea(req, res, next) {
             return next(new HttpError("Could not find an idea for the provided ID", 404));
         }
 
+        // Check if the idea is for the user
+        // if (idea.creator !== req.userData.userId) {
+        //     const error = new HttpError(
+        //         'You are not allowed to edit this idea.',
+        //         401
+        //     );
+        //     return next(error);
+        // }
+
         // Check if ideaTitle is being updated
         if (updates.ideaTitle && updates.ideaTitle !== idea.ideaTitle) {
             const report = await Report.findOne({ ideaId: idea._id });
