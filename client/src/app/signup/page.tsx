@@ -126,10 +126,6 @@ export default function SignupPage() {
               </div>
             </form>
 
-            {error && (
-              <p className="text-sm text-red-500 text-center mt-4">{error}</p>
-            )}
-
             <p className="text-sm text-center mt-4 text-gray-600">
               آیا قبلاً حساب کاربری دارید؟
               <Link
