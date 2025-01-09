@@ -68,7 +68,7 @@ export default function IdeasPage() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
           <DialogHeader>
-            <DialogTitle className="text-lg font-bold text-center">
+            <DialogTitle className="text-lg font-bold text-left">
               ثبت ایده جدید
             </DialogTitle>
           </DialogHeader>

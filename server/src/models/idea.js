@@ -4,6 +4,7 @@ const IdeaSchema = new mongoose.Schema({
     ownerId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
     reportId: { type: mongoose.Schema.Types.ObjectId, ref: 'Report' },
     fatherName: { type: String, required: true, trim: true },
+    associate: { type: String, trim: true },
     country: { type: String, trim: true },
     state: { type: String, trim: true },
     city: { type: String, required: true, trim: true },

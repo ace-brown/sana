@@ -111,21 +111,28 @@ export default function RegisterIdeaForm({
         <div className="grid grid-cols-2 gap-8">
           {/* First Column */}
           <div className="space-y-2">
-            {/* Father's Name Field */}
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                نام پدر
-                <span className="text-red-500"> *</span>
-              </label>
-              <Input
-                type="text"
-                {...register("fatherName", {
-                  required: "نام پدر الزامی است",
-                })}
-              />
-              {RenderError(errors, "fatherName")}
+            {/* Father's and accociate Name Field */}
+            <div className="flex gap-4">
+              <div className="flex-1">
+                <label className="block text-sm font-medium mb-2">
+                  نام پدر
+                  <span className="text-red-500"> *</span>
+                </label>
+                <Input
+                  type="text"
+                  {...register("fatherName", {
+                    required: "نام پدر الزامی است",
+                  })}
+                />
+                {RenderError(errors, "fatherName")}
+              </div>
+              <div className="flex-1">
+                <label className="block text-sm font-medium mb-2">
+                  نام شرکا
+                </label>
+                <Input type="text" {...register("associate")} />
+              </div>
             </div>
-
             {/* Country Field */}
             <div>
               <label className="block text-sm font-medium mb-2">کشور</label>

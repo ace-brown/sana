@@ -17,6 +17,7 @@ export type SatrtUpCardDataType = {
 
 export type RegisterIdeaType = {
   fatherName: string;
+  associate?: string;
   country?: string;
   state?: string;
   city: string;
@@ -36,6 +37,7 @@ export type UserIdeaType = {
   ownerId: string;
   reportId?: string;
   fatherName: string;
+  associate?: string;
   country?: string;
   state?: string;
   city: string;

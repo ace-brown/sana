@@ -149,10 +149,14 @@ export default function UserIdeas() {
                 <p>{idea.fatherName}</p>
               </div>
               <div>
+                <h2 className="font-bold text-lg">شرکا</h2>
+                <p>{idea?.associate}</p>
+              </div>
+              {/* Third Row */}
+              <div>
                 <h2 className="font-bold text-lg">کشور</h2>
                 <p>{idea.country}</p>
               </div>
-              {/* Third Row */}
               <div>
                 <h2 className="font-bold text-lg">استان</h2>
                 <p>{idea.state}</p>
@@ -161,11 +165,11 @@ export default function UserIdeas() {
                 <h2 className="font-bold text-lg">شهر</h2>
                 <p>{idea.city}</p>
               </div>
+              {/* ّFourth Row */}
               <div>
                 <h2 className="font-bold text-lg">شغل</h2>
                 <p>{idea.career}</p>
               </div>
-              {/* ّFourth Row */}
               <div>
                 <h2 className="font-bold text-lg">وضعیت تاهل</h2>
                 <p>{idea.maritalStatus}</p>
@@ -174,11 +178,11 @@ export default function UserIdeas() {
                 <h2 className="font-bold text-lg">جنسیت</h2>
                 <p>{idea.gender}</p>
               </div>
+              {/* Fifth Row */}
               <div>
                 <h2 className="font-bold text-lg">سن</h2>
                 <p>{idea.age}</p>
               </div>
-              {/* Fifth Row */}
               <div>
                 <h2 className="font-bold text-lg">شماره تماس</h2>
                 <p>{idea.mobileNumber}</p>
@@ -187,12 +191,11 @@ export default function UserIdeas() {
                 <h2 className="font-bold text-lg">رشته تحصیلی</h2>
                 <p>{idea.branchOfStudy}</p>
               </div>
+              {/* Sexth Row */}
               <div>
                 <h2 className="font-bold text-lg">زمینه تخصصی</h2>
                 <p>{idea.branchDetail}</p>
               </div>
-
-              {/* Sexth Row */}
               <div className="md:col-span-3">
                 <h2 className="font-bold text-lg">توضیحات</h2>
                 <p>{idea.ideaDescription}</p>

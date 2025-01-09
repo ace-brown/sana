@@ -54,6 +54,7 @@ async function createIdea(req, res, next) {
     const {
         ownerId,
         fatherName,
+        associate,
         country,
         state,
         city,
@@ -72,6 +73,7 @@ async function createIdea(req, res, next) {
     const createdIdea = new Idea({
         ownerId,
         fatherName,
+        associate,
         country,
         state,
         city,
