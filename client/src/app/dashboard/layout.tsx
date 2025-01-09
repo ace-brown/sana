@@ -9,6 +9,7 @@ import {
   FaChartBar,
   FaUsers,
   FaCog,
+  FaShoppingCart,
   FaFileAlt,
   FaPenFancy,
 } from "react-icons/fa";
@@ -25,6 +26,7 @@ const links = [
     label: "ثبت ایده جدید",
     icon: <FaPenFancy />,
   },
+  { href: "/dashboard/costs", label: "هزینه ها", icon: <FaShoppingCart /> },
   { href: "/dashboard/users", label: "کاربران", icon: <FaUsers /> },
   // { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },
   // { href: "/dashboard/settings", label: "تنظیمات", icon: <FaCog /> },

@@ -29,7 +29,7 @@ export default function IdeasPage() {
   async function handleIdeaSubmission(formData: RegisterIdeaType) {
     const ownerId = auth.userId;
     try {
-      await sendRequest(
+      const responseData = await sendRequest(
         "http://localhost:5000/api/ideas",
         "POST",
         JSON.stringify({ ...formData, ownerId }),
@@ -41,6 +41,7 @@ export default function IdeasPage() {
       );
 
       setIsDialogOpen(false);
+      auth.getReportId(responseData.idea.reportId);
       router.push("/dashboard/user-ideas");
     } catch (err) {}
   }

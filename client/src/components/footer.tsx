@@ -19,7 +19,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-100">
+            <Link href="/contact" className="hover:text-gray-100">
               تماس
             </Link>
           </li>

@@ -6,7 +6,7 @@ const defaultStages = [
         stageTitle: "ارزیابی ایده",
         stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "جلسه طوفان فکری", taskStatus: "Not Started" },
+            { taskTitle: "جلسه ایده پردازی", taskStatus: "Not Started" },
             { taskTitle: "تحقیق بازار", taskStatus: "Not Started" },
             { taskTitle: "تحلیل رقبا", taskStatus: "Not Started" },
             { taskTitle: "مطالعه امکان‌سنجی", taskStatus: "Not Started" },

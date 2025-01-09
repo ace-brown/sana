@@ -12,16 +12,24 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [fullName, setFullName] = useState<string | null>(null);
+  const [reportId, setReportId] = useState<string | null>(null);
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>(
     null
   );
   const router = useRouter();
 
+  const getReportId = useCallback(
+    function (reportId: string | null) {
+      setReportId(reportId);
+    },
+    [userId]
+  );
+
   const login = useCallback(function (
     uid: string,
     fullName: string,
     token: string,
-    expirationDate: Date
+    expirationDate?: Date
   ) {
     setToken(token);
     setUserId(uid);
@@ -48,6 +56,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setUserId(null);
       setFullName(null);
       setTokenExpirationDate(null);
+      setReportId(null);
       localStorage.removeItem("userData");
     },
     [router]
@@ -76,12 +85,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           expiration: string;
         } = JSON.parse(storedData);
 
-        if (
-          parsedData.userId &&
-          parsedData.fullName &&
-          parsedData.token &&
-          new Date(parsedData.expiration) > new Date()
-        ) {
+        if (parsedData.token && new Date(parsedData.expiration) > new Date()) {
           login(
             parsedData.userId,
             parsedData.fullName,
@@ -101,10 +105,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
         value={{
           isLoggedIn: !!token,
           token: token,
-          login: login,
-          logout: logout,
           userId: userId,
           fullName: fullName,
+          reportId: reportId,
+          login: login,
+          logout: logout,
+          getReportId: getReportId,
         }}
       >
         {children}
