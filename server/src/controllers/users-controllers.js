@@ -9,7 +9,7 @@ const { Report } = require("../models/report");
 
 
 // Get the current user data
-async function getCurrentUser(req, res, next) {
+async function getUserById(req, res, next) {
     try {
         const { uid } = req.params;
 
@@ -264,7 +264,7 @@ async function deleteUser(req, res, next) {
 }
 
 
-exports.getCurrentUser = getCurrentUser
+exports.getUserById = getUserById
 exports.getUsers = getUsers
 exports.signup = signup
 exports.login = login

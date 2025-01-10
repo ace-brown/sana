@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import {
   Table,
   TableBody,
@@ -32,6 +34,7 @@ export default function UsersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const auth = useContext(AuthContext);
+  const router = useRouter();
 
   async function fetchUsers(currentPage: number) {
     setIsLoading(true);
@@ -65,8 +68,6 @@ export default function UsersPage() {
 
   return (
     <Card className="p-8 mt-8 shadow">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
-
       {isLoading && (
         <div>
           <Skeleton className="h-8 w-full mb-2" />
@@ -75,18 +76,19 @@ export default function UsersPage() {
         </div>
       )}
 
-      {error && <p className="text-red-500">Error: {error}</p>}
+      {error && <p className="text-red-500">خطا: {error}</p>}
 
       {!isLoading && !error && (
         <>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Avatar</TableHead>
-                <TableHead>Username</TableHead>
-                <TableHead>Full Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Role</TableHead>
+                <TableHead className="text-right">آواتار</TableHead>
+                <TableHead className="text-right">نام کاربری</TableHead>
+                <TableHead className="text-right">نام کامل</TableHead>
+                <TableHead className="text-right">ایمیل</TableHead>
+                <TableHead className="text-right">نقش</TableHead>
+                <TableHead className="text-right">جزئیات</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -96,17 +98,27 @@ export default function UsersPage() {
                     {user.profile.avatar ? (
                       <img
                         src={user.profile.avatar}
-                        alt={`${user.username}'s avatar`}
+                        alt={`آواتار ${user.username}`}
                         className="w-8 h-8 rounded-full"
                       />
                     ) : (
-                      <span>No Avatar</span>
+                      <span>بدون آواتار</span>
                     )}
                   </TableCell>
                   <TableCell>{user.username}</TableCell>
                   <TableCell>{user.profile.fullName}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        router.push(`/dashboard/users/${user._id}`)
+                      }
+                    >
+                      مشاهده
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -118,17 +130,17 @@ export default function UsersPage() {
               disabled={page === 1}
               variant="outline"
             >
-              Previous
+              قبلی
             </Button>
             <span>
-              Page {page} of {totalPages}
+              صفحه {page} از {totalPages}
             </span>
             <Button
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
               disabled={page === totalPages}
               variant="outline"
             >
-              Next
+              بعدی
             </Button>
           </div>
         </>

@@ -18,7 +18,6 @@ import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
-import ShortenAndCopy from "@/lib/ShortenAndCopy";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);

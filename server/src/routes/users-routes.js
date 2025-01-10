@@ -26,7 +26,7 @@ router.post('/login', usersControllers.login)
 router.use(checkAuth);
 
 // Get current user 
-router.get('/:uid', usersControllers.getCurrentUser)
+router.get('/:uid', usersControllers.getUserById)
 
 // Get the list of users 
 router.get('/', usersControllers.getUsers)

@@ -29,9 +29,10 @@ export default function AccountPage() {
   const auth = useContext(AuthContext);
   const userId = auth.userId;
 
+  // Delete user account
   async function handleDeleteAccount() {
     try {
-      const response = await sendRequest(
+      await sendRequest(
         `http://localhost:5000/api/users/${userId}`,
         "DELETE",
         null,
@@ -47,6 +48,7 @@ export default function AccountPage() {
     }
   }
 
+  // Fetch user profile
   async function fetchUserProfile() {
     try {
       const responseData = await sendRequest(
@@ -64,6 +66,7 @@ export default function AccountPage() {
     fetchUserProfile();
   }, [sendRequest, userId]);
 
+  // Return the main content
   return (
     <div>
       <Toaster position="top-center" richColors />

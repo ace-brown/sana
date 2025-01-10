@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useState } from "react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -154,9 +155,9 @@ export default function CostsPage() {
           <h2 className="text-2xl font-bold">نیاز به کمک دارید؟</h2>
           <p className="text-gray-600 mt-2">
             سوالی درباره برنامه خود دارید یا به اطلاعات بیشتری نیاز دارید؟ لطفاً{" "}
-            <a href="/contact" className="text-blue-500 underline">
+            <Link href="/contact" className="text-blue-500 underline">
               با ما تماس بگیرید
-            </a>
+            </Link>
             .
           </p>
         </div>
