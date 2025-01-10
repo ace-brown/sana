@@ -41,7 +41,9 @@ export default function ShortenAndCopy({
         data-tooltip-content={tooltipText}
       >
         <FiCopy className="text-gray-500 hover:text-blue-600 transition duration-200" />
-        <span className="text-blue-600">{shortenedId}</span>
+        <span className="text-blue-600" dir="ltr">
+          {shortenedId}
+        </span>
       </div>
       <Tooltip id="copy-tooltip" />
     </div>

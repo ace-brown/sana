@@ -117,6 +117,9 @@ export default function UserIdeas() {
           نکرده‌اید، از بخش ثبت ایده جدید یک ایده جدید ایجاد کنید.
         </p>
       )}
+      {/*********************************************************************
+       *Refactor 1: Idea card is used here and on the dashboard/user/[id]/deail
+       **********************************************************************/}
       {/* Check if there are ideas */}
       {!isLoading && ideaData?.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mb-6">
