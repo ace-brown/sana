@@ -125,7 +125,9 @@ async function signup(req, res, next) {
         userId: createdUser.id,
         email: createdUser.email,
         fullName: createdUser.profile.fullName,
+        username: createdUser.username,
         token: token
+
     })
 }
 
@@ -177,6 +179,7 @@ async function login(req, res, next) {
         userId: existingUser.id,
         email: existingUser.email,
         fullName: existingUser.profile.fullName,
+        username: existingUser.username,
         token: token
     });
 }

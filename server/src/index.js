@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const usersRoutes = require('./routes/users-routes')
 const reportsRoutes = require('./routes/reports-routes')
+const costsRoutes = require('./routes/costs-routes')
 const ideasRoutes = require('./routes/ideas-routes')
 const downloadRoutes = require('./routes/download-routes')
 const HttpError = require('./models/http-error')
@@ -32,6 +33,9 @@ app.use('/api/download', downloadRoutes);
 
 // Reports routes
 app.use('/api/reports', reportsRoutes);
+
+// Costs routes
+app.use('/api/costs', costsRoutes);
 
 // Users routes
 app.use('/api/users', usersRoutes);

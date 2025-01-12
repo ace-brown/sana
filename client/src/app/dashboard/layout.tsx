@@ -18,18 +18,44 @@ import { Separator } from "@/components/ui/separator";
 import { AuthContext } from "@/context/auth-context";
 
 const links = [
-  { href: "/dashboard", label: "رخ‌ نما", icon: <FaUser /> },
-  { href: "/dashboard/user-ideas", label: "ایده های من", icon: <FaSeedling /> },
-  { href: "/dashboard/reports", label: "گزارش های من", icon: <FaFileAlt /> },
+  {
+    href: "/dashboard",
+    asideLabel: "رخ‌ نما",
+    pageLabel: "رخ نمای",
+    icon: <FaUser />,
+  },
+  {
+    href: "/dashboard/user-ideas",
+    asideLabel: "ایده های من",
+    pageLabel: "ایده های",
+    icon: <FaSeedling />,
+  },
+  {
+    href: "/dashboard/reports",
+    asideLabel: "گزارش های من",
+    pageLabel: "گزارش های",
+    icon: <FaFileAlt />,
+  },
   {
     href: "/dashboard/register-idea",
-    label: "ثبت ایده جدید",
+    asideLabel: "ثبت ایده جدید",
+    pageLabel: "ثبت ایده جدید برای",
     icon: <FaPenFancy />,
   },
-  { href: "/dashboard/costs", label: "هزینه ها", icon: <FaShoppingCart /> },
-  { href: "/dashboard/users", label: "کاربران", icon: <FaUsers /> },
-  // { href: "/dashboard/analytics", label: "نمودارها", icon: <FaChartBar /> },
-  // { href: "/dashboard/settings", label: "تنظیمات", icon: <FaCog /> },
+  {
+    href: "/dashboard/costs",
+    asideLabel: "هزینه های من",
+    pageLabel: "هزینه های",
+    icon: <FaShoppingCart />,
+  },
+  {
+    href: "/dashboard/users",
+    asideLabel: "کاربران",
+    pageLabel: "کاربران",
+    icon: <FaUsers />,
+  },
+  // { href: "/dashboard/analytics", asideLabel: "نمودارها",pageLabel:  icon: <FaChartBar /> },
+  // { href: "/dashboard/settings", asideLabel: "تنظیمات",pageLabel icon: <FaCog /> },
 ];
 
 export default function LocaleLayout({
@@ -41,11 +67,11 @@ export default function LocaleLayout({
   const pathname = usePathname();
   // Find the current label for the heading
   const currentLink = links.find((link) => link.href === pathname);
-  const heading = currentLink ? currentLink.label : "";
+  const heading = currentLink ? currentLink.pageLabel : "";
 
   return (
     <div className="w-[80%] ml-auto mr-[8rem] shadow border p-8 mt-8 rounded-[0.5rem]">
-      <h1 className="text-2xl">{heading}</h1>
+      <h1 className="text-2xl">{`${heading} ${auth.username}`}</h1>
       <Separator className="bg-border h-[1px] w-full mt-6 mb-4" />
       <div>
         <aside className="fixed top-[4rem] right-0 w-[200px] h-screen border shadow">
@@ -61,7 +87,7 @@ export default function LocaleLayout({
                 }`}
               >
                 {link.icon}
-                {link.label}
+                {link.asideLabel}
               </Link>
             ))}
           </nav>

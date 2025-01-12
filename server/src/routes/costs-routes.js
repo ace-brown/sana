@@ -19,7 +19,7 @@ router.get('/user/:uid', costControllers.getCostsByUserId)
 router.post(
     '/',
     [
-        check('service').notEmpty(),
+        // check('service').notEmpty(),
         check('price').notEmpty(),
     ],
     costControllers.createCost

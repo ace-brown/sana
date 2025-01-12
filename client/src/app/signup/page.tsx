@@ -53,6 +53,7 @@ export default function SignupPage() {
       auth.login(
         responseData.userId,
         responseData.fullName,
+        responseData.username,
         responseData.token
       );
       router.push("/dashboard");

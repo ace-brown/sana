@@ -39,8 +39,6 @@ const costSchema = new mongoose.Schema(
                     expert: { type: String, required: true }
                 }
             ],
-            default: [
-                { serviceName: "جلسه ایده پردازی", price: 0, expert: "" },]
         }
     },
     { timestamps: true }
