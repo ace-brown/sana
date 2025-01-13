@@ -17,11 +17,19 @@ export default function UserDetailsPage({
   params: { id: string };
 }) {
   const [user, setUser] = useState<UserType | null>(null);
+  const [reportId, setReportId] = useState<string | null>(null);
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
   const { isLoading, error, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const userId = auth.userId;
   const router = useRouter();
+
+  // Handle estimate cost button click - redirect to estimate-cost page
+  const handleEstimateCost = () => {
+    router.push(
+      `/dashboard/users/${params.id}/estimate-cost?userId=${userId}&reportId=someReportId`
+    );
+  };
 
   // Fetch user details when component mounts or when user ID changes
   useEffect(() => {
@@ -165,105 +173,119 @@ export default function UserDetailsPage({
         {!isLoading && ideaData?.length > 0 && (
           <div className="grid grid-cols-1 gap-4 mb-6">
             {ideaData.map((idea, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white"
-              >
-                {/* First Row */}
-                <div>
-                  <h2 className="font-bold text-lg">عنوان ایده</h2>
-                  <p>{idea.ideaTitle}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">شناسه گزارش‌</h2>
-                  <p>
-                    {idea.reportId ? (
-                      <ShortenAndCopy id={idea.reportId} />
-                    ) : (
-                      "اطلاعات موجود نیست"
-                    )}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
-                  <p>{formatDate(idea.createdAt)}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
-                  <p>{auth.fullName}</p>
-                </div>
+              <div>
+                <div
+                  key={index}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white"
+                >
+                  {/* First Row */}
+                  <div>
+                    <h2 className="font-bold text-lg">عنوان ایده</h2>
+                    <p>{idea.ideaTitle}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">شناسه گزارش‌</h2>
+                    <p>
+                      {idea.reportId ? (
+                        <ShortenAndCopy id={idea.reportId} />
+                      ) : (
+                        "اطلاعات موجود نیست"
+                      )}
+                    </p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
+                    <p>{formatDate(idea.createdAt)}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                    <p>{auth.fullName}</p>
+                  </div>
 
-                {/* Second Row */}
-                <div>
-                  <h2 className="font-bold text-lg">نام پدر</h2>
-                  <p>{idea.fatherName}</p>
+                  {/* Second Row */}
+                  <div>
+                    <h2 className="font-bold text-lg">نام پدر</h2>
+                    <p>{idea.fatherName}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">شرکا</h2>
+                    <p>{idea.associate}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">کشور</h2>
+                    <p>{idea.country}</p>
+                  </div>
+                  {/* Third Row */}
+                  <div>
+                    <h2 className="font-bold text-lg">استان</h2>
+                    <p>{idea.state}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">شهر</h2>
+                    <p>{idea.city}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">شغل</h2>
+                    <p>{idea.career}</p>
+                  </div>
+                  {/* ّFourth Row */}
+                  <div>
+                    <h2 className="font-bold text-lg">وضعیت تاهل</h2>
+                    <p>{idea.maritalStatus}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">جنسیت</h2>
+                    <p>{idea.gender}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">سن</h2>
+                    <p>{idea.age}</p>
+                  </div>
+                  {/* Fifth Row */}
+                  <div>
+                    <h2 className="font-bold text-lg">شماره تماس</h2>
+                    <p>{idea.mobileNumber}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">رشته تحصیلی</h2>
+                    <p>{idea.branchOfStudy}</p>
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-lg">زمینه تخصصی</h2>
+                    <p>{idea.branchDetail}</p>
+                  </div>
+                  {/* Description Row */}
+                  <div className="md:col-span-3">
+                    <h2 className="font-bold text-lg">توضیحات</h2>
+                    <p>{idea.ideaDescription}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="font-bold text-lg">شرکا</h2>
-                  <p>{idea.associate}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">کشور</h2>
-                  <p>{idea.country}</p>
-                </div>
-                {/* Third Row */}
-                <div>
-                  <h2 className="font-bold text-lg">استان</h2>
-                  <p>{idea.state}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">شهر</h2>
-                  <p>{idea.city}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">شغل</h2>
-                  <p>{idea.career}</p>
-                </div>
-                {/* ّFourth Row */}
-                <div>
-                  <h2 className="font-bold text-lg">وضعیت تاهل</h2>
-                  <p>{idea.maritalStatus}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">جنسیت</h2>
-                  <p>{idea.gender}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">سن</h2>
-                  <p>{idea.age}</p>
-                </div>
-                {/* Fifth Row */}
-                <div>
-                  <h2 className="font-bold text-lg">شماره تماس</h2>
-                  <p>{idea.mobileNumber}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">رشته تحصیلی</h2>
-                  <p>{idea.branchOfStudy}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">زمینه تخصصی</h2>
-                  <p>{idea.branchDetail}</p>
-                </div>
-                {/* Description Row */}
-                <div className="md:col-span-3">
-                  <h2 className="font-bold text-lg">توضیحات</h2>
-                  <p>{idea.ideaDescription}</p>
+                {/* Buttons */}
+                <div className="flex">
+                  <Button
+                    className="mt-4"
+                    variant="outline"
+                    onClick={() => {
+                      router.push(
+                        `/dashboard/users/${params.id}/estimate-cost?userId=${user.id}&reportId=${idea.reportId}`
+                      );
+                    }}
+                  >
+                    تخمین هزینه
+                  </Button>
+                  <Button
+                    className="mt-4"
+                    variant="outline"
+                    onClick={() => router.push("/dashboard/users")}
+                  >
+                    بازگشت به صفحه کاربران
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
-
-      {/* Return Button */}
-      <Button
-        className="mt-4"
-        variant="outline"
-        onClick={() => router.push("/dashboard/users")}
-      >
-        بازگشت به صفحه کاربران
-      </Button>
     </Card>
   );
 }

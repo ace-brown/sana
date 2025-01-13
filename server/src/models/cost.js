@@ -36,7 +36,7 @@ const costSchema = new mongoose.Schema(
                         enum: predefinedServices.map(service => service.serviceName)
                     },
                     price: { type: Number, required: true },
-                    expert: { type: String, required: true }
+                    expert: { type: String }
                 }
             ],
         }

@@ -78,7 +78,6 @@ async function createReport(req, res, next) {
         await user.save({ session: sess })
         await sess.commitTransaction()
     } catch (err) {
-        console.log(err)
         return next(new HttpError("Creating report failed, please try again later.", 500))
     }
 

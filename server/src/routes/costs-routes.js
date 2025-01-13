@@ -16,14 +16,7 @@ router.get('/:cid', costControllers.getCostById)
 router.get('/user/:uid', costControllers.getCostsByUserId)
 
 // Create a new cost
-router.post(
-    '/',
-    [
-        // check('service').notEmpty(),
-        check('price').notEmpty(),
-    ],
-    costControllers.createCost
-)
+router.post('/', costControllers.createCost)
 
 // Update an cost
 router.patch('/:cid', costControllers.updateCost)

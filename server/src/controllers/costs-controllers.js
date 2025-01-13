@@ -4,44 +4,44 @@ const mongoose = require('mongoose')
 const HttpError = require('../models/http-error')
 const { Cost, predefinedServices } = require('../models/cost')
 
-// Get a spesific idea by a specific report id 
+// Get a spesific cost by a specific cost id 
 async function getCostById(req, res, next) {
-    const ideaId = req.params.eid;
+    const costId = req.params.cid;
 
-    let idea;
+    let cost;
     try {
-        idea = await Idea.findById(ideaId);
+        cost = await Cost.findById(costId);
     } catch (err) {
-        return next(new HttpError("Something went wrong, couldn't find idea.", 500))
+        return next(new HttpError("Something went wrong, couldn't find cost.", 500))
     }
 
-    if (!idea) {
-        return next(new HttpError("Could not find a idea for the provided id", 404))
+    if (!cost) {
+        return next(new HttpError("Could not find a cost for the provided id", 404))
     }
 
-    res.json({ idea: idea.toObject({ getters: true }) })
+    res.json({ cost: cost.toObject({ getters: true }) })
 }
 
-// Get all ideas for a specific user with a userId
+// Get all cost for a specific user with a userId
 async function getCostsByUserId(req, res, next) {
     const userId = req.params.uid;
 
-    let ideasForUser;
+    let costsForUser;
     try {
-        ideasForUser = await Idea.find({ ownerId: userId })
+        costsForUser = await Cost.find({ userId: userId })
     } catch (err) {
-        return next(new HttpError("Fetching ideas faild, please try again later", 500))
+        return next(new HttpError("Fetching costs faild, please try again later", 500))
     }
 
-    if (!ideasForUser || ideasForUser.length === 0) {
-        return next(new HttpError("Could not find ideas for the provided user id", 404))
+    if (!costsForUser || costsForUser.length === 0) {
+        return next(new HttpError("Could not find costs for the provided user id", 404))
     }
 
-    res.json({ ideasForUser: ideasForUser.map(r => r.toObject({ getters: true })) })
+    res.json({ costsForUser: costsForUser.map(c => c.toObject({ getters: true })) })
 }
 
-// Create a new idea
-async function createCost(req, res) {
+// Create a new cost
+async function createCost(req, res, next) {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -83,66 +83,67 @@ async function createCost(req, res) {
 
         await newCost.save();
 
-        res.status(201).json({ message: "Cost created successfully.", cost: newCost });
+        res.status(201).json({ cost: newCost });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Something went wrong.", error: err.message });
+        return next(new HttpError("Creating cost failed, please try again later.", 500))
     }
 };
 
-// Update a specific idea
+// Update a specific cost
 async function updateCost(req, res, next) {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422);
+        throw new HttpError("Invalid input passed, please check your data", 422)
     }
 
-    const ideaId = req.params.eid;
-    const updates = req.body;
+    const costId = req.params.cid;
+    const { userId, reportId, selectedServices } = req.body;
+
+    // Validate costId format
+    if (!mongoose.Types.ObjectId.isValid(costId)) {
+        return res.status(400).json({ message: "Invalid cost ID format." });
+    }
 
     try {
-        if (!mongoose.Types.ObjectId.isValid(ideaId)) {
-            return next(new HttpError("Invalid idea ID", 400));
+        const cost = await Cost.findById(costId);
+        if (!cost) {
+            return res.status(404).json({ message: "Cost not found." });
         }
 
-        const idea = await Idea.findById(ideaId);
-        if (!idea) {
-            return next(new HttpError("Could not find an idea for the provided ID", 404));
+        // Update fields if provided in the request
+        if (userId) cost.userId = userId;
+        if (reportId) cost.reportId = reportId;
+
+        if (selectedServices && Array.isArray(selectedServices)) {
+            const validatedServices = selectedServices.map(service => {
+                const predefinedService = predefinedServices.find(
+                    s => s.serviceName === service.service
+                );
+
+                if (!predefinedService) {
+                    throw new Error(`Invalid service: ${service.service}`);
+                }
+
+                return {
+                    service: predefinedService.serviceName,
+                    price: service.price ?? predefinedService.price,
+                    expert: service.expert || predefinedService.expert
+                };
+            });
+
+            cost.selectedServices = validatedServices;
         }
 
-        // Check if the idea is for the user
-        // if (idea.creator !== req.userData.userId) {
-        //     const error = new HttpError(
-        //         'You are not allowed to edit this idea.',
-        //         401
-        //     );
-        //     return next(error);
-        // }
+        await cost.save();
 
-        // Check if ideaTitle is being updated
-        if (updates.ideaTitle && updates.ideaTitle !== idea.ideaTitle) {
-            const report = await Report.findOne({ ideaId: idea._id });
-            if (report) {
-                report.ideaTitle = updates.ideaTitle;
-                await report.save();
-            }
-        }
-
-        // Update the Idea document
-        const updatedIdea = await Idea.findByIdAndUpdate(
-            ideaId,
-            updates,
-            { new: true, runValidators: true }
-        );
-
-        res.status(200).json({ idea: updatedIdea.toObject({ getters: true }) });
-    } catch (error) {
-        console.error(error);
-        return next(new HttpError("Updating idea failed, please try again later.", 500));
+        res.status(200).json({ message: "Cost updated successfully.", cost });
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Updating cost failed, please try again later.", 500))
     }
 }
-
-
 
 
 exports.getCostById = getCostById

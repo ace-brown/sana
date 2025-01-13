@@ -54,6 +54,9 @@ export default function CostsPage() {
         </p>
       </div>
 
+      {/*********************************************************************
+       *Refactor 2: This card is used here and on the [id]/estimate cost page
+       **********************************************************************/}
       {/* Costs Table */}
       <Card>
         <CardHeader>
