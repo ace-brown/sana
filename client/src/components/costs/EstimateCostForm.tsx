@@ -16,7 +16,6 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { Card } from "@/components/ui/card";
-import { CostType } from "@/types";
 
 const predefinedServices = [
   { serviceName: "جلسه ایده پردازی", price: 0, expert: "" },
@@ -37,9 +36,11 @@ const predefinedServices = [
 export default function EstimateCostForm({
   reportId,
   userId,
+  fetchCosts,
 }: {
   reportId: string | null;
   userId: string | null;
+  fetchCosts: () => void;
 }) {
   const [price, setPrice] = useState("");
   const [expert, setExpert] = useState("");
@@ -81,6 +82,7 @@ export default function EstimateCostForm({
         },
         "تخمین هزینه با موفقیت ایجاد شد"
       );
+      fetchCosts();
     } catch (err) {
       toast.error(error);
     }

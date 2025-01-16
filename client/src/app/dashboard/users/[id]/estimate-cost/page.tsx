@@ -2,6 +2,8 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { FaPen } from "react-icons/fa";
+
 import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
@@ -53,7 +55,11 @@ export default function EstimateCostPage() {
        *Refactor 2: This card is used here and on the [id]/estimate cost page
        **********************************************************************/}
       {/* Form Component */}
-      <EstimateCostForm reportId={reportId} userId={userId} />
+      <EstimateCostForm
+        reportId={reportId}
+        userId={userId}
+        fetchCosts={fetchCosts}
+      />
 
       {/* Display cost estimate result */}
       <Card className="mt-4">
@@ -68,6 +74,7 @@ export default function EstimateCostPage() {
                 <TableHead className="text-right">خدمت</TableHead>
                 <TableHead className="text-right">قیمت (تومان)</TableHead>
                 <TableHead className="text-right">کارشناس مربوطه</TableHead>
+                <TableHead className="text-right">ویرایش</TableHead>
               </TableRow>
             </TableHeader>
 
@@ -78,7 +85,8 @@ export default function EstimateCostPage() {
                   <Skeleton />
                   <Skeleton />
                 </div>
-              ) : estimatedCosts.length > 0 ? (
+              ) : (
+                estimatedCosts.length > 0 &&
                 estimatedCosts.map((item, index) =>
                   item.selectedServices && item.selectedServices.length > 0 ? (
                     item.selectedServices.map((service, serviceIndex) => (
@@ -88,6 +96,9 @@ export default function EstimateCostPage() {
                           {service.price.toLocaleString("fa-IR")}
                         </TableCell>
                         <TableCell>{service.expert || "N/A"}</TableCell>
+                        <TableCell>
+                          <FaPen />
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (
@@ -98,12 +109,6 @@ export default function EstimateCostPage() {
                     </TableRow>
                   )
                 )
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={3} style={{ textAlign: "center" }}>
-                    هیچ هزینه‌ای برای نمایش وجود ندارد.
-                  </TableCell>
-                </TableRow>
               )}
             </TableBody>
           </Table>
