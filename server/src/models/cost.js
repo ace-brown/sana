@@ -26,7 +26,7 @@ const predefinedServices = [
 const costSchema = new mongoose.Schema(
     {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-        reportId: { type: mongoose.Schema.Types.ObjectId, ref: "Report", required: true, unique: true },
+        reportId: { type: mongoose.Schema.Types.ObjectId, ref: "Report", required: true },
         selectedServices: {
             type: [
                 {
