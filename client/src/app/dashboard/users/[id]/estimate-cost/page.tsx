@@ -8,18 +8,18 @@ import { AuthContext } from "@/context/auth-context";
 import EstimateCostForm from "@/components/costs/EstimateCostForm";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
-  TableHeader,
-  TableRow,
-  TableHead,
+  Table,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
-import { Table } from "lucide-react";
 import { CostType } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EstimateCostPage() {
-  const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>();
+  const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>([]);
   const { error, isLoading, sendRequest } = useHttpClient();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -44,6 +44,7 @@ export default function EstimateCostPage() {
     fetchCosts();
   }, []);
 
+  // console.log("Estimated", JSON.stringify(estimatedCosts, null, 2));
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">تخمین هزینه</h1>
@@ -51,9 +52,11 @@ export default function EstimateCostPage() {
       {/*********************************************************************
        *Refactor 2: This card is used here and on the [id]/estimate cost page
        **********************************************************************/}
-      {/* Display cost estimate result */}
+      {/* Form Component */}
+      <EstimateCostForm reportId={reportId} userId={userId} />
 
-      <Card className="mb-4">
+      {/* Display cost estimate result */}
+      <Card className="mt-4">
         <CardHeader>
           <CardTitle>خدمات پیشنهادی</CardTitle>
         </CardHeader>
@@ -69,27 +72,32 @@ export default function EstimateCostPage() {
             </TableHeader>
 
             <TableBody>
-              {isLoading && (
+              {isLoading ? (
                 <div className="center">
                   <Skeleton />
                   <Skeleton />
                   <Skeleton />
                 </div>
-              )}
-              {estimatedCosts && estimatedCosts.length > 0 ? (
-                estimatedCosts.map((item, index) => {
-                  return item.selectedServices?.map((service, serviceIndex) => {
-                    return (
+              ) : estimatedCosts.length > 0 ? (
+                estimatedCosts.map((item, index) =>
+                  item.selectedServices && item.selectedServices.length > 0 ? (
+                    item.selectedServices.map((service, serviceIndex) => (
                       <TableRow key={`${index}-${serviceIndex}`}>
-                        <TableCell>{service.service}</TableCell>
+                        <TableCell>{service.serviceName}</TableCell>
                         <TableCell>
                           {service.price.toLocaleString("fa-IR")}
                         </TableCell>
                         <TableCell>{service.expert || "N/A"}</TableCell>
                       </TableRow>
-                    );
-                  });
-                })
+                    ))
+                  ) : (
+                    <TableRow key={index}>
+                      <TableCell colSpan={3} style={{ textAlign: "center" }}>
+                        هیچ هزینه‌ای برای نمایش وجود ندارد.
+                      </TableCell>
+                    </TableRow>
+                  )
+                )
               ) : (
                 <TableRow>
                   <TableCell colSpan={3} style={{ textAlign: "center" }}>
@@ -102,9 +110,6 @@ export default function EstimateCostPage() {
           {error && <p className="text-center text-red-500 mb-8">{error}</p>}
         </CardContent>
       </Card>
-
-      {/* Form Component */}
-      <EstimateCostForm reportId={reportId} userId={userId} />
 
       {/* Return button */}
       <Button

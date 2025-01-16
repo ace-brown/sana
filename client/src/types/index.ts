@@ -103,7 +103,7 @@ export interface CostType {
   reportId: string;
   selectedServices: {
     id?: string;
-    service: string;
+    serviceName: string;
     price: number;
     expert?: string;
   }[];

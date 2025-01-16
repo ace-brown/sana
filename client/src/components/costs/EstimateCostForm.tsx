@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
+import { Toaster, toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { Card } from "@/components/ui/card";
+import { CostType } from "@/types";
 
 const predefinedServices = [
   { serviceName: "جلسه ایده پردازی", price: 0, expert: "" },
@@ -79,11 +81,15 @@ export default function EstimateCostForm({
         },
         "تخمین هزینه با موفقیت ایجاد شد"
       );
-    } catch (err) {}
+    } catch (err) {
+      toast.error(error);
+    }
   }
 
   return (
     <Card className="p-8">
+      <Toaster position="top-center" richColors />
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {isLoading && (
           <div className="center">
@@ -140,7 +146,6 @@ export default function EstimateCostForm({
         <Button type="submit" className="mt-4">
           ارسال
         </Button>
-        {error && <p className="text-center text-red-500 mb-8">{error}</p>}
       </form>
     </Card>
   );
