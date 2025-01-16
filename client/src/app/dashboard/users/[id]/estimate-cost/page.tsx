@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
@@ -15,82 +15,96 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Table } from "lucide-react";
+import { CostType } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EstimateCostPage() {
-  const [estimatedCosts, setEstimatedCosts] = useState<any[]>();
-  const { sendRequest } = useHttpClient();
+  const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>();
+  const { error, isLoading, sendRequest } = useHttpClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const auth = useContext(AuthContext);
   const userId = searchParams.get("userId");
   const reportId = searchParams.get("reportId");
 
-  const handleFormSubmit = async (formData: any) => {
+  // Get the costs when component mounted
+  async function fetchCosts() {
     try {
-      const response = await sendRequest(
-        "http://localhost:5000/api/costs",
-        "POST",
-        JSON.stringify({
-          userId,
-          reportId,
-          selectedServices: [
-            {
-              service: formData.serviceName,
-              price: formData.price,
-              expert: formData.expert,
-            },
-          ],
-        }),
-        {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + auth.token,
-        }
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/costs/user/${userId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
       );
-      setEstimatedCosts(response.cost);
-    } catch (err) {
-      console.error("Error estimating cost:", err);
-    }
-  };
+      setEstimatedCosts(responseData.costsForUser);
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    fetchCosts();
+  }, []);
 
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">تخمین هزینه</h1>
-
-      {/* Form Component */}
-      <EstimateCostForm onSubmit={handleFormSubmit} />
 
       {/*********************************************************************
        *Refactor 2: This card is used here and on the [id]/estimate cost page
        **********************************************************************/}
       {/* Display cost estimate result */}
 
-      {estimatedCosts && (
-        <Card>
-          <CardHeader>
-            <CardTitle>خدمات پیشنهادی</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
+      <Card className="mb-4">
+        <CardHeader>
+          <CardTitle>خدمات پیشنهادی</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            {/* Table header always displayed */}
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-right">خدمت</TableHead>
+                <TableHead className="text-right">قیمت (تومان)</TableHead>
+                <TableHead className="text-right">کارشناس مربوطه</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {isLoading && (
+                <div className="center">
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </div>
+              )}
+              {estimatedCosts && estimatedCosts.length > 0 ? (
+                estimatedCosts.map((item, index) => {
+                  return item.selectedServices?.map((service, serviceIndex) => {
+                    return (
+                      <TableRow key={`${index}-${serviceIndex}`}>
+                        <TableCell>{service.service}</TableCell>
+                        <TableCell>
+                          {service.price.toLocaleString("fa-IR")}
+                        </TableCell>
+                        <TableCell>{service.expert || "N/A"}</TableCell>
+                      </TableRow>
+                    );
+                  });
+                })
+              ) : (
                 <TableRow>
-                  <TableHead className="text-right">خدمت</TableHead>
-                  <TableHead className="text-right">قیمت (تومان)</TableHead>
-                  <TableHead className="text-right">کارشناس مربوطه</TableHead>
+                  <TableCell colSpan={3} style={{ textAlign: "center" }}>
+                    هیچ هزینه‌ای برای نمایش وجود ندارد.
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {estimatedCosts.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{item.service}</TableCell>
-                    <TableCell>{item.price.toLocaleString("fa-IR")}</TableCell>
-                    <TableCell>{item.expert}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      )}
+              )}
+            </TableBody>
+          </Table>
+          {error && <p className="text-center text-red-500 mb-8">{error}</p>}
+        </CardContent>
+      </Card>
+
+      {/* Form Component */}
+      <EstimateCostForm reportId={reportId} userId={userId} />
 
       {/* Return button */}
       <Button

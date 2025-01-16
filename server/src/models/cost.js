@@ -30,7 +30,7 @@ const costSchema = new mongoose.Schema(
         selectedServices: {
             type: [
                 {
-                    service: {
+                    serviceName: {
                         type: String,
                         required: true,
                         enum: predefinedServices.map(service => service.serviceName)

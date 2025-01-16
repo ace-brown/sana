@@ -96,3 +96,17 @@ export interface SelectedTaskType {
   taskTitle: string;
   taskStatus: string;
 }
+
+export interface CostType {
+  id?: string;
+  userId: string;
+  reportId: string;
+  selectedServices: {
+    id?: string;
+    service: string;
+    price: number;
+    expert?: string;
+  }[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}

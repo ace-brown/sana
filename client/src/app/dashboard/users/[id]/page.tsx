@@ -17,19 +17,11 @@ export default function UserDetailsPage({
   params: { id: string };
 }) {
   const [user, setUser] = useState<UserType | null>(null);
-  const [reportId, setReportId] = useState<string | null>(null);
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
   const { isLoading, error, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const userId = auth.userId;
   const router = useRouter();
-
-  // Handle estimate cost button click - redirect to estimate-cost page
-  const handleEstimateCost = () => {
-    router.push(
-      `/dashboard/users/${params.id}/estimate-cost?userId=${userId}&reportId=someReportId`
-    );
-  };
 
   // Fetch user details when component mounts or when user ID changes
   useEffect(() => {

@@ -63,15 +63,15 @@ async function createCost(req, res, next) {
 
         const validatedServices = selectedServices.map(service => {
             const predefinedService = predefinedServices.find(
-                s => s.serviceName === service.service
+                s => s.serviceName === service.serviceName
             );
             if (!predefinedService) {
-                throw new Error(`Invalid service: ${service.service}`);
+                throw new Error(`Invalid service: ${service.serviceName}`);
             }
             return {
-                service: predefinedService.serviceName,
-                price: predefinedService.price,
-                expert: predefinedService.expert
+                serviceName: predefinedService.serviceName,
+                price: service.price ?? predefinedService.price,
+                expert: service.expert || predefinedService.expert
             };
         });
 
@@ -119,7 +119,7 @@ async function updateCost(req, res, next) {
         if (selectedServices && Array.isArray(selectedServices)) {
             const validatedServices = selectedServices.map(service => {
                 const predefinedService = predefinedServices.find(
-                    s => s.serviceName === service.service
+                    s => s.serviceName === service.serviceName
                 );
 
                 if (!predefinedService) {
