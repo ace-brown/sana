@@ -19,10 +19,19 @@ import {
 } from "@/components/ui/table";
 import { CostType } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  DialogFooter,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+} from "@/components/ui/dialog";
+import EstimateCostFormEdit from "@/components/costs/EstimateCostFormEdit";
 
 export default function EstimateCostPage() {
   const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>([]);
   const { error, isLoading, sendRequest } = useHttpClient();
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<any>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
   const auth = useContext(AuthContext);
@@ -45,6 +54,12 @@ export default function EstimateCostPage() {
   useEffect(() => {
     fetchCosts();
   }, []);
+
+  // Open modal for editing the selected service
+  const handleEditService = (service: any) => {
+    setSelectedService(service);
+    setIsEditDialogOpen(true);
+  };
 
   // console.log("Estimated", JSON.stringify(estimatedCosts, null, 2));
   return (
@@ -97,7 +112,10 @@ export default function EstimateCostPage() {
                         </TableCell>
                         <TableCell>{service.expert || "N/A"}</TableCell>
                         <TableCell>
-                          <FaPen />
+                          <FaPen
+                            className="cursor-pointer"
+                            onClick={() => handleEditService(service)}
+                          />
                         </TableCell>
                       </TableRow>
                     ))
@@ -124,6 +142,24 @@ export default function EstimateCostPage() {
       >
         بازگشت به صفحه کاربر
       </Button>
+
+      {/*********************************************************************
+       *Refactor 3: This dialog is used here and on the Estimate cost
+       **********************************************************************/}
+      {/* Modal for editing service */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent>
+          <DialogHeader>ویرایش خدمت</DialogHeader>
+          {selectedService && (
+            <EstimateCostFormEdit
+              reportId={reportId}
+              userId={userId}
+              selectedService={selectedService}
+              fetchCosts={fetchCosts}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -62,7 +62,7 @@ export default function EstimateCostForm({
     }
 
     try {
-      const res = await sendRequest(
+      await sendRequest(
         "http://localhost:5000/api/costs",
         "POST",
         JSON.stringify({
