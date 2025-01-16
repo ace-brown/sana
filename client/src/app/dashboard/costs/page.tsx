@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -15,35 +15,60 @@ import {
 } from "@/components/ui/table";
 import FileUpload from "@/components/common/FileUpload";
 import { AuthContext } from "@/context/auth-context";
+import { CostType } from "@/types";
+import { useHttpClient } from "@/hooks/http-hook";
+import { FaPen } from "react-icons/fa";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CostsPage() {
-  const calculatedPrices = [
-    { service: "تحقیق بازار", price: 3000000, expert: "محمد رضایی" },
-    { service: "توسعه MVP", price: 2000000, expert: "علی احمدی" },
-    { service: "طراحی برند", price: 500000, expert: "زهرا کریمی" },
-    { service: "طراحی وب‌سایت", price: 800000, expert: "علی رضایی" },
-    { service: "تدوین ویدیو", price: 600000, expert: "مریم حسینی" },
-    {
-      service: "مدیریت شبکه‌های اجتماعی",
-      price: 700000,
-      expert: "سینا مرادی",
-    },
-  ];
-  const [selectedServices, setSelectedServices] = useState<number[]>([]);
+  const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>([]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [reportId, setReportId] = useState<string | undefined>();
+  const { error, isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
 
-  // Calculate total price
-  const totalPrice = selectedServices.reduce(
-    (total, index) => total + calculatedPrices[index].price,
-    0
-  );
+  const handleCheckboxChange = (service: {
+    serviceName: string;
+    price: number;
+  }) => {
+    setSelectedServices((prev) => {
+      const updatedSelected = prev.includes(service.serviceName)
+        ? prev.filter((name) => name !== service.serviceName)
+        : [...prev, service.serviceName];
 
-  const handleCheckboxChange = (index: number) => {
-    setSelectedServices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
+      // Calculate total price based on selected services
+      const selected = estimatedCosts
+        .flatMap((item) => item.selectedServices || [])
+        .filter((s) => updatedSelected.includes(s.serviceName));
+
+      setTotalPrice(selected.reduce((sum, s) => sum + s.price, 0));
+
+      return updatedSelected;
+    });
   };
 
+  // Get the costs when component mounted
+  async function fetchCosts() {
+    try {
+      const responseData = await sendRequest(
+        `http://localhost:5000/api/costs/user/${auth.userId}`,
+        "GET",
+        null,
+        { Authorization: "Bearer " + auth.token }
+      );
+      setEstimatedCosts(responseData.costsForUser);
+      if (responseData.costsForUser.length > 0) {
+        setReportId(responseData.costsForUser[0].reportId);
+      }
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    fetchCosts();
+  }, []);
+
+  console.log("reportId", reportId);
   return (
     <div className="p-6 space-y-12">
       {/* Header */}
@@ -73,20 +98,37 @@ export default function CostsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {calculatedPrices.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <input
-                      type="checkbox"
-                      onChange={() => handleCheckboxChange(index)}
-                      checked={selectedServices.includes(index)}
-                    />
-                  </TableCell>
-                  <TableCell>{item.service}</TableCell>
-                  <TableCell>{item.price.toLocaleString("fa-IR")}</TableCell>
-                  <TableCell>{item.expert}</TableCell>
-                </TableRow>
-              ))}
+              {isLoading ? (
+                <div className="center">
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </div>
+              ) : (
+                estimatedCosts.length > 0 &&
+                estimatedCosts.map((item, index) =>
+                  item.selectedServices && item.selectedServices.length > 0
+                    ? item.selectedServices.map((service, serviceIndex) => (
+                        <TableRow key={`${index}-${serviceIndex}`}>
+                          <TableCell>
+                            <input
+                              type="checkbox"
+                              onChange={() => handleCheckboxChange(service)}
+                              checked={selectedServices.includes(
+                                service.serviceName
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell>{service.serviceName}</TableCell>
+                          <TableCell>
+                            {service.price.toLocaleString("fa-IR")}
+                          </TableCell>
+                          <TableCell>{service.expert || "N/A"}</TableCell>
+                        </TableRow>
+                      ))
+                    : null
+                )
+              )}
             </TableBody>
           </Table>
           <div className="mt-4 text-right text-lg font-bold">
@@ -135,7 +177,7 @@ export default function CostsPage() {
           با استفاده از شناسه گزارش زیر میتوانید گزارش مربوط به ایده ی خود را
           مشاهده کنید.
         </p>
-        <p>شناسه گزارش: {auth.reportId}</p>
+        <p>شناسه گزارش: {reportId}</p>
         <Button className="px-8 py-4 text-lg">برو به گزارش ها</Button>
       </div>
 

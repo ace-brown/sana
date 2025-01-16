@@ -94,6 +94,7 @@ export default function EstimateCostPage() {
                 <TableHead className="text-right">خدمت</TableHead>
                 <TableHead className="text-right">قیمت (تومان)</TableHead>
                 <TableHead className="text-right">کارشناس مربوطه</TableHead>
+                <TableHead className="text-right">وضعیت</TableHead>
                 <TableHead className="text-right">ویرایش</TableHead>
               </TableRow>
             </TableHeader>
@@ -107,8 +108,10 @@ export default function EstimateCostPage() {
                 </div>
               ) : (
                 estimatedCosts.length > 0 &&
-                estimatedCosts.map((item, index) =>
-                  item.selectedServices && item.selectedServices.length > 0 ? (
+                estimatedCosts.map(
+                  (item, index) =>
+                    item.selectedServices &&
+                    item.selectedServices.length > 0 &&
                     item.selectedServices.map((service, serviceIndex) => (
                       <TableRow key={`${index}-${serviceIndex}`}>
                         <TableCell>{service.serviceName}</TableCell>
@@ -117,6 +120,10 @@ export default function EstimateCostPage() {
                         </TableCell>
                         <TableCell>{service.expert || "N/A"}</TableCell>
                         <TableCell>
+                          {item.paid ? "پرداخت شده" : "پرداخت نشده"}
+                        </TableCell>
+
+                        <TableCell>
                           <FaPen
                             className="cursor-pointer"
                             onClick={() => handleEditCost(service, item)}
@@ -124,13 +131,6 @@ export default function EstimateCostPage() {
                         </TableCell>
                       </TableRow>
                     ))
-                  ) : (
-                    <TableRow key={index}>
-                      <TableCell colSpan={3} style={{ textAlign: "center" }}>
-                        هیچ هزینه‌ای برای نمایش وجود ندارد.
-                      </TableCell>
-                    </TableRow>
-                  )
                 )
               )}
             </TableBody>

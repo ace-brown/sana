@@ -45,10 +45,10 @@ async function createCost(req, res, next) {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422);
+        return res.status(422).json({ message: "Invalid input passed, please check your data." });
     }
 
-    const { userId, reportId, selectedServices } = req.body;
+    const { userId, reportId, selectedServices, paid } = req.body;
 
     try {
         // Validate selectedServices (must be from predefinedServices)
@@ -57,9 +57,9 @@ async function createCost(req, res, next) {
         }
 
         // Validate and map the selected services
-        const validatedServices = selectedServices.map(service => {
+        const validatedServices = selectedServices.map((service) => {
             const predefinedService = predefinedServices.find(
-                s => s.serviceName === service.serviceName
+                (s) => s.serviceName === service.serviceName
             );
             if (!predefinedService) {
                 throw new Error(`Invalid service: ${service.serviceName}`);
@@ -67,47 +67,134 @@ async function createCost(req, res, next) {
             return {
                 serviceName: predefinedService.serviceName,
                 price: service.price ?? predefinedService.price,
-                expert: service.expert || predefinedService.expert
+                expert: service.expert || predefinedService.expert,
             };
         });
 
-        // Check if the cost entry for the reportId already exists
+        // Check if a cost entry for the reportId already exists
         const existingCost = await Cost.findOne({ reportId });
 
         if (existingCost) {
             // Check for duplicates in the existing selectedServices
-            const duplicateService = validatedServices.find(service =>
-                existingCost.selectedServices.some(existingService =>
-                    existingService.serviceName === service.serviceName
+            const duplicateService = validatedServices.find((service) =>
+                existingCost.selectedServices.some(
+                    (existingService) => existingService.serviceName === service.serviceName
                 )
             );
 
             if (duplicateService) {
-                return res.status(400).json({ message: `Service "${duplicateService.serviceName}" already exists in the cost.` });
+                return res.status(400).json({
+                    message: `Service "${duplicateService.serviceName}" already exists in the cost.`,
+                });
             }
 
-            // If no duplicates, add the new services
+            // Add the new services to the existing cost
             existingCost.selectedServices.push(...validatedServices);
+
+            // Update the `paid` status only if provided in the request
+            if (typeof paid === "boolean") {
+                existingCost.paid = paid;
+            }
 
             // Save the updated cost document
             await existingCost.save();
-            return res.status(200).json({ message: "Services added to existing cost successfully", cost: existingCost });
+            return res.status(200).json({
+                message: "Services added to existing cost successfully",
+                cost: existingCost,
+            });
         } else {
             // If no existing cost, create a new cost entry
             const newCost = new Cost({
                 userId,
                 reportId,
-                selectedServices: validatedServices
+                selectedServices: validatedServices,
+                paid: typeof paid === "boolean" ? paid : false,
             });
 
             await newCost.save();
-            return res.status(201).json({ message: "Cost created successfully", cost: newCost });
+            return res.status(201).json({
+                message: "Cost created successfully",
+                cost: newCost,
+            });
         }
     } catch (err) {
         console.error(err);
         return next(new HttpError("Creating cost failed, please try again later.", 500));
     }
 }
+
+// async function createCost(req, res, next) {
+//     const errors = validationResult(req);
+
+//     if (!errors.isEmpty()) {
+//         throw new HttpError("Invalid input passed, please check your data", 422);
+//     }
+
+//     const { userId, reportId, selectedServices, paid } = req.body;
+
+//     try {
+//         // Validate selectedServices (must be from predefinedServices)
+//         if (!Array.isArray(selectedServices) || selectedServices.length === 0) {
+//             return res.status(400).json({ message: "Selected services must be a non-empty array." });
+//         }
+
+//         // Validate and map the selected services
+//         const validatedServices = selectedServices.map(service => {
+//             const predefinedService = predefinedServices.find(
+//                 s => s.serviceName === service.serviceName
+//             );
+//             if (!predefinedService) {
+//                 throw new Error(`Invalid service: ${service.serviceName}`);
+//             }
+//             return {
+//                 serviceName: predefinedService.serviceName,
+//                 price: service.price ?? predefinedService.price,
+//                 expert: service.expert || predefinedService.expert,
+//             };
+//         });
+
+//         // Check if the cost entry for the reportId already exists
+//         const existingCost = await Cost.findOne({ reportId });
+
+//         if (existingCost) {
+//             // Check for duplicates in the existing selectedServices
+//             const duplicateService = validatedServices.find(service =>
+//                 existingCost.selectedServices.some(existingService =>
+//                     existingService.serviceName === service.serviceName
+//                 )
+//             );
+
+//             if (duplicateService) {
+//                 return res.status(400).json({ message: `Service "${duplicateService.serviceName}" already exists in the cost.` });
+//             }
+
+//             // If no duplicates, add the new services
+//             existingCost.selectedServices.push(...validatedServices);
+
+//              // Update the `paid` status only if provided in the request
+//              if (typeof paid === "boolean") {
+//                 existingCost.paid = paid;
+//             }
+
+//             // Save the updated cost document
+//             await existingCost.save();
+//             return res.status(200).json({ message: "Services added to existing cost successfully", cost: existingCost });
+//         } else {
+//             // If no existing cost, create a new cost entry
+//             const newCost = new Cost({
+//                 userId,
+//                 reportId,
+//                 selectedServices: validatedServices
+//             });
+
+//             await newCost.save();
+//             return res.status(201).json({ message: "Cost created successfully", cost: newCost });
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         return next(new HttpError("Creating cost failed, please try again later.", 500));
+//     }
+// }
 
 
 // Update a specific cost

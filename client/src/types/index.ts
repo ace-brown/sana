@@ -101,6 +101,7 @@ export interface CostType {
   id?: string;
   userId: string;
   reportId: string;
+  paid?: boolean;
   selectedServices: {
     id?: string;
     serviceName: string;
