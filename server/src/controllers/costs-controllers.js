@@ -115,7 +115,7 @@ async function updateCost(req, res, next) {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        throw new HttpError("Invalid input passed, please check your data", 422)
+        return next(new HttpError("Invalid input passed, please check your data", 422));
     }
 
     const costId = req.params.cid;
@@ -137,33 +137,55 @@ async function updateCost(req, res, next) {
         if (reportId) cost.reportId = reportId;
 
         if (selectedServices && Array.isArray(selectedServices)) {
-            const validatedServices = selectedServices.map(service => {
+            // Validate and map the selected services
+            const validatedServices = selectedServices.map((service) => {
                 const predefinedService = predefinedServices.find(
-                    s => s.serviceName === service.serviceName
+                    (s) => s.serviceName === service.serviceName
                 );
 
                 if (!predefinedService) {
-                    throw new Error(`Invalid service: ${service.service}`);
+                    throw new Error(`Invalid service: ${service.serviceName}`);
                 }
 
                 return {
-                    service: predefinedService.serviceName,
+                    serviceName: predefinedService.serviceName,
                     price: service.price ?? predefinedService.price,
-                    expert: service.expert || predefinedService.expert
+                    expert: service.expert || predefinedService.expert,
                 };
             });
 
-            cost.selectedServices = validatedServices;
+            // Merge validated services into the existing selectedServices
+            validatedServices.forEach((newService) => {
+                const existingIndex = cost.selectedServices.findIndex(
+                    (existingService) =>
+                        existingService.serviceName === newService.serviceName
+                );
+
+                if (existingIndex !== -1) {
+                    // Update existing service
+                    cost.selectedServices[existingIndex] = {
+                        ...cost.selectedServices[existingIndex],
+                        ...newService, // Merge updates from the new service
+                    };
+                } else {
+                    // Add new service
+                    cost.selectedServices.push(newService);
+                }
+            });
         }
 
+        // Save the updated cost
         await cost.save();
 
         res.status(200).json({ message: "Cost updated successfully.", cost });
     } catch (err) {
         console.error(err);
-        return next(new HttpError("Updating cost failed, please try again later.", 500))
+        return next(new HttpError("Updating cost failed, please try again later.", 500));
     }
 }
+
+
+
 
 
 exports.getCostById = getCostById

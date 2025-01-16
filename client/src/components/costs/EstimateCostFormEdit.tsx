@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import { ServiceType } from "@/types";
 
 const predefinedServices = [
   { serviceName: "جلسه ایده پردازی", price: 0, expert: "" },
@@ -32,29 +33,31 @@ const predefinedServices = [
   { serviceName: "عرضه محصول", price: 0, expert: "" },
 ];
 
-interface ServiceType {
-  id?: string;
-  serviceName: string;
-  price: number;
-  expert?: string;
-}
-
 export default function EstimateCostFormEdit({
   reportId,
   userId,
   fetchCosts,
   selectedService,
+  costId,
 }: {
   reportId: string | null;
   userId: string | null;
   fetchCosts: () => void;
   selectedService: ServiceType;
+  costId: string | undefined;
 }) {
   const [price, setPrice] = useState("");
   const [expert, setExpert] = useState("");
   const [serviceName, setServiceName] = useState("");
   const { error, isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
+
+  // Initialize state with selectedService values
+  useEffect(() => {
+    setPrice(String(selectedService.price));
+    setExpert(selectedService.expert || "");
+    setServiceName(selectedService.serviceName || "");
+  }, [selectedService]);
 
   // Submit the estimate cost form
   async function handleSubmit(e: React.FormEvent) {
@@ -71,7 +74,7 @@ export default function EstimateCostFormEdit({
 
     try {
       await sendRequest(
-        `http://localhost:5000/api/costs/${userId}`,
+        `http://localhost:5000/api/costs/${costId}`,
         "PATCH",
         JSON.stringify({
           userId,
@@ -91,9 +94,7 @@ export default function EstimateCostFormEdit({
         "تخمین هزینه با موفقیت ویرایش شد"
       );
       fetchCosts();
-    } catch (err) {
-      toast.error(error);
-    }
+    } catch (err) {}
   }
 
   return (
@@ -112,7 +113,7 @@ export default function EstimateCostFormEdit({
           </label>
           <Input
             id="price"
-            value={selectedService.price}
+            value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder="قیمت را وارد کنید"
             required
@@ -125,7 +126,7 @@ export default function EstimateCostFormEdit({
           </label>
           <Input
             id="expert"
-            value={selectedService.expert}
+            value={expert}
             onChange={(e) => setExpert(e.target.value)}
             placeholder="نام متخصص را وارد کنید"
             required
@@ -141,7 +142,7 @@ export default function EstimateCostFormEdit({
           </label>
           <Select
             onValueChange={(value) => setServiceName(value)}
-            value={selectedService?.serviceName}
+            value={serviceName}
             required
           >
             <SelectTrigger style={{ direction: "rtl" }}>
@@ -160,6 +161,7 @@ export default function EstimateCostFormEdit({
         <Button type="submit" className="mt-4">
           ارسال
         </Button>
+        {error && <p className="text-center text-red-500 mb-8">{error}</p>}
       </form>
     </>
   );

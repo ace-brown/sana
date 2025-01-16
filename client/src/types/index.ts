@@ -110,3 +110,10 @@ export interface CostType {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface ServiceType {
+  id?: string;
+  serviceName: string;
+  price: number;
+  expert?: string;
+}

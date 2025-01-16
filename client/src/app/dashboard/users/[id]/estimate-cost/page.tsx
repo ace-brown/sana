@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CostType } from "@/types";
+import { CostType, ServiceType } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   DialogFooter,
@@ -32,12 +32,17 @@ export default function EstimateCostPage() {
   const { error, isLoading, sendRequest } = useHttpClient();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<any>(null);
+  const [costId, setCostId] = useState<string | undefined>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const auth = useContext(AuthContext);
   const userId = searchParams.get("userId");
   const reportId = searchParams.get("reportId");
 
+  function handleEditCost(service: ServiceType, item: CostType) {
+    handleEditService(service);
+    setCostId(item.id);
+  }
   // Get the costs when component mounted
   async function fetchCosts() {
     try {
@@ -114,7 +119,7 @@ export default function EstimateCostPage() {
                         <TableCell>
                           <FaPen
                             className="cursor-pointer"
-                            onClick={() => handleEditService(service)}
+                            onClick={() => handleEditCost(service, item)}
                           />
                         </TableCell>
                       </TableRow>
@@ -156,6 +161,7 @@ export default function EstimateCostPage() {
               userId={userId}
               selectedService={selectedService}
               fetchCosts={fetchCosts}
+              costId={costId}
             />
           )}
         </DialogContent>
