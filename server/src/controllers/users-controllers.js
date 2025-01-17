@@ -175,7 +175,11 @@ async function login(req, res, next) {
     }
 
 
-    res.json({
+    res.cookie("authToken", token, {
+        httpOnly: true,  // Make the cookie inaccessible to JavaScript
+        secure: process.env.NODE_ENV === "production",  // Only use 'secure' in production
+        maxAge: 3600000,  // Cookie expiration time (1 hour)
+    }).json({
         userId: existingUser.id,
         email: existingUser.email,
         fullName: existingUser.profile.fullName,
