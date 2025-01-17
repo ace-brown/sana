@@ -18,6 +18,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { AuthContext } from "@/context/auth-context";
 import EditUserProfile from "@/components/users/EditUserProfile";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AccountPage() {
   const [profileData, setProfileData] = useState<UserType>();
@@ -68,7 +69,7 @@ export default function AccountPage() {
 
   // Return the main content
   return (
-    <div>
+    <ProtectedRoute allowedRoles={["admin", "user"]}>
       <Toaster position="top-center" richColors />
       {isLoading && (
         <div className="center">
@@ -189,6 +190,6 @@ export default function AccountPage() {
           />
         </DialogContent>
       </Dialog>
-    </div>
+    </ProtectedRoute>
   );
 }

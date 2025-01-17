@@ -50,9 +50,7 @@ export default function UsersPage() {
           },
         }
       );
-      if (!response.ok) {
-        throw new Error("دریافت کاربران با شکست مواجه شد");
-      }
+
       const data = await response.json();
       setUsers(data.users);
       setTotalPages(data.totalPages);

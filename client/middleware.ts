@@ -15,5 +15,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard"], // Protect only the /dashboard route
+  matcher: ["/dashboard/:path*"], // Protect /dashboard and all subroutes
 };

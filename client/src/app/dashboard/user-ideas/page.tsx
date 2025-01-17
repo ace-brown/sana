@@ -18,6 +18,7 @@ import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
+import ProtectedRoute from "../ProtectedRoute";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
@@ -98,7 +99,8 @@ export default function UserIdeas() {
   }, [sendRequest, userId]);
 
   return (
-    <div>
+    <ProtectedRoute allowedRoles={["admin", "user"]}>
+      {" "}
       <Toaster position="top-center" richColors />
       {isLoading && (
         <div className="center">
@@ -109,7 +111,6 @@ export default function UserIdeas() {
           </div>
         </div>
       )}
-
       {!isLoading && ideaData?.length == 0 && (
         <p className="text-red-400">
           در حال حاضر هیچ ایده‌ای وجود ندارد. لطفاً اگر هنوز ایده‌ای ثبت
@@ -222,7 +223,6 @@ export default function UserIdeas() {
           ))}
         </div>
       )}
-
       {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent className="max-w-md mx-auto">
@@ -247,7 +247,6 @@ export default function UserIdeas() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
       {/* Edit Idea Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
@@ -277,6 +276,6 @@ export default function UserIdeas() {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </ProtectedRoute>
   );
 }

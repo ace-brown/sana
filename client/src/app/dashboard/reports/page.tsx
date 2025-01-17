@@ -11,6 +11,7 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { Report } from "@/types";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { AuthContext } from "@/context/auth-context";
+import ProtectedRoute from "../ProtectedRoute";
 
 export default function ReportPage() {
   const [showProgressBar, setShowProgressBar] = useState(false);
@@ -41,7 +42,7 @@ export default function ReportPage() {
   }
 
   return (
-    <>
+    <ProtectedRoute allowedRoles={["admin", "user"]}>
       <Toaster position="top-center" richColors />
       {isLoading && <LoadingSpinner asOverlay />}
       <div>
@@ -75,6 +76,6 @@ export default function ReportPage() {
           </div>
         </div>
       )}
-    </>
+    </ProtectedRoute>
   );
 }
