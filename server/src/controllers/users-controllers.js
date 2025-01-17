@@ -126,6 +126,7 @@ async function signup(req, res, next) {
         email: createdUser.email,
         fullName: createdUser.profile.fullName,
         username: createdUser.username,
+        role: createdUser.role,
         token: token
 
     })
@@ -184,6 +185,7 @@ async function login(req, res, next) {
         email: existingUser.email,
         fullName: existingUser.profile.fullName,
         username: existingUser.username,
+        role: existingUser.role,
         token: token
     });
 }
@@ -206,6 +208,11 @@ async function updateUser(req, res, next) {
         const user = await User.findById(userId);
         if (!user) {
             return next(new HttpError("Could not find a user for the provided ID", 404));
+        }
+
+        // Prevent changing the role field
+        if (updates.role) {
+            return next(new HttpError("You are not allowed to change your role", 403));
         }
 
         // Update user fields
@@ -232,6 +239,34 @@ async function updateUser(req, res, next) {
         return next(new HttpError("Updating user failed, please try again later.", 500));
     }
 }
+
+// Update user role
+async function updateRole(req, res, next) {
+    const { uid } = req.params;
+    const { role } = req.body; // The role you want to assign (e.g., 'admin')
+
+    // Validate that the role is either 'admin' or 'user'
+    if (role !== 'admin' && role !== 'user') {
+        return res.status(400).json({ message: 'Invalid role' });
+    }
+
+    try {
+        // Find the user by their user ID
+        const user = await User.findById(uid);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Update the user's role
+        user.role = role;
+        await user.save(); // Save the changes to the database
+
+        return res.status(200).json({ message: `User role updated to ${role}` });
+    } catch (err) {
+        return res.status(500).json({ message: 'Failed to update role', error: err });
+    }
+};
+
 
 // Delete user
 async function deleteUser(req, res, next) {
@@ -277,3 +312,5 @@ exports.signup = signup
 exports.login = login
 exports.deleteUser = deleteUser
 exports.updateUser = updateUser
+exports.updateRole = updateRole
+

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";
 import { AuthContext } from "@/context/auth-context";
+import ProtectedRoute from "@/app/dashboard/ProtectedRoute";
 
 interface User {
   _id: string;
@@ -67,84 +68,88 @@ export default function UsersPage() {
   }, [page]);
 
   return (
-    <Card className="p-8 mt-8 shadow">
-      {isLoading && (
-        <div>
-          <Skeleton className="h-8 w-full mb-2" />
-          <Skeleton className="h-8 w-full mb-2" />
-          <Skeleton className="h-8 w-full mb-2" />
-        </div>
-      )}
-
-      {error && <p className="text-red-500">خطا: {error}</p>}
-
-      {!isLoading && !error && (
-        <>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-right">آواتار</TableHead>
-                <TableHead className="text-right">نام کاربری</TableHead>
-                <TableHead className="text-right">نام کامل</TableHead>
-                <TableHead className="text-right">ایمیل</TableHead>
-                <TableHead className="text-right">نقش</TableHead>
-                <TableHead className="text-right">جزئیات</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>
-                    {user.profile.avatar ? (
-                      <img
-                        src={user.profile.avatar}
-                        alt={`آواتار ${user.username}`}
-                        className="w-8 h-8 rounded-full"
-                      />
-                    ) : (
-                      <span>بدون آواتار</span>
-                    )}
-                  </TableCell>
-                  <TableCell>{user.username}</TableCell>
-                  <TableCell>{user.profile.fullName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        router.push(`/dashboard/users/${user._id}`)
-                      }
-                    >
-                      مشاهده
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          <div className="mt-4 flex justify-between items-center">
-            <Button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-              variant="outline"
-            >
-              قبلی
-            </Button>
-            <span>
-              صفحه {page} از {totalPages}
-            </span>
-            <Button
-              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages}
-              variant="outline"
-            >
-              بعدی
-            </Button>
+    <ProtectedRoute allowedRoles={["admin"]}>
+      <Card className="p-8 mt-8 shadow">
+        {isLoading && (
+          <div>
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
+            <Skeleton className="h-8 w-full mb-2" />
           </div>
-        </>
-      )}
-    </Card>
+        )}
+
+        {error && <p className="text-red-500">خطا: {error}</p>}
+
+        {!isLoading && !error && (
+          <>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-right">آواتار</TableHead>
+                  <TableHead className="text-right">نام کاربری</TableHead>
+                  <TableHead className="text-right">نام کامل</TableHead>
+                  <TableHead className="text-right">ایمیل</TableHead>
+                  <TableHead className="text-right">نقش</TableHead>
+                  <TableHead className="text-right">جزئیات</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow key={user._id}>
+                    <TableCell>
+                      {user.profile.avatar ? (
+                        <img
+                          src={user.profile.avatar}
+                          alt={`آواتار ${user.username}`}
+                          className="w-8 h-8 rounded-full"
+                        />
+                      ) : (
+                        <span>بدون آواتار</span>
+                      )}
+                    </TableCell>
+                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.profile.fullName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outline"
+                        onClick={() =>
+                          router.push(`/dashboard/users/${user._id}`)
+                        }
+                      >
+                        مشاهده
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+            <div className="mt-4 flex justify-between items-center">
+              <Button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1}
+                variant="outline"
+              >
+                قبلی
+              </Button>
+              <span>
+                صفحه {page} از {totalPages}
+              </span>
+              <Button
+                onClick={() =>
+                  setPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={page === totalPages}
+                variant="outline"
+              >
+                بعدی
+              </Button>
+            </div>
+          </>
+        )}
+      </Card>
+    </ProtectedRoute>
   );
 }

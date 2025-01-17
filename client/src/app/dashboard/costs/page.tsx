@@ -68,7 +68,6 @@ export default function CostsPage() {
     fetchCosts();
   }, []);
 
-  console.log("reportId", reportId);
   return (
     <div className="p-6 space-y-12">
       {/* Header */}

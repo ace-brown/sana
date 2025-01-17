@@ -14,6 +14,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [fullName, setFullName] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [reportId, setReportId] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>(
     null
   );
@@ -30,6 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     uid: string,
     fullName: string,
     username: string,
+    role: string,
     token: string,
     expirationDate?: Date
   ) {
@@ -37,6 +39,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     setUserId(uid);
     setFullName(fullName);
     setUsername(username);
+    setRole(role);
     const tokenExpirationDate =
       expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(tokenExpirationDate);
@@ -46,6 +49,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         userId: uid,
         fullName: fullName,
         username: username,
+        role: role,
         token: token,
         expiration: tokenExpirationDate.toISOString(),
       })
@@ -62,6 +66,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setUsername(null);
       setTokenExpirationDate(null);
       setReportId(null);
+      setRole(null);
       localStorage.removeItem("userData");
     },
     [router]
@@ -87,6 +92,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           userId: string;
           fullName: string;
           username: string;
+          role: string;
           token: string;
           expiration: string;
         } = JSON.parse(storedData);
@@ -96,6 +102,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             parsedData.userId,
             parsedData.fullName,
             parsedData.username,
+            parsedData.role,
             parsedData.token,
             new Date(parsedData.expiration)
           );
@@ -116,6 +123,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           fullName: fullName,
           username: username,
           reportId: reportId,
+          role: role,
           login: login,
           logout: logout,
           getReportId: getReportId,

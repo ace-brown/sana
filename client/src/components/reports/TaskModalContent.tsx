@@ -28,8 +28,6 @@ export default function TaskModalContent({
   );
   const auth = useContext(AuthContext);
 
-  console.log("selected status", selectedStatus);
-
   // Update report handler
   async function handleUpdateTask() {
     if (!task || !foundReport) {

@@ -6,8 +6,6 @@ import heroImg from "@/images/hero.jpg";
 import { Button } from "./ui/button";
 
 const Hero = () => {
-  console.log("this is a server component");
-
   return (
     <section className="text-center w-full max-w-[100vw] lg:text-left lg:grid lg:gap-12 lg:grid-cols-[1fr_1fr] lg:mt-20">
       <div className="lg:mt-8">

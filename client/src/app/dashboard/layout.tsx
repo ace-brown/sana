@@ -68,7 +68,6 @@ export default function LocaleLayout({
   // Find the current label for the heading
   const currentLink = links.find((link) => link.href === pathname);
   const heading = currentLink ? currentLink.pageLabel : "";
-
   return (
     <div className="w-[80%] ml-auto mr-[8rem] shadow border p-8 mt-8 rounded-[0.5rem]">
       <h1 className="text-2xl">{`${heading} ${auth.username}`}</h1>
@@ -76,20 +75,26 @@ export default function LocaleLayout({
       <div>
         <aside className="fixed top-[4rem] right-0 w-[200px] h-screen border shadow">
           <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 mt-2">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`inline-flex items-center gap-2 font-medium rounded-md py-2 px-6 ${
-                  pathname === link.href
-                    ? "text-blue-500 font-bold"
-                    : "text-gray-500"
-                }`}
-              >
-                {link.icon}
-                {link.asideLabel}
-              </Link>
-            ))}
+            {links.map((link) => {
+              if (link.href === "/dashboard/users" && auth.role !== "admin") {
+                return null; // Hide the link for non-admin users
+              }
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`inline-flex items-center gap-2 font-medium rounded-md py-2 px-6 ${
+                    pathname === link.href
+                      ? "text-blue-500 font-bold"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {link.icon}
+                  {link.asideLabel}
+                </Link>
+              );
+            })}
           </nav>
         </aside>
         <div>{children}</div>

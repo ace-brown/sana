@@ -58,7 +58,6 @@ export default function UserIdeas() {
   async function handleDeleteIdea() {
     if (ideaToDelete !== null) {
       const idea = ideaData[ideaToDelete];
-      console.log("delteId", idea.id);
 
       try {
         await sendRequest(

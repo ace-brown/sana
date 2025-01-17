@@ -38,6 +38,7 @@ export default function LoginPage() {
         responseData.userId,
         responseData.fullName,
         responseData.username,
+        responseData.role,
         responseData.token
       );
       router.push("/dashboard");
