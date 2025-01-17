@@ -19,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "../ProtectedRoute";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
@@ -124,102 +125,101 @@ export default function UserIdeas() {
       {!isLoading && ideaData?.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mb-6">
           {ideaData.map((idea, index) => (
-            <div
-              key={index}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white"
-            >
-              {/* First Row */}
-              <div>
-                <h2 className="font-bold text-lg">عنوان ایده</h2>
-                <p>{idea.ideaTitle}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
-                <p>{formatDate(idea.createdAt)}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
-                <p>{auth.fullName}</p>
-              </div>
-              {/* Second Row */}
-              <div>
-                <h2 className="font-bold text-lg">نام پدر</h2>
-                <p>{idea.fatherName}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">شرکا</h2>
-                <p>{idea.associate}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">کشور</h2>
-                <p>{idea.country}</p>
-              </div>
-              {/* Third Row */}
-              <div>
-                <h2 className="font-bold text-lg">استان</h2>
-                <p>{idea.state}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">شهر</h2>
-                <p>{idea.city}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">شغل</h2>
-                <p>{idea.career}</p>
-              </div>
-              {/* ّFourth Row */}
-              <div>
-                <h2 className="font-bold text-lg">وضعیت تاهل</h2>
-                <p>{idea.maritalStatus}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">جنسیت</h2>
-                <p>{idea.gender}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">سن</h2>
-                <p>{idea.age}</p>
-              </div>
-              {/* Fifth Row */}
-              <div>
-                <h2 className="font-bold text-lg">شماره تماس</h2>
-                <p>{idea.mobileNumber}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">رشته تحصیلی</h2>
-                <p>{idea.branchOfStudy}</p>
-              </div>
-              <div>
-                <h2 className="font-bold text-lg">زمینه تخصصی</h2>
-                <p>{idea.branchDetail}</p>
-              </div>
-              {/* Description Row */}
-              <div className="md:col-span-3">
-                <h2 className="font-bold text-lg">توضیحات</h2>
-                <p>{idea.ideaDescription}</p>
-              </div>
-              {/* Action Buttons */}
-              <div className="flex gap-2 justify-end md:col-span-3">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIdeaToEdit(idea);
-                    setIsEditDialogOpen(true);
-                  }}
-                >
-                  ویرایش
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => {
-                    setIdeaToDelete(index);
-                    setIsDeleteDialogOpen(true);
-                  }}
-                >
-                  حذف
-                </Button>
-              </div>
-            </div>
+            <Card key={index} className="p-6 shadow-md">
+              <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* First Row */}
+                <div>
+                  <h2 className="font-bold text-lg">عنوان ایده</h2>
+                  <p>{idea.ideaTitle}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
+                  <p>{formatDate(idea.createdAt)}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                  <p>{auth.fullName}</p>
+                </div>
+                {/* Second Row */}
+                <div>
+                  <h2 className="font-bold text-lg">نام پدر</h2>
+                  <p>{idea.fatherName}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">شرکا</h2>
+                  <p>{idea.associate}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">کشور</h2>
+                  <p>{idea.country}</p>
+                </div>
+                {/* Third Row */}
+                <div>
+                  <h2 className="font-bold text-lg">استان</h2>
+                  <p>{idea.state}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">شهر</h2>
+                  <p>{idea.city}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">شغل</h2>
+                  <p>{idea.career}</p>
+                </div>
+                {/* ّFourth Row */}
+                <div>
+                  <h2 className="font-bold text-lg">وضعیت تاهل</h2>
+                  <p>{idea.maritalStatus}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">جنسیت</h2>
+                  <p>{idea.gender}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">سن</h2>
+                  <p>{idea.age}</p>
+                </div>
+                {/* Fifth Row */}
+                <div>
+                  <h2 className="font-bold text-lg">شماره تماس</h2>
+                  <p>{idea.mobileNumber}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">رشته تحصیلی</h2>
+                  <p>{idea.branchOfStudy}</p>
+                </div>
+                <div>
+                  <h2 className="font-bold text-lg">زمینه تخصصی</h2>
+                  <p>{idea.branchDetail}</p>
+                </div>
+                {/* Description Row */}
+                <div className="md:col-span-3">
+                  <h2 className="font-bold text-lg">توضیحات</h2>
+                  <p>{idea.ideaDescription}</p>
+                </div>
+                {/* Action Buttons */}
+                <div className="flex gap-2 justify-end md:col-span-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIdeaToEdit(idea);
+                      setIsEditDialogOpen(true);
+                    }}
+                  >
+                    ویرایش
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    onClick={() => {
+                      setIdeaToDelete(index);
+                      setIsDeleteDialogOpen(true);
+                    }}
+                  >
+                    حذف
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       )}

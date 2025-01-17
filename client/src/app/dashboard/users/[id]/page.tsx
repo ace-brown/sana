@@ -18,10 +18,9 @@ export default function UserDetailsPage({
   params: { id: string };
 }) {
   const [user, setUser] = useState<UserType | null>(null);
-  const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
+  const [ideaData, setIdeaData] = useState<UserIdeaType[] | null>(null);
   const { isLoading, error, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
-  const userId = auth.userId;
   const router = useRouter();
 
   // Fetch user details when component mounts or when user ID changes
@@ -41,21 +40,39 @@ export default function UserDetailsPage({
     fetchUserDetails();
   }, [params.id, sendRequest, auth.token]);
 
+  // Fetch idea for the user when component mounts
   useEffect(() => {
     async function fetchIdeas() {
       try {
-        const responseData = await sendRequest(
-          `http://localhost:5000/api/ideas/user/${userId}`,
-          "GET",
-          null,
-          { Authorization: "Bearer " + auth.token }
+        setIdeaData([]);
+        const response = await fetch(
+          `http://localhost:5000/api/ideas/user/${user?.id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${auth.token}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
 
-        setIdeaData(responseData.ideasForUser);
-      } catch (err) {}
+        // Check if response is successful
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+
+        // Update ideaData with fetched data
+        setIdeaData(responseData.ideasForUser || []);
+      } catch (error) {
+        // Handle the error case (set empty ideas array or show an error message)
+        setIdeaData([]);
+      }
     }
+
     fetchIdeas();
-  }, [sendRequest, userId]);
+  }, [user?.id]);
 
   // Loading skeleton
   if (isLoading) {
@@ -164,7 +181,7 @@ export default function UserDetailsPage({
           {/*********************************************************************
            *Refactor 1: Idea card is used here and on the /user-ideas page
            **********************************************************************/}
-          {!isLoading && ideaData?.length > 0 && (
+          {!isLoading && ideaData && ideaData?.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 mb-6">
               {ideaData.map((idea, index) => (
                 <div>
@@ -278,6 +295,19 @@ export default function UserDetailsPage({
                 </div>
               ))}
             </div>
+          ) : (
+            <>
+              <p className="text-gray-500 mx-4">
+                این کاربر هنوز ایده‌ای ثبت نکرده است.
+              </p>
+              <Button
+                className="mt-4"
+                variant="outline"
+                onClick={() => router.push("/dashboard/users")}
+              >
+                بازگشت به صفحه کاربران
+              </Button>
+            </>
           )}
         </div>
       </Card>
