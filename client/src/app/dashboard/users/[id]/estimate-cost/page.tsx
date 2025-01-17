@@ -19,12 +19,7 @@ import {
 } from "@/components/ui/table";
 import { CostType, ServiceType } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  DialogFooter,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import EstimateCostFormEdit from "@/components/costs/EstimateCostFormEdit";
 
 export default function EstimateCostPage() {
@@ -119,8 +114,12 @@ export default function EstimateCostPage() {
                           {service.price.toLocaleString("fa-IR")}
                         </TableCell>
                         <TableCell>{service.expert || "N/A"}</TableCell>
-                        <TableCell>
-                          {item.paid ? "پرداخت شده" : "پرداخت نشده"}
+                        <TableCell
+                          className={`font-medium ${
+                            service.paid ? "text-green-600" : "text-orange-600"
+                          }`}
+                        >
+                          {service.paid ? "پرداخت شده" : "پرداخت نشده"}
                         </TableCell>
 
                         <TableCell>
@@ -157,11 +156,10 @@ export default function EstimateCostPage() {
           <DialogHeader>ویرایش خدمت</DialogHeader>
           {selectedService && (
             <EstimateCostFormEdit
-              reportId={reportId}
-              userId={userId}
               selectedService={selectedService}
-              fetchCosts={fetchCosts}
               costId={costId}
+              fetchCosts={fetchCosts}
+              setIsEditDialogOpen={setIsEditDialogOpen}
             />
           )}
         </DialogContent>

@@ -95,6 +95,7 @@ export default function CostsPage() {
                 <TableHead className="text-right">خدمت</TableHead>
                 <TableHead className="text-right">قیمت (تومان)</TableHead>
                 <TableHead className="text-right">کارشناس مربوطه</TableHead>
+                <TableHead className="text-right">وضعیت</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -113,6 +114,10 @@ export default function CostsPage() {
                           <TableCell>
                             <input
                               type="checkbox"
+                              className={`${
+                                service.paid ? "" : "cursor-pointer"
+                              } transform scale-125`}
+                              disabled={service.paid}
                               onChange={() => handleCheckboxChange(service)}
                               checked={selectedServices.includes(
                                 service.serviceName
@@ -124,6 +129,15 @@ export default function CostsPage() {
                             {service.price.toLocaleString("fa-IR")}
                           </TableCell>
                           <TableCell>{service.expert || "N/A"}</TableCell>
+                          <TableCell
+                            className={`font-medium ${
+                              service.paid
+                                ? "text-green-600"
+                                : "text-orange-600"
+                            }`}
+                          >
+                            {service.paid ? "پرداخت شده" : "پرداخت نشده"}
+                          </TableCell>
                         </TableRow>
                       ))
                     : null
@@ -141,7 +155,7 @@ export default function CostsPage() {
       <div className="text-center mt-8">
         <p className="text-lg text-gray-600 mb-4">
           لطفاً مبلغ کل را به حساب بانکی زیر واریز کرده و سپس رسید پرداخت خود را
-          بارگذاری کنید.
+          از طریق کانال ارتباطی زیر ارسال کنید.
         </p>
 
         {/* Grid for Bank Info and Upload Component */}
@@ -157,7 +171,7 @@ export default function CostsPage() {
             </div>
           </div>
 
-          <div className="flex flex-col flex-1 h-full">
+          {/* <div className="flex flex-col flex-1 h-full">
             <label className="text-right font-semibold mb-2">
               بارگذاری رسید پرداخت
             </label>
@@ -167,6 +181,22 @@ export default function CostsPage() {
               </p>
               <FileUpload />
             </div>
+          </div> */}
+          <div className="flex flex-col flex-1 h-full">
+            <label className="text-right font-semibold mb-2">
+              لطفاً رسید پرداخت خود را به شناسه تلگرام زیر ارسال کنید.
+            </label>
+            <div className="border p-4">
+              <p className="mb-2 text-center">
+                <a
+                  href="https://t.me/kad9312"
+                  target="_blank"
+                  className="text-blue-500 hover:underline"
+                >
+                  https://t.me/kad9312
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -174,11 +204,15 @@ export default function CostsPage() {
       {/* Call-to-Action */}
       <div className="text-center mt-8">
         <p className="text-lg text-gray-600 mb-4">
-          با استفاده از شناسه گزارش زیر میتوانید گزارش مربوط به ایده ی خود را
-          مشاهده کنید.
+          پس از دریافت رسید پرداخت شما، شناسه گزارش برایتان ارسال خواهد شد.
         </p>
-        <p>شناسه گزارش: {reportId}</p>
-        <Button className="px-8 py-4 text-lg">برو به گزارش ها</Button>
+        {/* <p>
+          شناسه گزارش:{" "}
+          {estimatedCosts[0]?.selectedServices[0]?.paid && reportId}
+        </p> */}
+        <Link href="/dashboard/reports">
+          <Button className="px-8 py-4 text-lg">برو به گزارش ها</Button>
+        </Link>
       </div>
 
       {/* Additional Information */}

@@ -128,7 +128,7 @@ export default function AccountPage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-2 justify-start mt-4">
+            <div className="flex gap-4 justify-start mt-4">
               <Button
                 variant="outline"
                 onClick={() => {

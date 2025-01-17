@@ -27,7 +27,6 @@ const costSchema = new mongoose.Schema(
     {
         userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
         reportId: { type: mongoose.Schema.Types.ObjectId, ref: "Report", required: true },
-        paid: { type: Boolean, default: false },
         selectedServices: {
             type: [
                 {
@@ -36,6 +35,7 @@ const costSchema = new mongoose.Schema(
                         required: true,
                         enum: predefinedServices.map(service => service.serviceName)
                     },
+                    paid: { type: Boolean, default: false },
                     price: { type: Number, required: true },
                     expert: { type: String },
                 }
