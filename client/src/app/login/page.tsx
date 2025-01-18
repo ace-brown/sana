@@ -3,7 +3,7 @@
 import React, { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +42,7 @@ export default function LoginPage() {
         responseData.token
       );
       router.push("/dashboard");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   };
 

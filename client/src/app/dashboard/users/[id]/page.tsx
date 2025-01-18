@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
+import Image from "next/image";
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
@@ -34,6 +36,7 @@ export default function UserDetailsPage({
           { Authorization: "Bearer " + auth.token }
         );
         setUser(responseData.user);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {}
     }
 
@@ -65,13 +68,14 @@ export default function UserDetailsPage({
 
         // Update ideaData with fetched data
         setIdeaData(responseData.ideasForUser || []);
-      } catch (error) {
-        // Handle the error case (set empty ideas array or show an error message)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (err) {
         setIdeaData([]);
       }
     }
 
     fetchIdeas();
+    // eslint-disable-next-line
   }, [user?.id]);
 
   // Loading skeleton
@@ -137,7 +141,7 @@ export default function UserDetailsPage({
         <p>
           <strong>آواتار:</strong>{" "}
           {user.profile.avatar ? (
-            <img
+            <Image
               src={user.profile.avatar}
               alt={`آواتار ${user.username}`}
               className="w-32 h-32 rounded-full mt-4"
@@ -184,11 +188,8 @@ export default function UserDetailsPage({
           {!isLoading && ideaData && ideaData?.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 mb-6">
               {ideaData.map((idea, index) => (
-                <div>
-                  <div
-                    key={index}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white"
-                  >
+                <div key={index}>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white">
                     {/* First Row */}
                     <div>
                       <h2 className="font-bold text-lg">عنوان ایده</h2>

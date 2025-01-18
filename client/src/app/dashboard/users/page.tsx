@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Card } from "@/components/ui/card";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "@/app/dashboard/ProtectedRoute";
+import Image from "next/image";
 
 interface User {
   _id: string;
@@ -63,6 +64,7 @@ export default function UsersPage() {
 
   useEffect(() => {
     fetchUsers(page);
+    // eslint-disable-next-line
   }, [page]);
 
   return (
@@ -96,7 +98,7 @@ export default function UsersPage() {
                   <TableRow key={user._id}>
                     <TableCell>
                       {user.profile.avatar ? (
-                        <img
+                        <Image
                           src={user.profile.avatar}
                           alt={`آواتار ${user.username}`}
                           className="w-8 h-8 rounded-full"

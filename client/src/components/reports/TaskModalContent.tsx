@@ -63,6 +63,7 @@ export default function TaskModalContent({
         "گزارش‌ با موفقیت به‌روزرسانی شد"
       );
       closeTaskModal();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 

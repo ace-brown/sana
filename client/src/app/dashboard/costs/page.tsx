@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -13,11 +13,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import FileUpload from "@/components/common/FileUpload";
 import { AuthContext } from "@/context/auth-context";
 import { CostType } from "@/types";
 import { useHttpClient } from "@/hooks/http-hook";
-import { FaPen } from "react-icons/fa";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProtectedRoute from "../ProtectedRoute";
 
@@ -25,8 +23,8 @@ export default function CostsPage() {
   const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [reportId, setReportId] = useState<string | undefined>();
-  const { error, isLoading, sendRequest } = useHttpClient();
+  // const [reportId, setReportId] = useState<string | undefined>();
+  const { isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
 
   const handleCheckboxChange = (service: {
@@ -50,7 +48,7 @@ export default function CostsPage() {
   };
 
   // Get the costs when component mounted
-  async function fetchCosts() {
+  const fetchCosts = useCallback(async () => {
     try {
       const responseData = await sendRequest(
         `http://localhost:5000/api/costs/user/${auth.userId}`,
@@ -59,15 +57,18 @@ export default function CostsPage() {
         { Authorization: "Bearer " + auth.token }
       );
       setEstimatedCosts(responseData.costsForUser);
-      if (responseData.costsForUser.length > 0) {
-        setReportId(responseData.costsForUser[0].reportId);
-      }
+      // if (responseData.costsForUser.length > 0) {
+      //   setReportId(responseData.costsForUser[0].reportId);
+      // }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
-  }
+    // eslint-disable-next-line
+  }, [auth.userId, auth.token]);
 
   useEffect(() => {
     fetchCosts();
-  }, []);
+  }, [fetchCosts]);
 
   return (
     <ProtectedRoute allowedRoles={["admin", "user"]}>
@@ -154,10 +155,10 @@ export default function CostsPage() {
 
         {/* New Feature Section */}
         <div className="text-center mt-8">
-          <p className="text-lg text-gray-600 mb-4">
+          {/* <p className="text-lg text-gray-600 mb-4">
             لطفاً مبلغ کل را به حساب بانکی زیر واریز کرده و سپس رسید پرداخت خود
             را از طریق کانال ارتباطی زیر ارسال کنید.
-          </p>
+          </p> */}
 
           {/* Grid for Bank Info and Upload Component */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -166,9 +167,9 @@ export default function CostsPage() {
                 اطلاعات بانکی:
               </label>
               <div className="border p-4 text-right">
-                <p>بانک: ملی ایران</p>
+                {/* <p>بانک: ملی ایران</p>
                 <p>شماره حساب: 123-456-7890</p>
-                <p>کد شبا: IR123456789012345678901234</p>
+                <p>کد شبا: IR123456789012345678901234</p> */}
               </div>
             </div>
 

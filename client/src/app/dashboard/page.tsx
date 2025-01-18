@@ -24,7 +24,7 @@ export default function AccountPage() {
   const [profileData, setProfileData] = useState<UserType>();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const { isLoading, error, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const auth = useContext(AuthContext);
@@ -42,6 +42,7 @@ export default function AccountPage() {
       );
 
       auth.logout();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       toast.error("حذف حساب کاربری با مشکل مواجه شد. لطفاً دوباره تلاش کنید.");
     } finally {
@@ -60,12 +61,14 @@ export default function AccountPage() {
       );
 
       setProfileData(responseData.user);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
   useEffect(() => {
     fetchUserProfile();
-  }, [sendRequest, userId]);
+    // eslint-disable-next-line
+  }, [userId]);
 
   // Return the main content
   return (

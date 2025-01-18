@@ -46,7 +46,7 @@ export default function StartupPath() {
     <Section>
       <div style={{ direction: "ltr" }}>
         <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
-        {cardData.map((item, _) => {
+        {cardData.map((item) => {
           return (
             <div key={item.id} className="grid">
               <div className="sm:mb-4 grid gap-4 grid-cols-[2fr_5px_2fr] lg:m-0 md:m-0">

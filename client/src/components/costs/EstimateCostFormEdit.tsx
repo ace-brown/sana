@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -96,6 +96,7 @@ export default function EstimateCostFormEdit({
       );
       fetchCosts();
       setIsEditDialogOpen(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 

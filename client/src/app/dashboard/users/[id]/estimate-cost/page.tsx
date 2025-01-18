@@ -27,7 +27,7 @@ export default function EstimateCostPage() {
   const [estimatedCosts, setEstimatedCosts] = useState<CostType[]>([]);
   const { error, isLoading, sendRequest } = useHttpClient();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<any>(null);
+  const [selectedService, setSelectedService] = useState<ServiceType>();
   const [costId, setCostId] = useState<string | undefined>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,15 +49,17 @@ export default function EstimateCostPage() {
         { Authorization: "Bearer " + auth.token }
       );
       setEstimatedCosts(responseData.costsForUser);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
   useEffect(() => {
     fetchCosts();
+    // eslint-disable-next-line
   }, []);
 
   // Open modal for editing the selected service
-  const handleEditService = (service: any) => {
+  const handleEditService = (service: ServiceType) => {
     setSelectedService(service);
     setIsEditDialogOpen(true);
   };

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 import {
   Card,
@@ -10,9 +9,6 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import PageTitle from "@/components/common/page-title";
-import P from "@/components/common/ptag";
-import ReadContainer from "@/components/common/read-container";
 import SubSectionTitle from "@/components/common/subsection-title";
 import SubSection from "@/components/common/subsection";
 import FileDownload from "@/components/common/FileDownload";

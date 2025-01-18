@@ -38,6 +38,7 @@ export default function ReportPage() {
       );
       setReport(responseData.report);
       setShowProgressBar(true);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
@@ -53,7 +54,7 @@ export default function ReportPage() {
           پروژه خود مطلع هستید. کافیست شناسه گزارش خود را وارد کنید تا اطلاعات
           کامل مراحل انجام شده و برنامه‌های آتی نمایش داده شود. هدف ما این است
           که با شفافیت کامل و به‌روزترین اطلاعات، شما را در مسیر تحقق ایده‌تان
-          همراهی کنیم"
+          همراهی کنیم
         </P>
         <div className="flex items-center gap-8 mt-8">
           <Input

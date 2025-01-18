@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   FaUser,
   FaSeedling,
-  FaChartBar,
   FaUsers,
-  FaCog,
   FaShoppingCart,
   FaFileAlt,
   FaPenFancy,

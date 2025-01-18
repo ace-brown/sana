@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 import { useRouter } from "next/navigation";
 
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
@@ -10,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -44,6 +42,7 @@ export default function IdeasPage() {
       setIsDialogOpen(false);
       auth.getReportId(responseData.idea.reportId);
       router.push("/dashboard/user-ideas");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 

@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { EmblaOptionsType } from "embla-carousel";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import {
   PrevButton,
   NextButton,
@@ -13,13 +12,13 @@ import "./embla.css";
 import SectionTitle from "../common/section-title";
 import Section from "../common/section";
 
-type CardEntry = {
-  type: string;
-  cardTitle: string;
-  cardDate: string;
-  cardBody: string;
-  readMoreBtn: string;
-};
+// type CardEntry = {
+//   type: string;
+//   cardTitle: string;
+//   cardDate: string;
+//   cardBody: string;
+//   readMoreBtn: string;
+// };
 
 type PropType = {
   slides: number[];
@@ -30,8 +29,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   const { slides, options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
+  // const { selectedIndex, scrollSnaps, onDotButtonClick } =
+  //   useDotButton(emblaApi);
 
   const {
     prevBtnDisabled,

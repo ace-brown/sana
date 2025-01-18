@@ -20,12 +20,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
   const router = useRouter();
 
-  const getReportId = useCallback(
-    function (reportId: string | null) {
-      setReportId(reportId);
-    },
-    [userId]
-  );
+  const getReportId = useCallback(function (reportId: string | null) {
+    setReportId(reportId);
+  }, []);
 
   const login = useCallback(function (
     uid: string,

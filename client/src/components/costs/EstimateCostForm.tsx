@@ -83,6 +83,7 @@ export default function EstimateCostForm({
         "تخمین هزینه با موفقیت ایجاد شد"
       );
       fetchCosts();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       toast.error(error);
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 
 import { useHttpClient } from "@/hooks/http-hook";
 import { RegisterIdeaType, UserIdeaType } from "@/types";
@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "../ProtectedRoute";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
@@ -27,7 +27,7 @@ export default function UserIdeas() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [ideaToEdit, setIdeaToEdit] = useState<UserIdeaType | null>(null);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
-  const { isLoading, error, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const userId = auth.userId;
 
@@ -53,6 +53,7 @@ export default function UserIdeas() {
       fetchIdeas();
       setIsEditDialogOpen(false);
       setIdeaToEdit(null);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
@@ -78,6 +79,7 @@ export default function UserIdeas() {
         // Reset dialog state
         setIdeaToDelete(null);
         setIsDeleteDialogOpen(false);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {}
     }
   }
@@ -92,11 +94,13 @@ export default function UserIdeas() {
       );
 
       setIdeaData(responseData.ideasForUser);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
   useEffect(() => {
     fetchIdeas();
+    // eslint-disable-next-line
   }, [sendRequest, userId]);
 
   return (

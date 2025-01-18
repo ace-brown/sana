@@ -58,6 +58,7 @@ export default function SignupPage() {
         responseData.token
       );
       router.push("/dashboard");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
   }
 
