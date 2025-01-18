@@ -1,5 +1,3 @@
-"use client";
-
 import { useContext, useState } from "react";
 import { Toaster, toast } from "sonner";
 
@@ -26,6 +24,7 @@ export default function TaskModalContent({
   const [selectedStatus, setSelectedStatus] = useState(
     task?.taskStatus || "Not Started"
   );
+  const [description, setDescription] = useState(task?.description || ""); // Add state for description
   const auth = useContext(AuthContext);
 
   // Update report handler
@@ -34,7 +33,8 @@ export default function TaskModalContent({
       toast.error("Task or report not found");
       return;
     }
-    // Find the stage and task in the foundReport to update the taskStatus
+
+    // Find the stage and task in the foundReport to update the taskStatus and description
     const updatedReport = { ...foundReport }; // Create a copy of the foundReport
     const stageIndex = updatedReport.stages.findIndex((stage) =>
       stage.tasks.some((t) => t.taskTitle === task?.taskTitle)
@@ -46,6 +46,8 @@ export default function TaskModalContent({
       if (taskIndex !== -1) {
         updatedReport.stages[stageIndex].tasks[taskIndex].taskStatus =
           selectedStatus;
+        updatedReport.stages[stageIndex].tasks[taskIndex].description =
+          description;
       }
     }
 
@@ -70,9 +72,14 @@ export default function TaskModalContent({
       <Toaster position="top-center" richColors />
       <div className="flex flex-col space-y-2">
         <Label htmlFor="measures" className="font-medium">
-          اقدامات لازم
+          توضیحات وظیفه
         </Label>
-        <Textarea id="measures" className="resize-none" />
+        <Textarea
+          id="measures"
+          className="resize-none"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
       </div>
       <div className="flex gap-4 mt-4">
         <RadioGroup

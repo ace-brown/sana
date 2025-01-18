@@ -23,7 +23,7 @@ const predefinedServices = [
   { serviceName: "تحلیل رقبا", price: 0, expert: "" },
   { serviceName: "مطالعه امکان‌سنجی", price: 0, expert: "" },
   { serviceName: "طراحی اولیه", price: 0, expert: "" },
-  { serviceName: "ساخت MVP", price: 0, expert: "" },
+  { serviceName: "ساخت نمونه اولیه", price: 0, expert: "" },
   { serviceName: "آزمایش نمونه اولیه", price: 0, expert: "" },
   { serviceName: "آزمایش واحد", price: 0, expert: "" },
   { serviceName: "آزمایش یکپارچه‌سازی", price: 0, expert: "" },

@@ -66,6 +66,7 @@ export interface Report {
       _id?: string;
       taskTitle: string;
       taskStatus: string;
+      description?: string;
     }[];
   }[];
   createdAt?: Date;
@@ -95,6 +96,7 @@ export interface SelectedTaskType {
   _id?: string;
   taskTitle: string;
   taskStatus: string;
+  description?: string;
 }
 
 export interface CostType {
