@@ -34,12 +34,13 @@ export default function StartUpCard({
         <h2 className="text-3xl">{item.title}</h2>
         <p className="mb-2 mt-2 text-[12px]">{item.description}</p>
         <CardFooter className="mt-4">
-          <Link
+          {/* <Link
+          
             href={item.link}
             className="text-blue-500 font-medium hover:underline"
           >
             بیشتر بخوانید
-          </Link>
+          </Link> */}
         </CardFooter>
       </div>
     </div>

@@ -47,15 +47,15 @@ export default function NavBar() {
           >
             درباره ما
           </Link>
-          <Link
+          {/* <Link
             href="/patent-registration"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
             ثبت اختراع
-          </Link>
+          </Link> */}
           <Link
-            href=""
+            href="/education"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
@@ -68,13 +68,13 @@ export default function NavBar() {
           >
             پژوهش
           </Link>
-          <Link
+          {/* <Link
             href="/sales"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
             فروش
-          </Link>
+          </Link> */}
         </nav>
         <div className="flex items-center gap-4">
           <div className="hidden items-center gap-2 text-sm font-medium md:flex"></div>

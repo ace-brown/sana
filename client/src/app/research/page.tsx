@@ -20,27 +20,24 @@ import FileDownload from "@/components/common/FileDownload";
 export default function ResearchPage() {
   return (
     <>
-      <ReadContainer>
+      {/* <ReadContainer>
         <PageTitle>ثبت ایده‌های </PageTitle>
         <P>
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. لورم ایپسوم
           متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن فقط برای پر
           کردن فضا قرار داده شده است و ارزش معنایی ندارد
         </P>
-      </ReadContainer>
+      </ReadContainer> */}
       <SubSection>
         <SubSectionTitle textAlign="center">
           تمام فرم‌های مورد نیاز
         </SubSectionTitle>
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] pl-16 pr-16">
-          <Card>
+          {/* <Card>
             <CardHeader>
               <CardTitle>مسابقات علمی</CardTitle>
             </CardHeader>
-            <CardContent>
-              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <Link
                 href="/research/competitions"
@@ -49,15 +46,12 @@ export default function ResearchPage() {
                 بیشتر بخوانید
               </Link>
             </CardFooter>
-          </Card>
+          </Card> */}
           <Card>
             <CardHeader>
               <CardTitle>فرم آشنایی با مالیات</CardTitle>
             </CardHeader>
-            <CardContent>
-              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl="http://localhost:5000/api/download/tax_introduction.pdf"
@@ -69,10 +63,7 @@ export default function ResearchPage() {
             <CardHeader>
               <CardTitle>فرم راهنمای ثبت اختراع</CardTitle>
             </CardHeader>
-            <CardContent>
-              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl="http://localhost:5000/api/download/invention_register.pdf"
@@ -84,10 +75,7 @@ export default function ResearchPage() {
             <CardHeader>
               <CardTitle>فرم درخواست پذیرش واحد های فناور</CardTitle>
             </CardHeader>
-            <CardContent>
-              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl="http://localhost:5000/api/download/Incubator_start_form.pdf"
@@ -99,10 +87,7 @@ export default function ResearchPage() {
             <CardHeader>
               <CardTitle>فرم شیوه نامه ی اجرایی جشنواره جوان خوارزمی</CardTitle>
             </CardHeader>
-            <CardContent>
-              ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن
-              برای پر کردن فضا قرار داده شده است
-            </CardContent>
+            <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl="http://localhost:5000/api/download/kharazmi_approach.pdf"

@@ -8,33 +8,33 @@ export default function Footer() {
       <div className="flex justify-between gap-4 text-[1rem]">
         {/* Links */}
         <ul className="flex gap-6">
-          <li>
+          {/* <li>
             <Link href="#" className="hover:text-gray-100">
               پشتیبانی
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link href="#" className="hover:text-gray-100">
               مرکز کمک
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/contact" className="hover:text-gray-100">
               تماس
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="#" className="hover:text-gray-100">
               سؤالات متداول
             </Link>
-          </li>
+          </li> */}
           <li>
-            <Link href="#" className="hover:text-gray-100">
+            <Link href="/terms" className="hover:text-gray-100">
               قوانین
             </Link>
           </li>
           <li>
-            <Link href="#" className="hover:text-gray-100">
+            <Link href="/privacy" className="hover:text-gray-100">
               حریم خصوصی
             </Link>
           </li>

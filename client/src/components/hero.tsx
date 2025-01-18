@@ -14,16 +14,18 @@ const Hero = () => {
         </h1>
         <p className="font-light text-[#b3b3b3] text-right lg:text-[clamp(1rem,2vw,1.5rem)]">
           از اعتبارسنجی تا اجرا، ابزارها، راهنمایی‌ها و جامعه‌ای را که برای
-          ساخت، راه‌اندازی و رشد کسب‌وکارتان نیاز دارید، در اختیار شما می‌گذاریم
+          ساخت، راه‌اندازی و رشد کسب‌وکارتان نیاز دارید، در اختیار شما
+          می‌گذاریم.
         </p>
-        <div className="flex justify-start gap-4 mt-4">
+
+        {/* <div className="flex justify-start gap-4 mt-4">
           <Link href="/about">
             <Button>شروع کنید</Button>
           </Link>
           <Link href="/sales">
             <Button>ویژگی‌ها را ببینید</Button>
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className="max-w-full h-auto">
         <Image

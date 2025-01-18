@@ -16,8 +16,8 @@ export default function Home() {
     <div className="mb-8 mx-auto">
       <Hero />
       <StartupPath />
-      <WhyUs />
-      <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+      {/* <WhyUs /> */}
+      {/* <EmblaCarousel slides={SLIDES} options={OPTIONS} /> */}
     </div>
   );
 }
