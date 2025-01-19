@@ -138,6 +138,7 @@ async function signup(req, res, next) {
     }
 
     const { username, email, password, fullName } = req.body;
+    console.log('Request Body:', req.body);
 
     let existingUser;
     try {
@@ -167,6 +168,7 @@ async function signup(req, res, next) {
     try {
         await createdUser.save();
     } catch (err) {
+        console.error('Error saving user:', err);
         const error = new HttpError('Signing up failed, please try again later.', 500);
         return next(error);
     }
