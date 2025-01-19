@@ -4,7 +4,6 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
-import axios from "axios";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +17,7 @@ import { AuthContext } from "@/context/auth-context";
 export default function SignupPage() {
   const auth = useContext(AuthContext);
   const router = useRouter();
-  const { isLoading, error } = useHttpClient();
+  const { isLoading, error, sendRequest } = useHttpClient();
 
   // State to manage form data
   const [formData, setFormData] = useState({
@@ -38,46 +37,19 @@ export default function SignupPage() {
   }
 
   // Handle form submission
-  // async function handleSubmit(e: React.FormEvent) {
-  //   e.preventDefault();
-
-  //   try {
-  //     const responseData = await sendRequest(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
-  //       "POST",
-  //       JSON.stringify(formData),
-  //       {
-  //         "Content-Type": "application/json",
-  //       },
-  //       "حساب کاربری شما با موفقیت ایجاد شد "
-  //     );
-  //     auth.login(
-  //       responseData.userId,
-  //       responseData.fullName,
-  //       responseData.username,
-  //       responseData.role,
-  //       responseData.token
-  //     );
-  //     router.push("/dashboard");
-  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   } catch (err) {}
-  // }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
-      const res = await axios({
-        method: "POST",
-        url: `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
-        data: formData,
-        headers: {
+      const responseData = await sendRequest(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
+        "POST",
+        JSON.stringify(formData),
+        {
           "Content-Type": "application/json",
         },
-      });
-
-      const responseData = res.data; // Response data
-
+        "حساب کاربری شما با موفقیت ایجاد شد "
+      );
       auth.login(
         responseData.userId,
         responseData.fullName,
@@ -85,11 +57,9 @@ export default function SignupPage() {
         responseData.role,
         responseData.token
       );
-
       router.push("/dashboard");
-    } catch (err) {
-      console.error("Error during signup:", err);
-    }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {}
   }
 
   return (
