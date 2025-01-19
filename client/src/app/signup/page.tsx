@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
+import axios from "axios";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,19 +38,47 @@ export default function SignupPage() {
   }
 
   // Handle form submission
+  // async function handleSubmit(e: React.FormEvent) {
+  //   e.preventDefault();
+
+  //   try {
+  //     const responseData = await sendRequest(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
+  //       "POST",
+  //       JSON.stringify(formData),
+  //       {
+  //         "Content-Type": "application/json",
+  //       },
+  //       "حساب کاربری شما با موفقیت ایجاد شد "
+  //     );
+  //     auth.login(
+  //       responseData.userId,
+  //       responseData.fullName,
+  //       responseData.username,
+  //       responseData.role,
+  //       responseData.token
+  //     );
+  //     router.push("/dashboard");
+  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   } catch (err) {}
+  // }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
-      const responseData = await sendRequest(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
-        "POST",
-        JSON.stringify(formData),
+        formData, // Axios automatically stringifies JSON data
         {
-          "Content-Type": "application/json",
-        },
-        "حساب کاربری شما با موفقیت ایجاد شد "
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
+
+      const responseData = response.data;
+
       auth.login(
         responseData.userId,
         responseData.fullName,
@@ -57,6 +86,7 @@ export default function SignupPage() {
         responseData.role,
         responseData.token
       );
+
       router.push("/dashboard");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {}
