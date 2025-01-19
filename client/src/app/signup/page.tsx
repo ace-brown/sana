@@ -67,17 +67,16 @@ export default function SignupPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
-        formData, // Axios automatically stringifies JSON data
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axios({
+        method: "POST",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      const responseData = response.data;
+      const responseData = res.data; // Response data
 
       auth.login(
         responseData.userId,
@@ -88,8 +87,9 @@ export default function SignupPage() {
       );
 
       router.push("/dashboard");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {}
+    } catch (err) {
+      console.error("Error during signup:", err);
+    }
   }
 
   return (
