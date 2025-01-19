@@ -29,7 +29,7 @@ export default function IdeasPage() {
     const ownerId = auth.userId;
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/ideas",
+        `${process.env.NEXT_PUBLIC_API_URL}/ideas`,
         "POST",
         JSON.stringify({ ...formData, ownerId }),
         {

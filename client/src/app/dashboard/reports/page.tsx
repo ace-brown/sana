@@ -27,7 +27,7 @@ export default function ReportPage() {
   async function handleProgressBarClick() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/reports/${reportId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/reports/${reportId}`,
         "GET",
         null,
         {

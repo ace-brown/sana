@@ -113,7 +113,7 @@ async function getUsers(req, res, next) {
 //     try {
 //         token = jwt.sign(
 //             { userId: createdUser.id, email: createdUser.email },
-//             'supersecret_dont_share',
+//             process.env.JWT_SECRET,
 //             { expiresIn: '1h' }
 //         );
 //     } catch (err) {
@@ -175,7 +175,7 @@ async function signup(req, res, next) {
     try {
         token = jwt.sign(
             { userId: createdUser.id, email: createdUser.email },
-            'supersecret_dont_share',
+            process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
     } catch (err) {
@@ -229,7 +229,7 @@ async function signup(req, res, next) {
 //     try {
 //         token = jwt.sign(
 //             { userId: existingUser.id, email: existingUser.email },
-//             'supersecret_dont_share',
+//             process.env.JWT_SECRET,
 //             { expiresIn: '1h' }
 //         );
 //     } catch (err) {
@@ -274,7 +274,7 @@ async function login(req, res, next) {
     try {
         token = jwt.sign(
             { userId: existingUser.id, email: existingUser.email },
-            'supersecret_dont_share',
+            process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
     } catch (err) {

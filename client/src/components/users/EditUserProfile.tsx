@@ -46,7 +46,7 @@ export default function EditUserProfile({
     e.preventDefault();
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         "PATCH",
         JSON.stringify(formData),
         {

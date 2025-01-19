@@ -43,7 +43,7 @@ export default function EstimateCostPage() {
   async function fetchCosts() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/costs/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/costs/user/${userId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

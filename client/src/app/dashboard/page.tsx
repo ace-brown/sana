@@ -34,7 +34,7 @@ export default function AccountPage() {
   async function handleDeleteAccount() {
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         "DELETE",
         null,
         { Authorization: "Bearer " + auth.token },
@@ -54,7 +54,7 @@ export default function AccountPage() {
   async function fetchUserProfile() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/users/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

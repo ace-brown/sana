@@ -42,7 +42,7 @@ export default function SignupPage() {
 
     try {
       const responseData = await sendRequest(
-        "http://localhost:5000/api/users/signup",
+        `${process.env.NEXT_PUBLIC_API_URL}/users/signup`,
         "POST",
         JSON.stringify(formData),
         {

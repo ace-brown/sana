@@ -50,7 +50,7 @@ export default function ResearchPage() {
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
-                fileUrl="http://localhost:5000/api/download/tax_introduction.pdf"
+                fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/tax_introduction.pdf`}
                 fileName="آشنایی با مالیات در ایران"
               />
             </CardFooter>
@@ -62,7 +62,7 @@ export default function ResearchPage() {
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
-                fileUrl="http://localhost:5000/api/download/invention_register.pdf"
+                fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/invention_register.pdf`}
                 fileName="راهنمای ثبت اختراع"
               />
             </CardFooter>
@@ -74,7 +74,7 @@ export default function ResearchPage() {
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
-                fileUrl="http://localhost:5000/api/download/Incubator_start_form.pdf"
+                fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/Incubator_start_form.pdf`}
                 fileName="درخواست پذیرش واحد های فناور"
               />
             </CardFooter>
@@ -86,7 +86,7 @@ export default function ResearchPage() {
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
-                fileUrl="http://localhost:5000/api/download/kharazmi_approach.pdf"
+                fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/kharazmi_approach.pdf`}
                 fileName=" شیوه نامه ی اجرایی جشنواره جوان خوارزمی"
               />
             </CardFooter>

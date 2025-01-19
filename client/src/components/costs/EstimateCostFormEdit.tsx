@@ -76,7 +76,7 @@ export default function EstimateCostFormEdit({
 
     try {
       await sendRequest(
-        `http://localhost:5000/api/costs/${costId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/costs/${costId}`,
         "PATCH",
         JSON.stringify({
           selectedServices: [

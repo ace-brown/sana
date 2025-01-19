@@ -35,7 +35,7 @@ export default function UserIdeas() {
   async function handleUpdateIdea(updatedIdea: RegisterIdeaType) {
     try {
       await sendRequest(
-        `http://localhost:5000/api/ideas/${ideaToEdit?.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/ideas/${ideaToEdit?.id}`,
         "PATCH",
         JSON.stringify(updatedIdea),
         {
@@ -64,7 +64,7 @@ export default function UserIdeas() {
 
       try {
         await sendRequest(
-          `http://localhost:5000/api/ideas/${idea.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/ideas/${idea.id}`,
           "DELETE",
           null,
           { Authorization: "Bearer " + auth.token },
@@ -87,7 +87,7 @@ export default function UserIdeas() {
   async function fetchIdeas() {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/ideas/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/ideas/user/${userId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

@@ -53,7 +53,7 @@ export default function TaskModalContent({
 
     try {
       await sendRequest(
-        `http://localhost:5000/api/reports/${foundReport.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/reports/${foundReport.id}`,
         "PATCH",
         JSON.stringify(updatedReport),
         {

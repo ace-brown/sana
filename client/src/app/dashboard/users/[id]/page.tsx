@@ -30,7 +30,7 @@ export default function UserDetailsPage({
     async function fetchUserDetails() {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/${params.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`,
           "GET",
           null,
           { Authorization: "Bearer " + auth.token }
@@ -49,7 +49,7 @@ export default function UserDetailsPage({
       try {
         setIdeaData([]);
         const response = await fetch(
-          `http://localhost:5000/api/ideas/user/${user?.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/ideas/user/${user?.id}`,
           {
             method: "GET",
             headers: {

@@ -43,7 +43,7 @@ export default function UsersPage() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/users?page=${currentPage}&limit=10`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users?page=${currentPage}&limit=10`,
         {
           method: "GET",
           headers: {

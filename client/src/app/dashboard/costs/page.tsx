@@ -51,7 +51,7 @@ export default function CostsPage() {
   const fetchCosts = useCallback(async () => {
     try {
       const responseData = await sendRequest(
-        `http://localhost:5000/api/costs/user/${auth.userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/costs/user/${auth.userId}`,
         "GET",
         null,
         { Authorization: "Bearer " + auth.token }

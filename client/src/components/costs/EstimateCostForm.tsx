@@ -63,7 +63,7 @@ export default function EstimateCostForm({
 
     try {
       await sendRequest(
-        "http://localhost:5000/api/costs",
+        `${process.env.NEXT_PUBLIC_API_URL}/costs`,
         "POST",
         JSON.stringify({
           userId,
