@@ -59,7 +59,7 @@ app.use(function (error, req, res, next) {
 
 // Connect to MongoDB
 mongoose
-    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@sana.olzio.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Sana`)
+    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.SUFFIX}.${process.env.AFTER_SUFFIX}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}`)
     .then(function () {
         app.listen(port, () => console.log(`Server is running at port ${port}`))
     })
