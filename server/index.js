@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const usersRoutes = require('./routes/users-routes')
-const reportsRoutes = require('./routes/reports-routes')
-const costsRoutes = require('./routes/costs-routes')
-const ideasRoutes = require('./routes/ideas-routes')
-const downloadRoutes = require('./routes/download-routes')
-const HttpError = require('./models/http-error')
+const usersRoutes = require('./src/routes/users-routes')
+const reportsRoutes = require('./src/routes/reports-routes')
+const costsRoutes = require('./src/routes/costs-routes')
+const ideasRoutes = require('./src/routes/ideas-routes')
+const downloadRoutes = require('./src/routes/download-routes')
+const HttpError = require('./src/models/http-error')
 
 const app = express();
 const port = 5000;
