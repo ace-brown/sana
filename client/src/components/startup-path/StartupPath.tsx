@@ -48,24 +48,38 @@ export default function StartupPath() {
         <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
         {cardData.map((item) => {
           return (
-            <div key={item.id} className="grid">
-              <div className="sm:mb-4 grid gap-4 grid-cols-[2fr_5px_2fr] lg:m-0 md:m-0">
-                {/* The left side of the axis */}
-                <div className="grid justify-items-end mx-0">
-                  {item.id % 2 === 0 && <StartUpCard item={item} />}
-                </div>
-                {/* The axis itself */}
-                <div className="bg-gray-500 grid content-center items-center">
-                  <div className="bg-red-500 transform translate-x-[-35%] h-4 w-4 rounded-full"></div>
-                </div>
-                {/* The right side of the axis */}
-                <div className="grid justify-items-start  mx-0">
-                  {item.id % 2 !== 0 && (
-                    <StartUpCard rightSide={rightSide} item={item} />
-                  )}
+            <>
+              {/* This is visible on large screens (1024px and above) */}
+              <div className="hidden xl:block">
+                <div key={item.id} className="grid">
+                  <div className="sm:mb-4 grid gap-4 grid-cols-[2fr_5px_2fr] lg:m-0 md:m-0">
+                    {/* The left side of the axis */}
+                    <div className="grid justify-items-end mx-0">
+                      {item.id % 2 === 0 && <StartUpCard item={item} />}
+                    </div>
+                    {/* The axis itself */}
+                    <div className="bg-gray-500 grid content-center items-center">
+                      <div className="bg-red-500 transform translate-x-[-35%] h-4 w-4 rounded-full"></div>
+                    </div>
+                    {/* The right side of the axis */}
+                    <div className="grid justify-items-start mx-0">
+                      {item.id % 2 !== 0 && (
+                        <StartUpCard rightSide={rightSide} item={item} />
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+              {/* This is visible below 1024px */}
+              <div className="block xl:hidden">
+                <div
+                  key={item.id}
+                  className="flex items-center justify-center mx-0 mb-4"
+                >
+                  <StartUpCard item={item} />
+                </div>
+              </div>
+            </>
           );
         })}
       </div>

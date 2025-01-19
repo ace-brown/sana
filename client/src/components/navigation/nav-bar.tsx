@@ -134,32 +134,32 @@ export default function NavBar() {
             <SheetContent side="left" className="md:hidden">
               <div className="grid gap-4 p-4">
                 <Link
-                  href="#"
+                  href="/"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  Home
+                  خانه
                 </Link>
                 <Link
-                  href="#"
+                  href="/about"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  About
+                  درباره ما
                 </Link>
                 <Link
-                  href="#"
+                  href="/education"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  Services
+                  آموزش
                 </Link>
                 <Link
-                  href="#"
+                  href="/research"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  Contact
+                  پژوهش
                 </Link>
               </div>
             </SheetContent>
