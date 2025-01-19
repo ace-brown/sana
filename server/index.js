@@ -9,14 +9,14 @@ const downloadRoutes = require('./src/routes/download-routes')
 const HttpError = require('./src/models/http-error')
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
 
 // Middleware to handle CORS (Cross-Origin Resource Sharing)
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://sana-client.vercel.app');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
