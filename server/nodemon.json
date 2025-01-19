@@ -1,8 +1,8 @@
 {
   "env": {
-    "DB_USER": "kdehnoei",
-    "DB_PASSWORD": "QHFgtl3LvqVf5V1p",
-    "DB_NAME": "sanaDB",
+    "DB_USER": "kylexw12345",
+    "DB_PASSWORD": "tQfqmmTtqpKCYSuv",
+    "DB_NAME": "sanaDev",
     "JWT_SECRET": "supersecret_dont_share"
   }
 }
