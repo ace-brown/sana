@@ -18,7 +18,7 @@ import { AuthContext } from "@/context/auth-context";
 export default function SignupPage() {
   const auth = useContext(AuthContext);
   const router = useRouter();
-  const { isLoading, error, sendRequest } = useHttpClient();
+  const { isLoading, error } = useHttpClient();
 
   // State to manage form data
   const [formData, setFormData] = useState({
