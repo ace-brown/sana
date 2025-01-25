@@ -16,7 +16,7 @@ app.use(express.json());
 
 // Middleware to handle CORS (Cross-Origin Resource Sharing)
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://sana-client.vercel.app');
+    res.setHeader('Access-Control-Allow-Origin', 'https://www.khayamsana.sbs');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
