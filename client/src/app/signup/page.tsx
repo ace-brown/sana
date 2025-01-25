@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,8 @@ import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 
 export default function SignupPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
   const auth = useContext(AuthContext);
   const router = useRouter();
   const { isLoading, error, sendRequest } = useHttpClient();
@@ -25,6 +28,7 @@ export default function SignupPage() {
     fullName: "",
     email: "",
     password: "",
+    repeatPassword: "",
   });
 
   // Handle input changes
@@ -39,6 +43,14 @@ export default function SignupPage() {
   // Handle form submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Check if passwords match
+    if (formData.password !== formData.repeatPassword) {
+      setPasswordError("Passwords do not match");
+      return;
+    }
+
+    setPasswordError("");
 
     try {
       const responseData = await sendRequest(
@@ -113,18 +125,53 @@ export default function SignupPage() {
               </div>
 
               {/* Password */}
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <Label htmlFor="password">رمز عبور</Label>
                 <Input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
+                <span
+                  className="absolute left-3 top-8 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </span>
               </div>
 
+              {/* Repeat Password */}
+              <div className="mb-4 relative">
+                <Label htmlFor="repeatPassword">تکرار رمز عبور</Label>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  id="repeatPassword"
+                  name="repeatPassword"
+                  value={formData.repeatPassword}
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  className="absolute left-3 top-8 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <FaEye size={20} />
+                  ) : (
+                    <FaEyeSlash size={20} />
+                  )}
+                </span>
+              </div>
+              {passwordError && (
+                <p className="text-sm text-red-500">{passwordError}</p>
+              )}
               {/* Submit Button */}
               <div className="mt-6">
                 <Button type="submit" className="w-full" disabled={isLoading}>

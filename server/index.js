@@ -15,8 +15,13 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 
 // Middleware to handle CORS (Cross-Origin Resource Sharing)
+const allowedOrigins = ['https://www.khayamsana.sbs', 'http://localhost:3000'];
+
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.khayamsana.sbs');
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
@@ -27,6 +32,7 @@ app.use((req, res, next) => {
     }
     next();
 });
+
 
 // Download Routes
 app.use('/api/download', downloadRoutes);
