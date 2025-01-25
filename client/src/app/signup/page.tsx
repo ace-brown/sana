@@ -87,7 +87,9 @@ export default function SignupPage() {
             <form onSubmit={handleSubmit}>
               {/* User Name */}
               <div className="mb-4">
-                <Label htmlFor="username">نام کاربری</Label>
+                <Label htmlFor="username">
+                  نام کاربری <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type="text"
                   id="username"
@@ -100,7 +102,9 @@ export default function SignupPage() {
 
               {/* Full Name */}
               <div className="mb-4">
-                <Label htmlFor="fullName">نام و نام خانوادگی</Label>
+                <Label htmlFor="fullName">
+                  نام و نام خانوادگی <span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type="text"
                   id="fullName"
@@ -113,7 +117,9 @@ export default function SignupPage() {
 
               {/* Email */}
               <div className="mb-4">
-                <Label htmlFor="email">ایمیل</Label>
+                <Label htmlFor="email">
+                  ایمیل<span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type="email"
                   id="email"
@@ -126,12 +132,15 @@ export default function SignupPage() {
 
               {/* Password */}
               <div className="mb-4 relative">
-                <Label htmlFor="password">رمز عبور</Label>
+                <Label htmlFor="password">
+                  رمز عبور<span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
                   value={formData.password}
+                  placeholder="رمز عبور باید حداقل 6 حرف باشد"
                   onChange={handleChange}
                   required
                 />
@@ -149,12 +158,15 @@ export default function SignupPage() {
 
               {/* Repeat Password */}
               <div className="mb-4 relative">
-                <Label htmlFor="repeatPassword">تکرار رمز عبور</Label>
+                <Label htmlFor="repeatPassword">
+                  تکرار رمز عبور<span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type={showPassword ? "text" : "password"}
                   id="repeatPassword"
                   name="repeatPassword"
                   value={formData.repeatPassword}
+                  placeholder="رمز عبور باید حداقل 6 حرف باشد"
                   onChange={handleChange}
                   required
                 />

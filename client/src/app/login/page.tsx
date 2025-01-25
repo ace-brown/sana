@@ -59,7 +59,9 @@ export default function LoginPage() {
             <form onSubmit={handleLogin}>
               {/* Email */}
               <div className="mb-4">
-                <Label htmlFor="email">ایمیل</Label>
+                <Label htmlFor="email">
+                  ایمیل<span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type="email"
                   id="email"
@@ -72,7 +74,9 @@ export default function LoginPage() {
 
               {/* Password */}
               <div className="mb-4">
-                <Label htmlFor="password">رمز عبور</Label>
+                <Label htmlFor="password">
+                  رمز عبور<span className="text-red-500">*</span>
+                </Label>
                 <Input
                   type="password"
                   id="password"

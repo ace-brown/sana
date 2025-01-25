@@ -23,7 +23,7 @@ async function downloadDocs(req, res, next) {
     // Check if the file exists
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
-            return next(new HttpError('File not found', 404));
+            return next(new HttpError('فایل پیدا نشد', 404));
         }
 
         // Extract the file extension
@@ -33,7 +33,7 @@ async function downloadDocs(req, res, next) {
         const mimeType = mimeTypes[ext];
 
         if (!mimeType) {
-            return next(new HttpError('Unsupported file type', 415));
+            return next(new HttpError('نوع فایل پشتیبانی نمی‌شود', 415));
         }
 
         // Set appropriate headers for downloading the file
