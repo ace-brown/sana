@@ -46,7 +46,7 @@ export default function SignupPage() {
 
     // Check if passwords match
     if (formData.password !== formData.repeatPassword) {
-      setPasswordError("Passwords do not match");
+      setPasswordError("رمزهای عبور مطابقت ندارند");
       return;
     }
 
