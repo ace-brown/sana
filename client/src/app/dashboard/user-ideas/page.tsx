@@ -18,6 +18,7 @@ import {
 import { formatDate } from "@/lib/utils";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
+import ShortenAndCopy from "@/lib/ShortenAndCopy";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "../ProtectedRoute";
 import { Card, CardContent } from "@/components/ui/card";
@@ -172,11 +173,19 @@ export default function UserIdeas() {
           {ideaData.map((idea, index) => (
             <Card key={index} className="p-6 shadow-md">
               <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* First Row */}
-                <div>
-                  <h2 className="text-sm font-medium text-muted-foreground">Idea Title</h2>
-                  <p>{idea.ideaTitle}</p>
+                {/* Header: title and copiable report ID */}
+                <div className="flex flex-col gap-3 border-b pb-4 sm:flex-row sm:items-center sm:justify-between md:col-span-3">
+                  <h3 className="text-lg font-semibold">{idea.ideaTitle}</h3>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-muted-foreground">Report ID</span>
+                    {idea.reportId ? (
+                      <ShortenAndCopy id={idea.reportId} />
+                    ) : (
+                      <span className="text-muted-foreground">Not available</span>
+                    )}
+                  </div>
                 </div>
+                {/* First Row */}
                 <div>
                   <h2 className="text-sm font-medium text-muted-foreground">Created At</h2>
                   <p>{formatDate(idea.createdAt)}</p>

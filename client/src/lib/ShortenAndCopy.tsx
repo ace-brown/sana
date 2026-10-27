@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiCopy } from "react-icons/fi";
+import { FiCheck, FiCopy } from "react-icons/fi";
 import { Tooltip } from "react-tooltip";
 
 interface ShortenAndCopyProps {
@@ -11,14 +11,14 @@ export default function ShortenAndCopy({
   id,
   length = 6,
 }: ShortenAndCopyProps) {
-  const [tooltipText, setTooltipText] = useState("Click to copy");
+  const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
     try {
       if (id) {
         await navigator.clipboard.writeText(id);
-        setTooltipText("Copied!");
-        setTimeout(() => setTooltipText("Click to copy"), 2000);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
       }
     } catch (error) {
       console.error("Failed to copy ID:", error);
@@ -34,18 +34,23 @@ export default function ShortenAndCopy({
   }
 
   return (
-    <div className="relative inline-block cursor-pointer" onClick={handleCopy}>
-      <div
-        className="flex items-center gap-2 border border-gray-300 rounded px-1 py-[0.5px] w-fit"
+    <>
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="group inline-flex w-fit items-center gap-2 rounded-md border bg-background px-2 py-1 font-mono text-sm transition-colors hover:border-primary/50 hover:bg-primary/5"
         data-tooltip-id="copy-tooltip"
-        data-tooltip-content={tooltipText}
+        data-tooltip-content={copied ? "Copied!" : "Click to copy"}
+        aria-label={copied ? "Copied" : `Copy ID ${id ?? ""}`}
       >
-        <FiCopy className="text-gray-500 hover:text-blue-600 transition duration-200" />
-        <span className="text-blue-600" dir="ltr">
-          {shortenedId}
-        </span>
-      </div>
+        <span className="text-primary">{shortenedId}</span>
+        {copied ? (
+          <FiCheck className="text-primary" />
+        ) : (
+          <FiCopy className="text-muted-foreground transition-colors group-hover:text-primary" />
+        )}
+      </button>
       <Tooltip id="copy-tooltip" />
-    </div>
+    </>
   );
 }
