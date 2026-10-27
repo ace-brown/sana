@@ -14,7 +14,11 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 
 // Middleware to handle CORS (Cross-Origin Resource Sharing)
-const allowedOrigins = ['https://www.khayamsana.sbs', 'http://localhost:3000'];
+const allowedOrigins = [
+    'https://www.khayamsana.sbs',
+    'https://sana-client.vercel.app',
+    'http://localhost:3000',
+];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
