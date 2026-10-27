@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 import { UserIdeaType, UserType } from "@/types";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/lib/utils";
 import ShortenAndCopy from "@/lib/ShortenAndCopy";
@@ -78,17 +78,9 @@ export default function UserDetailsPage({
     // eslint-disable-next-line
   }, [user?.id]);
 
-  // Loading skeleton
+  // Loading spinner
   if (isLoading) {
-    return (
-      <div className="center">
-        <div>
-          <Skeleton className="h-8 w-full mb-2" />
-          <Skeleton className="h-8 w-full mb-2" />
-          <Skeleton className="h-8 w-full mb-2" />
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   // Error state
@@ -189,14 +181,14 @@ export default function UserDetailsPage({
             <div className="grid grid-cols-1 gap-4 mb-6">
               {ideaData.map((idea, index) => (
                 <div key={index}>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-xl bg-background">
                     {/* First Row */}
                     <div>
-                      <h2 className="font-bold text-lg">Idea Title</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Idea Title</h2>
                       <p>{idea.ideaTitle}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Report ID</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Report ID</h2>
                       <p>
                         {idea.reportId ? (
                           <ShortenAndCopy id={idea.reportId} />
@@ -206,69 +198,61 @@ export default function UserDetailsPage({
                       </p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Created At</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Created At</h2>
                       <p>{formatDate(idea.createdAt)}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Full Name</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Full Name</h2>
                       <p>{auth.fullName}</p>
                     </div>
 
                     {/* Second Row */}
                     <div>
-                      <h2 className="font-bold text-lg">Father&apos;s Name</h2>
-                      <p>{idea.fatherName}</p>
+                      <h2 className="text-sm font-medium text-muted-foreground">First Name</h2>
+                      <p>{idea.firstName}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Partners</h2>
-                      <p>{idea.associate}</p>
+                      <h2 className="text-sm font-medium text-muted-foreground">Last Name</h2>
+                      <p>{idea.lastName}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Country</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Country</h2>
                       <p>{idea.country}</p>
                     </div>
                     {/* Third Row */}
                     <div>
-                      <h2 className="font-bold text-lg">State / Province</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">State / Province</h2>
                       <p>{idea.state}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">City</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">City</h2>
                       <p>{idea.city}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Occupation</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Occupation</h2>
                       <p>{idea.career}</p>
                     </div>
                     {/* Fourth Row */}
                     <div>
-                      <h2 className="font-bold text-lg">Marital Status</h2>
-                      <p>{idea.maritalStatus}</p>
-                    </div>
-                    <div>
-                      <h2 className="font-bold text-lg">Gender</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Gender</h2>
                       <p>{idea.gender}</p>
-                    </div>
-                    <div>
-                      <h2 className="font-bold text-lg">Age</h2>
-                      <p>{idea.age}</p>
                     </div>
                     {/* Fifth Row */}
                     <div>
-                      <h2 className="font-bold text-lg">Mobile Number</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Mobile Number</h2>
                       <p>{idea.mobileNumber}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Field of Study</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Field of Study</h2>
                       <p>{idea.branchOfStudy}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">Specialization</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Specialization</h2>
                       <p>{idea.branchDetail}</p>
                     </div>
                     {/* Description Row */}
                     <div className="md:col-span-3">
-                      <h2 className="font-bold text-lg">Description</h2>
+                      <h2 className="text-sm font-medium text-muted-foreground">Description</h2>
                       <p>{idea.ideaDescription}</p>
                     </div>
                   </div>
@@ -298,7 +282,7 @@ export default function UserDetailsPage({
             </div>
           ) : (
             <>
-              <p className="text-gray-500 mx-4">
+              <p className="text-muted-foreground mx-4">
                 This user hasn&apos;t registered any ideas yet.
               </p>
               <Button

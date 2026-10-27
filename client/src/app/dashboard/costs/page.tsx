@@ -2,6 +2,7 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import { Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,7 +17,7 @@ import {
 import { AuthContext } from "@/context/auth-context";
 import { CostType } from "@/types";
 import { useHttpClient } from "@/hooks/http-hook";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import ProtectedRoute from "../ProtectedRoute";
 
 export default function CostsPage() {
@@ -72,10 +73,10 @@ export default function CostsPage() {
 
   return (
     <ProtectedRoute allowedRoles={["admin", "user"]}>
-      <div className="p-6 space-y-12">
+      <div className="space-y-10">
         {/* Header */}
         <div className="text-center space-y-4">
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-muted-foreground">
             We have reviewed your idea and put together these services to help
             you achieve your goals.
           </p>
@@ -102,11 +103,11 @@ export default function CostsPage() {
               </TableHeader>
               <TableBody>
                 {isLoading ? (
-                  <div className="center">
-                    <Skeleton />
-                    <Skeleton />
-                    <Skeleton />
-                  </div>
+                  <TableRow>
+                    <TableCell colSpan={5}>
+                      <LoadingSpinner />
+                    </TableCell>
+                  </TableRow>
                 ) : (
                   estimatedCosts.length > 0 &&
                   estimatedCosts.map((item, index) =>
@@ -153,59 +154,27 @@ export default function CostsPage() {
           </CardContent>
         </Card>
 
-        {/* New Feature Section */}
-        <div className="text-center mt-8">
-          {/* <p className="text-lg text-gray-600 mb-4">
-            Please transfer the total amount to the bank account below, then
-            send your payment receipt through the contact channel below.
-          </p> */}
-
-          {/* Grid for Bank Info and Upload Component */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col flex-1 h-full">
-              <label className="text-left font-semibold mb-2">
-                Bank Details:
-              </label>
-              <div className="border p-4 text-left">
-                {/* <p>Bank: Bank Melli Iran</p>
-                <p>Account Number: 123-456-7890</p>
-                <p>IBAN: IR123456789012345678901234</p> */}
-              </div>
-            </div>
-
-            {/* <div className="flex flex-col flex-1 h-full">
-            <label className="text-left font-semibold mb-2">
-              Upload Payment Receipt
-            </label>
-            <div className="border p-4">
-              <p className="mb-2 text-center">
-                Please upload your payment receipt
-              </p>
-              <FileUpload />
-            </div>
-          </div> */}
-            <div className="flex flex-col flex-1 h-full">
-              <label className="text-left font-semibold mb-2">
-                Please send your payment receipt to the Telegram ID below.
-              </label>
-              <div className="border p-4">
-                <p className="mb-2 text-center">
-                  <a
-                    href="https://t.me/kad9312"
-                    target="_blank"
-                    className="text-blue-500 hover:underline"
-                  >
-                    https://t.me/kad9312
-                  </a>
-                </p>
-              </div>
-            </div>
+        {/* Payment receipt */}
+        <div className="flex flex-col items-start gap-4 rounded-xl border bg-muted/40 p-6 sm:flex-row sm:items-center">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Send className="h-5 w-5" />
           </div>
+          <div className="flex-1">
+            <h2 className="font-semibold">Send your payment receipt</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Please send your payment receipt to the Telegram ID below.
+            </p>
+          </div>
+          <Button variant="outline" asChild>
+            <a href="https://t.me/kad9312" target="_blank" rel="noreferrer">
+              t.me/kad9312
+            </a>
+          </Button>
         </div>
 
         {/* Call-to-Action */}
         <div className="text-center mt-8">
-          <p className="text-lg text-gray-600 mb-4">
+          <p className="text-lg text-muted-foreground mb-4">
             Once we receive your payment receipt, your report ID will be sent to you.
           </p>
           {/* <p>
@@ -224,7 +193,7 @@ export default function CostsPage() {
             <h2 className="text-2xl font-bold">
               How We Calculate Your Plan
             </h2>
-            <p className="text-gray-600 mt-2">
+            <p className="text-muted-foreground mt-2">
               Our team carefully reviews your idea, business goals and needs.
               Based on this assessment, we create a personalized plan with the
               essential services for your idea to succeed.
@@ -234,10 +203,10 @@ export default function CostsPage() {
           {/* Contact/Support */}
           <div>
             <h2 className="text-2xl font-bold">Need Help?</h2>
-            <p className="text-gray-600 mt-2">
+            <p className="text-muted-foreground mt-2">
               Have a question about your plan or need more information?
               Please{" "}
-              <Link href="/contact" className="text-blue-500 underline">
+              <Link href="/contact" className="text-primary underline">
                 contact us
               </Link>
               .

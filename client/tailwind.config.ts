@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -65,6 +68,18 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "spinner-rotate": { "100%": { transform: "rotate(360deg)" } },
+        "spinner-dash": {
+          "0%": { strokeDasharray: "1, 150", strokeDashoffset: "0" },
+          "50%": { strokeDasharray: "90, 150", strokeDashoffset: "-35" },
+          "100%": { strokeDasharray: "90, 150", strokeDashoffset: "-124" },
+        },
+      },
+      animation: {
+        "spinner-rotate": "spinner-rotate 1.4s linear infinite",
+        "spinner-dash": "spinner-dash 1.4s ease-in-out infinite",
       },
       spacing: {
         "bt-sect-lg": "var(--margin-top-between-sections)",

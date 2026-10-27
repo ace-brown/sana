@@ -15,7 +15,7 @@ export default function FileUpload() {
     <div className="file-upload">
       <label
         htmlFor="file-upload-input"
-        className="cursor-pointer text-blue-500 font-medium hover:underline"
+        className="cursor-pointer text-primary font-medium hover:underline"
       >
         Upload File
       </label>
@@ -32,7 +32,7 @@ export default function FileUpload() {
           <p>Selected files:</p>
           <ul>
             {files.map((file, index) => (
-              <li key={index} className="text-sm text-gray-600">
+              <li key={index} className="text-sm text-muted-foreground">
                 {file.name}
               </li>
             ))}

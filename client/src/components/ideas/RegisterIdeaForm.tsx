@@ -17,11 +17,13 @@ import { RenderError } from "@/lib/FormUtils";
 type RegisterIdeaFormProps = {
   onSubmit: (data: RegisterIdeaType) => void;
   defaultValues?: RegisterIdeaType;
+  isSubmitting?: boolean;
 };
 
 export default function RegisterIdeaForm({
   onSubmit,
   defaultValues,
+  isSubmitting = false,
 }: RegisterIdeaFormProps) {
   const [subOptions, setSubOptions] = useState<string[]>([]);
   const {
@@ -32,8 +34,7 @@ export default function RegisterIdeaForm({
     reset,
     formState: { errors },
   } = useForm<RegisterIdeaType>({ defaultValues });
-  const [maritalStatus, gender, branchDetail, branchOfStudy] = watch([
-    "maritalStatus",
+  const [gender, branchDetail, branchOfStudy] = watch([
     "gender",
     "branchDetail",
     "branchOfStudy",
@@ -108,29 +109,36 @@ export default function RegisterIdeaForm({
   return (
     <div>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* First Column */}
           <div className="space-y-2">
-            {/* Father's and accociate Name Field */}
+            {/* First and Last Name Fields */}
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  Father&apos;s Name
+                  First Name
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
                   type="text"
-                  {...register("fatherName", {
-                    required: "Father's name is required",
+                  {...register("firstName", {
+                    required: "First name is required",
                   })}
                 />
-                {RenderError(errors, "fatherName")}
+                {RenderError(errors, "firstName")}
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  Partners&apos; Names
+                  Last Name
+                  <span className="text-red-500"> *</span>
                 </label>
-                <Input type="text" {...register("associate")} />
+                <Input
+                  type="text"
+                  {...register("lastName", {
+                    required: "Last name is required",
+                  })}
+                />
+                {RenderError(errors, "lastName")}
               </div>
             </div>
             {/* Country Field */}
@@ -171,27 +179,8 @@ export default function RegisterIdeaForm({
               {RenderError(errors, "career")}
             </div>
 
-            {/* Marital Status and Gender Field */}
+            {/* Gender and Mobile Number Fields */}
             <div className="flex gap-4">
-              {/* Marital Status Select */}
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-2">
-                  Marital Status
-                </label>
-                <Select
-                  onValueChange={(value) => setValue("maritalStatus", value)}
-                  value={maritalStatus}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select marital status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="single">Single</SelectItem>
-                    <SelectItem value="married">Married</SelectItem>
-                  </SelectContent>
-                </Select>
-                <input type="hidden" {...register("maritalStatus")} />
-              </div>
               {/* Gender Select */}
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
@@ -218,10 +207,6 @@ export default function RegisterIdeaForm({
                 />
                 {RenderError(errors, "gender")}
               </div>
-            </div>
-
-            {/* Mobile Number and age Field */}
-            <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
                   Mobile Number
@@ -234,17 +219,6 @@ export default function RegisterIdeaForm({
                   })}
                 />
                 {RenderError(errors, "mobileNumber")}
-              </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-2">
-                  Age
-                  <span className="text-red-500"> *</span>
-                </label>
-                <Input
-                  type="number"
-                  {...register("age", { required: "Age is required" })}
-                />
-                {RenderError(errors, "age")}
               </div>
             </div>
           </div>
@@ -340,7 +314,7 @@ export default function RegisterIdeaForm({
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" loading={isSubmitting}>
               Submit
             </Button>
           </div>

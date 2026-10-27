@@ -5,7 +5,6 @@ const usersRoutes = require('./src/routes/users-routes')
 const reportsRoutes = require('./src/routes/reports-routes')
 const costsRoutes = require('./src/routes/costs-routes')
 const ideasRoutes = require('./src/routes/ideas-routes')
-const downloadRoutes = require('./src/routes/download-routes')
 const HttpError = require('./src/models/http-error')
 
 const app = express();
@@ -34,9 +33,6 @@ app.use((req, res, next) => {
 });
 
 
-// Download Routes
-app.use('/api/download', downloadRoutes);
-
 // Reports routes
 app.use('/api/reports', reportsRoutes);
 
@@ -64,8 +60,12 @@ app.use(function (error, req, res, next) {
 });
 
 // Connect to MongoDB
+// Use MONGODB_URI when set (e.g. a local database), otherwise build the Atlas address
+const dbUri = process.env.MONGODB_URI ||
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.SUFFIX}.${process.env.AFTER_SUFFIX}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}`;
+
 mongoose
-    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.SUFFIX}.${process.env.AFTER_SUFFIX}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}`)
+    .connect(dbUri)
     .then(function () {
         app.listen(port, () => console.log(`Server is running at port ${port}`))
     })

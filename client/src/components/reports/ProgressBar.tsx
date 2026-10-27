@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import Container from "../common/container";
 import { Report, SelectedTaskType } from "@/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import TaskModalContent from "./TaskModalContent";
@@ -42,14 +41,12 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
   // Check if any report found
   if (!foundReport) {
     return (
-      <Container>
-        <div className="container mx-auto p-6">
-          <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
-            Progress Timeline
-          </h2>
-          <p>Progress timeline not found</p>
-        </div>
-      </Container>
+      <div className="rounded-xl border border-dashed p-8 text-center">
+        <h2 className="text-lg font-semibold">Progress Timeline</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Progress timeline not found
+        </p>
+      </div>
     );
   }
 
@@ -58,66 +55,75 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
     setIsTaskDialogOpen(false);
   };
 
+  const allTasks = foundReport.stages.flatMap((stage) => stage.tasks);
+  const completedTasks = allTasks.filter((task) =>
+    isStatusCompleted(task.taskStatus)
+  ).length;
+  const percentComplete = allTasks.length
+    ? Math.round((completedTasks / allTasks.length) * 100)
+    : 0;
+
   return (
-    <div className="container">
-      <h2 className="text-3xl sm:text-xl font-semibold text-gray-800 mb-2">
-        Progress Timeline
-      </h2>
-      <div className="flex  gap-12 mb-12">
-        <p>{`Idea Title: ${foundReport.ideaTitle}`}</p>
-        <p>{`Report ID: ${foundReport.id}`}</p>
+    <div>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">Progress Timeline</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {`Idea Title: ${foundReport.ideaTitle}`}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {`Report ID: ${foundReport.id}`}
+          </p>
+        </div>
+        <div className="md:w-64">
+          <div className="mb-2 flex justify-between text-sm">
+            <span className="text-muted-foreground">
+              {completedTasks} of {allTasks.length} tasks
+            </span>
+            <span className="font-semibold text-primary">
+              {percentComplete}%
+            </span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full rounded-full bg-primary transition-all"
+              style={{ width: `${percentComplete}%` }}
+            />
+          </div>
+        </div>
       </div>
-      <div className="flex items-center justify-between relative">
+      {/* Stage cards */}
+      <ol className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {foundReport.stages.map((stage, index) => (
-          <React.Fragment key={index}>
-            {/* Node Title */}
-            <div className="text-center w-1/4">
-              <h3 className="text-lg mb-2">{stage.stageTitle}</h3>
-              <div
-                className={`h-4 w-4 rounded-full mx-auto ${
+          <li key={index} className="rounded-xl border bg-background p-4">
+            <div className="flex items-center gap-3">
+              <span
+                className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                   isStatusCompleted(stage.stageStatus)
-                    ? "bg-green-500"
+                    ? "bg-green-500 text-white"
                     : isStatusInProgress(stage.stageStatus)
-                    ? "bg-yellow-500"
-                    : "bg-gray-300"
+                    ? "bg-yellow-500 text-white"
+                    : "bg-muted text-muted-foreground"
                 }`}
-              ></div>
+              >
+                {index + 1}
+              </span>
+              <h3 className="font-semibold leading-tight">
+                {stage.stageTitle}
+              </h3>
             </div>
-            {/* Connecting Line */}
-            {index < foundReport.stages.length - 1 && (
-              <div className="absolute top-10 w-full h-1 -z-10">
-                <div
-                  className="h-1 bg-gray-300"
-                  style={{
-                    width: `${
-                      ((index + 1) / (foundReport.stages.length - 1)) * 100
-                    }%`,
-                  }}
-                ></div>
-              </div>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-      {/* Cards */}
-      <div className="flex justify-between mt-3 gap-3">
-        {foundReport.stages.map((stage, index) => (
-          <div
-            key={index}
-            className="w-1/4 p-2 pb-4 border rounded-lg shadow-lg bg-white"
-          >
-            <h4
-              className={`text-center ${
+            <span
+              className={`mt-3 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
                 isStatusCompleted(stage.stageStatus)
-                  ? "text-green-500"
+                  ? "bg-green-500/10 text-green-600 dark:text-green-400"
                   : isStatusInProgress(stage.stageStatus)
-                  ? "text-yellow-500"
-                  : "text-gray-400"
+                  ? "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400"
+                  : "bg-muted text-muted-foreground"
               }`}
             >
               {translateStatus(stage.stageStatus)}
-            </h4>
-            <ul className="mt-2 text-sm text-gray-600">
+            </span>
+            <ul className="mt-4 space-y-1 text-sm">
               {stage.tasks.map((task, i) => (
                 <li key={i}>
                   <button
@@ -125,13 +131,13 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
                       setSelectedTask(task);
                       setIsTaskDialogOpen(true);
                     }}
-                    className={`flex gap-2 w-full mb-2 text-left transition-colors duration-200 ${
+                    className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-muted ${
                       task.taskStatus === "Completed"
-                        ? "text-green-600 hover:text-green-800"
+                        ? "text-green-600 dark:text-green-400"
                         : task.taskStatus === "In Progress"
-                        ? "text-yellow-600 hover:text-yellow-800"
-                        : "text-gray-600 hover:text-gray-800"
-                    } hover:underline hover:cursor-pointer`}
+                        ? "text-yellow-600 dark:text-yellow-400"
+                        : "text-muted-foreground"
+                    }`}
                   >
                     <span
                       className={`h-4 w-4 flex-shrink-0 rounded-full border ${
@@ -139,7 +145,7 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
                           ? "bg-green-500 border-green-500"
                           : task.taskStatus === "In Progress"
                           ? "bg-yellow-500 border-yellow-500"
-                          : "border-gray-300"
+                          : "border-input"
                       } flex items-center justify-center`}
                     >
                       {task.taskStatus === "Completed" && (
@@ -162,12 +168,12 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
                 </li>
               ))}
             </ul>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
       {/* Task Modal */}
       <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
-        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
+        <DialogContent className="w-[95vw] max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-center">
               {selectedTask?.taskTitle}

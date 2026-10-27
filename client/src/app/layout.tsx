@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
+import { Rubik } from "next/font/google";
 
 import NavBar from "@/components/navigation/nav-bar";
 import Footer from "@/components/footer";
 import { Providers } from "./providers";
 import "./globals.css";
 
-// const geistSans = localFont({
-//   src: "../fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "../fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+const rubik = Rubik({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Khayam Sana",
@@ -28,14 +20,19 @@ export default async function LocaleLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
-      <body
-      // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      dir="ltr"
+      className={rubik.variable}
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased">
         <Providers>
-          <div className="flex min-h-screen flex-col justify-between">
+          <div className="flex min-h-screen flex-col">
             <NavBar />
-            <main className="w-[90%] mx-auto md:w-[80%]">{children}</main>
+            <main className="mx-auto w-full max-w-6xl flex-1 px-4 md:px-6">
+              {children}
+            </main>
             <Footer />
           </div>
         </Providers>

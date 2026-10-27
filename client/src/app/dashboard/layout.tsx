@@ -4,56 +4,47 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  FaUser,
-  FaSeedling,
-  FaUsers,
-  FaShoppingCart,
-  FaFileAlt,
-  FaPenFancy,
-} from "react-icons/fa";
+  FileText,
+  Lightbulb,
+  Receipt,
+  User,
+  Users,
+} from "lucide-react";
 
-import { Separator } from "@/components/ui/separator";
 import { AuthContext } from "@/context/auth-context";
+import { cn } from "@/lib/utils";
 
 const links = [
   {
     href: "/dashboard",
     asideLabel: "Profile",
     pageLabel: "Profile",
-    icon: <FaUser />,
+    icon: User,
   },
   {
     href: "/dashboard/user-ideas",
     asideLabel: "My Ideas",
-    pageLabel: "Ideas",
-    icon: <FaSeedling />,
+    pageLabel: "My Ideas",
+    icon: Lightbulb,
   },
   {
     href: "/dashboard/reports",
     asideLabel: "My Reports",
-    pageLabel: "Reports",
-    icon: <FaFileAlt />,
-  },
-  {
-    href: "/dashboard/register-idea",
-    asideLabel: "Register New Idea",
-    pageLabel: "New Idea",
-    icon: <FaPenFancy />,
+    pageLabel: "My Reports",
+    icon: FileText,
   },
   {
     href: "/dashboard/costs",
     asideLabel: "My Costs",
-    pageLabel: "Costs",
-    icon: <FaShoppingCart />,
+    pageLabel: "My Costs",
+    icon: Receipt,
   },
   {
     href: "/dashboard/users",
     asideLabel: "Users",
     pageLabel: "Users",
-    icon: <FaUsers />,
+    icon: Users,
   },
-  // { href: "/dashboard/analytics", asideLabel: "Analytics",pageLabel:  icon: <FaChartBar /> },
-  // { href: "/dashboard/settings", asideLabel: "Settings",pageLabel icon: <FaCog /> },
 ];
 
 export default function LocaleLayout({
@@ -65,37 +56,47 @@ export default function LocaleLayout({
   const pathname = usePathname();
   // Find the current label for the heading
   const currentLink = links.find((link) => link.href === pathname);
-  const heading = currentLink ? currentLink.pageLabel : "";
+  const heading = currentLink ? currentLink.pageLabel : "Dashboard";
   return (
-    <div className="w-[80%] mr-auto ml-[8rem] shadow border p-8 mt-8 rounded-[0.5rem]">
-      <h1 className="text-2xl">{heading && `${auth.username}'s ${heading}`}</h1>
-      <Separator className="bg-border h-[1px] w-full mt-6 mb-4" />
-      <div>
-        <aside className="fixed top-[4rem] left-0 w-[200px] h-screen border shadow">
-          <nav className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 mt-2">
+    <div className="py-8 md:py-12">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">{heading}</h1>
+        {auth.username && (
+          <p className="mt-1 text-muted-foreground">
+            Signed in as {auth.fullName || auth.username}
+          </p>
+        )}
+      </div>
+      <div className="flex flex-col gap-6 md:flex-row md:items-start">
+        <aside className="md:sticky md:top-24 md:w-56 md:shrink-0">
+          <nav className="flex gap-1 overflow-x-auto rounded-2xl border bg-card p-2 md:flex-col">
             {links.map((link) => {
               if (link.href === "/dashboard/users" && auth.role !== "admin") {
                 return null; // Hide the link for non-admin users
               }
+              const Icon = link.icon;
 
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`inline-flex items-center gap-2 font-medium rounded-md py-2 px-6 ${
+                  className={cn(
+                    "flex items-center gap-3 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     pathname === link.href
-                      ? "text-blue-500 font-bold"
-                      : "text-gray-500"
-                  }`}
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
                 >
-                  {link.icon}
+                  <Icon className="h-4 w-4 shrink-0" />
                   {link.asideLabel}
                 </Link>
               );
             })}
           </nav>
         </aside>
-        <div>{children}</div>
+        <div className="min-w-0 flex-1 rounded-2xl border bg-card p-4 shadow-sm md:p-8">
+          {children}
+        </div>
       </div>
     </div>
   );

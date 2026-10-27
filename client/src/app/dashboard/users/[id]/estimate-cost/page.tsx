@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CostType, ServiceType } from "@/types";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import EstimateCostFormEdit from "@/components/costs/EstimateCostFormEdit";
 import ProtectedRoute from "@/app/dashboard/ProtectedRoute";
@@ -100,11 +100,11 @@ export default function EstimateCostPage() {
 
               <TableBody>
                 {isLoading ? (
-                  <div className="center">
-                    <Skeleton />
-                    <Skeleton />
-                    <Skeleton />
-                  </div>
+                  <TableRow>
+                    <TableCell colSpan={5}>
+                      <LoadingSpinner />
+                    </TableCell>
+                  </TableRow>
                 ) : (
                   estimatedCosts.length > 0 &&
                   estimatedCosts.map(

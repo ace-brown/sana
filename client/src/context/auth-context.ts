@@ -2,6 +2,8 @@ import { createContext } from "react";
 
 interface AuthContextType {
   isLoggedIn: boolean;
+  // True once the stored session (if any) has been restored
+  isAuthReady: boolean;
   token: string | null;
   userId: string | null;
   fullName: string | null;
@@ -22,6 +24,7 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType>({
   isLoggedIn: false,
+  isAuthReady: false,
   userId: null,
   token: null,
   fullName: null,

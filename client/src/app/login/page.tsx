@@ -8,9 +8,13 @@ import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Container from "@/components/common/container";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 
@@ -47,20 +51,22 @@ export default function LoginPage() {
   };
 
   return (
-    <Container>
-      {isLoading && <LoadingSpinner asOverlay />}
+    <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-[50vh] flex items-start justify-center">
-        <Card className="w-full max-w-md">
+      <div className="flex justify-center py-12 md:py-20">
+        <Card className="w-full max-w-md shadow-lg">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">Log In</CardTitle>
+            <CardTitle className="text-center text-2xl">Welcome back</CardTitle>
+            <CardDescription className="text-center">
+              Log in to follow your ideas, reports and costs.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin}>
               {/* Email */}
-              <div className="mb-4">
+              <div className="mb-4 space-y-2">
                 <Label htmlFor="email">
-                  Email<span className="text-red-500">*</span>
+                  Email<span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type="email"
@@ -73,9 +79,9 @@ export default function LoginPage() {
               </div>
 
               {/* Password */}
-              <div className="mb-4">
+              <div className="mb-4 space-y-2">
                 <Label htmlFor="password">
-                  Password<span className="text-red-500">*</span>
+                  Password<span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type="password"
@@ -89,25 +95,27 @@ export default function LoginPage() {
 
               {/* Submit Button */}
               <div className="mt-6">
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button type="submit" className="w-full" loading={isLoading}>
                   Log In
                 </Button>
               </div>
             </form>
 
-            <p className="text-sm text-center mt-4 text-gray-600">
+            <p className="text-sm text-center mt-6 text-muted-foreground">
               Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
-                className="text-indigo-600 hover:underline focus:outline-none"
+                className="font-medium text-primary hover:underline"
               >
                 Sign Up
               </Link>
             </p>
-            {error && <p className="text-center text-red-500 mb-8">{error}</p>}
+            {error && (
+              <p className="mt-4 text-center text-sm text-destructive">{error}</p>
+            )}
           </CardContent>
         </Card>
       </div>
-    </Container>
+    </>
   );
 }

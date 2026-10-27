@@ -7,7 +7,7 @@ interface TitleProps {
 
 export default function PageTitle({ children, className }: TitleProps) {
   return (
-    <h1 className={`text-4xl font-bold ${className ?? "text-gray-800"}`}>
+    <h1 className={`text-4xl font-bold ${className ?? "text-foreground"}`}>
       {children}
     </h1>
   );

@@ -2,20 +2,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function TermsPage() {
   return (
-    <div className="container mx-auto p-6">
-      <Card className="p-6">
+    <div className="mx-auto max-w-3xl py-12 md:py-20">
+      <Card className="p-2 shadow-sm md:p-6">
         <CardHeader>
-          <CardTitle>Platform Terms and Conditions of Use</CardTitle>
+          <CardTitle className="text-3xl font-bold tracking-tight md:text-4xl">Platform Terms and Conditions of Use</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="font-light text-[#b3b3b3] text-left lg:text-[clamp(1rem,2vw,1.5rem)]">
+          <p className="text-lg text-muted-foreground">
             Welcome to our platform! Please read the following terms and
             conditions carefully before using our services. Using this platform
             means you accept all of the terms below.
           </p>
 
-          <h2 className="mt-6 text-xl font-semibold">1. General Terms</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">1. General Terms</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               This platform is designed to provide the tools, resources and
               guidance needed for startups to develop and grow.
@@ -30,10 +30,10 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">
+          <h2 className="mt-10 text-xl font-semibold">
             2. Registration and User Accounts
           </h2>
-          <ul className="list-disc pl-6 text-left">
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>Some services require registering and creating an account.</li>
             <li>
               Users must provide accurate, complete and up-to-date information.
@@ -46,8 +46,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">3. Content Ownership</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">3. Content Ownership</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               All content on the platform, including text, images, videos and
               tools, belongs to the platform, and any copying without permission
@@ -59,8 +59,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">4. Responsibilities</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">4. Responsibilities</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               The platform accepts no responsibility for the outcomes of
               decisions users make based on information provided on the site.
@@ -76,8 +76,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">5. Privacy</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">5. Privacy</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               Users&apos; personal information is collected and stored in
               accordance with confidentiality principles.
@@ -89,8 +89,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">6. Account Cancellation</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">6. Account Cancellation</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               Users may request cancellation of their account at any time.
             </li>
@@ -100,10 +100,10 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">
+          <h2 className="mt-10 text-xl font-semibold">
             7. Rules for Content and Projects
           </h2>
-          <ul className="list-disc pl-6 text-left">
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               Users must not publish offensive, illegal or harmful content.
             </li>
@@ -113,8 +113,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">8. Changes to Services</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">8. Changes to Services</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               The platform may change its services, tools or terms of use at
               any time.
@@ -125,8 +125,8 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <h2 className="mt-6 text-xl font-semibold">9. Dispute Resolution</h2>
-          <ul className="list-disc pl-6 text-left">
+          <h2 className="mt-10 text-xl font-semibold">9. Dispute Resolution</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-6 leading-relaxed text-muted-foreground marker:text-primary">
             <li>
               Any dispute arising from use of the platform should first be
               resolved through discussion and mediation.
@@ -137,7 +137,7 @@ export default function TermsPage() {
             </li>
           </ul>
 
-          <p className="mt-6 text-left">
+          <p className="mt-10 rounded-xl bg-muted p-4 text-sm text-muted-foreground">
             Note: Using this platform&apos;s services means you fully agree to
             all of the above. If you have any questions, please contact the
             support team.

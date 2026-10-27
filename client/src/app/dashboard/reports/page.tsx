@@ -9,7 +9,6 @@ import ProgressBar from "@/components/reports/ProgressBar";
 import { Button } from "@/components/ui/button";
 import { useHttpClient } from "@/hooks/http-hook";
 import { Report } from "@/types";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "../ProtectedRoute";
 
@@ -45,7 +44,6 @@ export default function ReportPage() {
   return (
     <ProtectedRoute allowedRoles={["admin", "user"]}>
       <Toaster position="top-center" richColors />
-      {isLoading && <LoadingSpinner asOverlay />}
       <div>
         <P>
           In this section you can follow the progress of the idea you submitted
@@ -56,19 +54,19 @@ export default function ReportPage() {
           your idea with full transparency and the most up-to-date
           information.
         </P>
-        <div className="flex items-center gap-8 mt-8">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Input
             type="text"
             placeholder="Enter your report ID"
             onChange={handleReportIdChange}
             value={reportId}
-            className="w-[300px]"
+            className="w-full sm:max-w-xs"
           />
-          <Button onClick={handleProgressBarClick}>
+          <Button onClick={handleProgressBarClick} loading={isLoading}>
             Find Progress Timeline
           </Button>
         </div>
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        {error && <p className="text-destructive text-sm mt-2">{error}</p>}
       </div>
       {showProgressBar && (
         <div>

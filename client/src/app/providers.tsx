@@ -15,6 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [reportId, setReportId] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState<Date | null>(
     null
   );
@@ -108,6 +109,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         console.error("Failed to parse user data:", err);
       }
     }
+    setIsAuthReady(true);
   }, [login]);
 
   return (
@@ -115,6 +117,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <AuthContext.Provider
         value={{
           isLoggedIn: !!token,
+          isAuthReady: isAuthReady,
           token: token,
           userId: userId,
           fullName: fullName,

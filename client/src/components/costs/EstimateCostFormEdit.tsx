@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/select";
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { ServiceType } from "@/types";
 
 const predefinedServices = [
@@ -105,11 +104,6 @@ export default function EstimateCostFormEdit({
       <Toaster position="top-center" richColors />
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {isLoading && (
-          <div className="center">
-            <LoadingSpinner asOverlay />
-          </div>
-        )}
         <div>
           <label htmlFor="price" className="block text-sm font-medium mb-2">
             Price
@@ -173,7 +167,7 @@ export default function EstimateCostFormEdit({
           </label>
         </div>
 
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" loading={isLoading}>
           Submit
         </Button>
         {error && <p className="text-center text-red-500 mb-8">{error}</p>}

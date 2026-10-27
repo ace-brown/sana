@@ -1,72 +1,48 @@
-"use client";
+import Link from "next/link";
+import { Mail, MessageCircleQuestion } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
+import PageHeader from "@/components/common/page-header";
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full">
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full"> */}
-        {/* Contact Form */}
-        {/* <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-left text-2xl font-bold">
-              Contact Us
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="block text-left">
-                Your Name
-              </Label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="Full name"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email" className="block text-left">
-                Your Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="example@email.com"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message" className="block text-left">
-                Your Message
-              </Label>
-              <Textarea
-                id="message"
-                placeholder="How can we help you?"
-                rows={5}
-              />
-            </div>
-            <Button className="w-full" variant="default">
-              Send Message
-            </Button>
-          </CardContent>
-        </Card> */}
-
-        {/* Contact Person Info */}
-        <Card className="shadow-lg flex flex-col justify-center p-12">
-          <CardContent>
-            <h2 className="text-left text-xl font-semibold mb-4">
-              Contact Information
-            </h2>
-            <p className="text-left text-gray-700 mb-4">
-              Get in touch with us for any questions or support.
-            </p>
-            <div className="space-y-2">
-              <div className="text-left">
-                <span className="font-bold">Email:</span> kazem_abdi@yahoo.com
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="py-12 md:py-20">
+      <PageHeader
+        eyebrow="Contact"
+        title="Get in touch"
+        description="Have a question or need support? We're here to help."
+      />
+      <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
+        <a
+          href="mailto:contact@example.com"
+          className="group rounded-2xl border bg-card p-6 transition-shadow hover:shadow-md"
+        >
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Mail className="h-5 w-5" />
+          </div>
+          <h2 className="mt-5 text-lg font-semibold">Email</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Send us a message and our team will get back to you.
+          </p>
+          <p className="mt-4 font-medium text-primary group-hover:underline">
+            contact@example.com
+          </p>
+        </a>
+        <div className="rounded-2xl border bg-card p-6">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <MessageCircleQuestion className="h-5 w-5" />
+          </div>
+          <h2 className="mt-5 text-lg font-semibold">About your plan</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Already registered an idea? Your reports and cost estimates are in
+            your dashboard.
+          </p>
+          <Link
+            href="/dashboard"
+            className="mt-4 inline-block font-medium text-primary hover:underline"
+          >
+            Go to dashboard
+          </Link>
+        </div>
       </div>
     </div>
   );

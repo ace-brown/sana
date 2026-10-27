@@ -15,6 +15,9 @@ export default function ProtectedRoute({
   const router = useRouter();
 
   useEffect(() => {
+    // Wait until the stored session has been restored before deciding
+    if (!auth.isAuthReady) return;
+
     // Ensure role is defined and user is authorized
     if (
       !auth.isLoggedIn ||
@@ -23,7 +26,7 @@ export default function ProtectedRoute({
     ) {
       router.replace("/"); // Redirect unauthorized users
     }
-  }, [auth.isLoggedIn, auth.role, allowedRoles, router]);
+  }, [auth.isAuthReady, auth.isLoggedIn, auth.role, allowedRoles, router]);
 
   // Render children if the user is authorized
   return (

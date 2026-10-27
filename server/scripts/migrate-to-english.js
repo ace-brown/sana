@@ -108,8 +108,12 @@ async function migrate() {
     console.log(`Ideas migrated: ${count}`);
 }
 
+// Use MONGODB_URI when set (e.g. a local database), otherwise build the Atlas address
+const dbUri = process.env.MONGODB_URI ||
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.SUFFIX}.${process.env.AFTER_SUFFIX}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}`;
+
 mongoose
-    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.SUFFIX}.${process.env.AFTER_SUFFIX}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.APP_NAME}`)
+    .connect(dbUri)
     .then(migrate)
     .catch((err) => { console.log(err) })
     .finally(() => mongoose.disconnect())

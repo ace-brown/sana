@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { AuthContext } from "@/context/auth-context";
 import EditUserProfile from "@/components/users/EditUserProfile";
 import ProtectedRoute from "./ProtectedRoute";
@@ -25,6 +25,8 @@ export default function AccountPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading: isDeleting, sendRequest: sendDeleteRequest } =
+    useHttpClient();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const auth = useContext(AuthContext);
@@ -33,7 +35,7 @@ export default function AccountPage() {
   // Delete user account
   async function handleDeleteAccount() {
     try {
-      await sendRequest(
+      await sendDeleteRequest(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
         "DELETE",
         null,
@@ -75,13 +77,7 @@ export default function AccountPage() {
     <ProtectedRoute allowedRoles={["admin", "user"]}>
       <Toaster position="top-center" richColors />
       {isLoading && (
-        <div className="center">
-          <div>
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-          </div>
-        </div>
+        <LoadingSpinner />
       )}
 
       {/* Check if there is profile */}
@@ -91,32 +87,32 @@ export default function AccountPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* First Row */}
               <div>
-                <h2 className="font-bold text-lg">Full Name</h2>
+                <h2 className="text-sm font-medium text-muted-foreground">Full Name</h2>
                 <p>{profileData?.profile.fullName}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">Username</h2>
+                <h2 className="text-sm font-medium text-muted-foreground">Username</h2>
                 <p>{profileData?.username}</p>
               </div>
 
               {/* Second Row */}
               <div>
-                <h2 className="font-bold text-lg">Email</h2>
+                <h2 className="text-sm font-medium text-muted-foreground">Email</h2>
                 <p>{profileData?.email}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">Password</h2>
+                <h2 className="text-sm font-medium text-muted-foreground">Password</h2>
                 <div className="relative flex items-center">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
                     value={profileData?.password}
                     readOnly
-                    className="px-2 py-1 w-full pr-10"
+                    className="w-full bg-transparent py-1 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                    className="absolute right-2 text-gray-500 hover:text-gray-700"
+                    className="absolute right-2 text-muted-foreground hover:text-foreground"
                     aria-label="Toggle password visibility"
                   >
                     {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
@@ -126,7 +122,7 @@ export default function AccountPage() {
 
               {/* Third Row */}
               <div className="md:col-span-2">
-                <h2 className="font-bold text-lg">About Me</h2>
+                <h2 className="text-sm font-medium text-muted-foreground">About Me</h2>
                 <p>{profileData?.profile.bio}</p>
               </div>
             </div>
@@ -173,7 +169,11 @@ export default function AccountPage() {
             >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteAccount}>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAccount}
+              loading={isDeleting}
+            >
               Delete Account
             </Button>
           </DialogFooter>
@@ -182,7 +182,7 @@ export default function AccountPage() {
 
       {/* Edit Profile Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
+        <DialogContent className="w-[95vw] max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-center">Edit Profile</DialogTitle>
           </DialogHeader>

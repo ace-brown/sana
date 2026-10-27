@@ -16,16 +16,14 @@ export type SatrtUpCardDataType = {
 };
 
 export type RegisterIdeaType = {
-  fatherName: string;
-  associate?: string;
+  firstName: string;
+  lastName: string;
   country?: string;
   state?: string;
   city: string;
   career: string;
-  maritalStatus?: string;
   gender: string;
   mobileNumber: string;
-  age: number;
   branchOfStudy: string;
   branchDetail?: string;
   ideaTitle: string;
@@ -36,16 +34,14 @@ export type UserIdeaType = {
   id: string;
   ownerId: string;
   reportId?: string;
-  fatherName: string;
-  associate?: string;
+  firstName: string;
+  lastName: string;
   country?: string;
   state?: string;
   city: string;
   career: string;
-  maritalStatus?: string;
   gender: string;
   mobileNumber: string;
-  age: number;
   branchOfStudy: string;
   branchDetail?: string;
   ideaTitle: string;

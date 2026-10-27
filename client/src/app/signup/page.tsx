@@ -9,9 +9,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Container from "@/components/common/container";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useHttpClient } from "@/hooks/http-hook";
 import { AuthContext } from "@/context/auth-context";
 
@@ -75,20 +79,22 @@ export default function SignupPage() {
   }
 
   return (
-    <Container>
-      {isLoading && <LoadingSpinner asOverlay />}
+    <>
       <Toaster position="top-center" richColors />
-      <div className="min-h-[50vh] flex items-start justify-center">
-        <Card className="w-full max-w-md">
+      <div className="flex justify-center py-12 md:py-20">
+        <Card className="w-full max-w-md shadow-lg">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">Sign Up</CardTitle>
+            <CardTitle className="text-center text-2xl">Create your account</CardTitle>
+            <CardDescription className="text-center">
+              Start your startup journey with Khayam Sana.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
               {/* User Name */}
-              <div className="mb-4">
+              <div className="mb-4 space-y-2">
                 <Label htmlFor="username">
-                  Username <span className="text-red-500">*</span>
+                  Username <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type="text"
@@ -101,9 +107,9 @@ export default function SignupPage() {
               </div>
 
               {/* Full Name */}
-              <div className="mb-4">
+              <div className="mb-4 space-y-2">
                 <Label htmlFor="fullName">
-                  Full Name <span className="text-red-500">*</span>
+                  Full Name <span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type="text"
@@ -116,9 +122,9 @@ export default function SignupPage() {
               </div>
 
               {/* Email */}
-              <div className="mb-4">
+              <div className="mb-4 space-y-2">
                 <Label htmlFor="email">
-                  Email<span className="text-red-500">*</span>
+                  Email<span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type="email"
@@ -131,9 +137,9 @@ export default function SignupPage() {
               </div>
 
               {/* Password */}
-              <div className="mb-4 relative">
+              <div className="mb-4 relative space-y-2">
                 <Label htmlFor="password">
-                  Password<span className="text-red-500">*</span>
+                  Password<span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -145,7 +151,7 @@ export default function SignupPage() {
                   required
                 />
                 <span
-                  className="absolute right-3 top-8 cursor-pointer text-gray-500"
+                  className="absolute right-3 top-[30px] cursor-pointer text-muted-foreground"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? (
@@ -157,9 +163,9 @@ export default function SignupPage() {
               </div>
 
               {/* Repeat Password */}
-              <div className="mb-4 relative">
+              <div className="mb-4 relative space-y-2">
                 <Label htmlFor="repeatPassword">
-                  Repeat Password<span className="text-red-500">*</span>
+                  Repeat Password<span className="text-destructive">*</span>
                 </Label>
                 <Input
                   type={showPassword ? "text" : "password"}
@@ -171,7 +177,7 @@ export default function SignupPage() {
                   required
                 />
                 <span
-                  className="absolute right-3 top-8 cursor-pointer text-gray-500"
+                  className="absolute right-3 top-[30px] cursor-pointer text-muted-foreground"
                   onClick={() => setShowPassword((prev) => !prev)}
                 >
                   {showPassword ? (
@@ -182,29 +188,31 @@ export default function SignupPage() {
                 </span>
               </div>
               {passwordError && (
-                <p className="text-sm text-red-500">{passwordError}</p>
+                <p className="text-sm text-destructive">{passwordError}</p>
               )}
               {/* Submit Button */}
               <div className="mt-6">
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button type="submit" className="w-full" loading={isLoading}>
                   Sign Up
                 </Button>
               </div>
             </form>
 
-            <p className="text-sm text-center mt-4 text-gray-600">
-              Already have an account?
+            <p className="text-sm text-center mt-6 text-muted-foreground">
+              Already have an account?{" "}
               <Link
                 href="/login"
-                className="text-indigo-600 hover:underline focus:outline-none"
+                className="font-medium text-primary hover:underline"
               >
                 Log In
               </Link>
             </p>
-            {error && <p className="text-center text-red-500 mb-8">{error}</p>}
+            {error && (
+              <p className="mt-4 text-center text-sm text-destructive">{error}</p>
+            )}
           </CardContent>
         </Card>
       </div>
-    </Container>
+    </>
   );
 }

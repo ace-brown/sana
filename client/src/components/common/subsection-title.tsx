@@ -11,7 +11,7 @@ export default function SubSectionTitle({
 }: SubSectionTitleProps) {
   return (
     <h2
-      className={`text-3xl sm:text-2xl font-bold text-gray-800 mb-12 ${
+      className={`text-3xl sm:text-2xl font-bold text-foreground mb-12 ${
         textAlign === "right"
           ? "text-right"
           : textAlign === "center"

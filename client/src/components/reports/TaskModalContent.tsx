@@ -2,12 +2,12 @@ import { useContext, useState } from "react";
 import { Toaster, toast } from "sonner";
 
 import { SelectedTaskType, Report } from "@/types";
+import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { AuthContext } from "@/context/auth-context";
 import { useHttpClient } from "@/hooks/http-hook";
-import LoadingSpinner from "../common/LoadingSpinner";
 
 type TaskModalContentProps = {
   task: SelectedTaskType | undefined;
@@ -69,7 +69,6 @@ export default function TaskModalContent({
 
   return (
     <div>
-      {isLoading && <LoadingSpinner asOverlay />}
       <Toaster position="top-center" richColors />
       <div className="flex flex-col space-y-2">
         <Label htmlFor="measures" className="font-medium">
@@ -102,13 +101,9 @@ export default function TaskModalContent({
           </div>
         </RadioGroup>
       </div>
-      <button
-        onClick={handleUpdateTask}
-        disabled={isLoading}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
-      >
+      <Button onClick={handleUpdateTask} loading={isLoading} className="mt-6">
         Update Task
-      </button>
+      </Button>
       {error && <p className="text-center text-red-500 mb-8">{error}</p>}
     </div>
   );

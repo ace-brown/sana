@@ -2,6 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { Toaster } from "sonner";
+import { Lightbulb, Plus } from "lucide-react";
 
 import { useHttpClient } from "@/hooks/http-hook";
 import { RegisterIdeaType, UserIdeaType } from "@/types";
@@ -15,7 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { formatDate } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import RegisterIdeaForm from "@/components/ideas/RegisterIdeaForm";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "../ProtectedRoute";
@@ -24,17 +25,46 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function UserIdeas() {
   const [ideaData, setIdeaData] = useState<UserIdeaType[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [ideaToEdit, setIdeaToEdit] = useState<UserIdeaType | null>(null);
   const [ideaToDelete, setIdeaToDelete] = useState<number | null>(null);
+  // Separate request states: loading the list vs. saving changes
   const { isLoading, sendRequest } = useHttpClient();
+  const {
+    isLoading: isSaving,
+    error: saveError,
+    sendRequest: sendSaveRequest,
+    clearError: clearSaveError,
+  } = useHttpClient();
   const auth = useContext(AuthContext);
   const userId = auth.userId;
+
+  // Register a new idea, then refresh the list
+  async function handleRegisterIdea(formData: RegisterIdeaType) {
+    try {
+      const responseData = await sendSaveRequest(
+        `${process.env.NEXT_PUBLIC_API_URL}/ideas`,
+        "POST",
+        JSON.stringify({ ...formData, ownerId: userId }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        },
+        "Idea created successfully"
+      );
+
+      setIsRegisterDialogOpen(false);
+      auth.getReportId(responseData.idea.reportId);
+      fetchIdeas();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {}
+  }
 
   // Update idea handler
   async function handleUpdateIdea(updatedIdea: RegisterIdeaType) {
     try {
-      await sendRequest(
+      await sendSaveRequest(
         `${process.env.NEXT_PUBLIC_API_URL}/ideas/${ideaToEdit?.id}`,
         "PATCH",
         JSON.stringify(updatedIdea),
@@ -63,7 +93,7 @@ export default function UserIdeas() {
       const idea = ideaData[ideaToDelete];
 
       try {
-        await sendRequest(
+        await sendSaveRequest(
           `${process.env.NEXT_PUBLIC_API_URL}/ideas/${idea.id}`,
           "DELETE",
           null,
@@ -105,22 +135,33 @@ export default function UserIdeas() {
 
   return (
     <ProtectedRoute allowedRoles={["admin", "user"]}>
-      {" "}
       <Toaster position="top-center" richColors />
-      {isLoading && (
-        <div className="center">
-          <div>
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-          </div>
-        </div>
-      )}
-      {!isLoading && ideaData?.length == 0 && (
-        <p className="text-red-400">
-          There are no ideas yet. If you haven&apos;t registered an idea, please
-          create one from the Register New Idea section.
+      {/* Header with Register New Idea */}
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-muted-foreground">
+          Register a new idea or manage the ones you&apos;ve submitted.
         </p>
+        <Button
+          onClick={() => {
+            clearSaveError();
+            setIsRegisterDialogOpen(true);
+          }}
+        >
+          <Plus /> Register New Idea
+        </Button>
+      </div>
+      {isLoading && <LoadingSpinner />}
+      {!isLoading && ideaData?.length == 0 && (
+        <div className="flex flex-col items-center rounded-xl border border-dashed p-10 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Lightbulb className="h-6 w-6" />
+          </div>
+          <h2 className="mt-4 text-lg font-semibold">No ideas yet</h2>
+          <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+            Register your first idea and we&apos;ll put together a plan to help
+            you bring it to life.
+          </p>
+        </div>
       )}
       {/*********************************************************************
        *Refactor 1: Idea card is used here and on the dashboard/user/[id]/deail
@@ -133,72 +174,64 @@ export default function UserIdeas() {
               <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* First Row */}
                 <div>
-                  <h2 className="font-bold text-lg">Idea Title</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Idea Title</h2>
                   <p>{idea.ideaTitle}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Created At</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Created At</h2>
                   <p>{formatDate(idea.createdAt)}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Full Name</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Full Name</h2>
                   <p>{auth.fullName}</p>
                 </div>
                 {/* Second Row */}
                 <div>
-                  <h2 className="font-bold text-lg">Father&apos;s Name</h2>
-                  <p>{idea.fatherName}</p>
+                  <h2 className="text-sm font-medium text-muted-foreground">First Name</h2>
+                  <p>{idea.firstName}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Partners</h2>
-                  <p>{idea.associate}</p>
+                  <h2 className="text-sm font-medium text-muted-foreground">Last Name</h2>
+                  <p>{idea.lastName}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Country</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Country</h2>
                   <p>{idea.country}</p>
                 </div>
                 {/* Third Row */}
                 <div>
-                  <h2 className="font-bold text-lg">State / Province</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">State / Province</h2>
                   <p>{idea.state}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">City</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">City</h2>
                   <p>{idea.city}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Occupation</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Occupation</h2>
                   <p>{idea.career}</p>
                 </div>
                 {/* Fourth Row */}
                 <div>
-                  <h2 className="font-bold text-lg">Marital Status</h2>
-                  <p>{idea.maritalStatus}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">Gender</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Gender</h2>
                   <p>{idea.gender}</p>
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg">Age</h2>
-                  <p>{idea.age}</p>
                 </div>
                 {/* Fifth Row */}
                 <div>
-                  <h2 className="font-bold text-lg">Mobile Number</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Mobile Number</h2>
                   <p>{idea.mobileNumber}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Field of Study</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Field of Study</h2>
                   <p>{idea.branchOfStudy}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">Specialization</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Specialization</h2>
                   <p>{idea.branchDetail}</p>
                 </div>
                 {/* Description Row */}
                 <div className="md:col-span-3">
-                  <h2 className="font-bold text-lg">Description</h2>
+                  <h2 className="text-sm font-medium text-muted-foreground">Description</h2>
                   <p>{idea.ideaDescription}</p>
                 </div>
                 {/* Action Buttons */}
@@ -245,32 +278,48 @@ export default function UserIdeas() {
             >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteIdea}>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteIdea}
+              loading={isSaving}
+            >
               Delete
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      {/* Register Idea Modal */}
+      <Dialog open={isRegisterDialogOpen} onOpenChange={setIsRegisterDialogOpen}>
+        <DialogContent className="w-[95vw] max-w-4xl max-h-[calc(100vh-2rem)] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Register New Idea</DialogTitle>
+          </DialogHeader>
+          {saveError && <p className="text-sm text-destructive">{saveError}</p>}
+          <RegisterIdeaForm
+            onSubmit={handleRegisterIdea}
+            isSubmitting={isSaving}
+          />
+        </DialogContent>
+      </Dialog>
       {/* Edit Idea Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
+        <DialogContent className="w-[95vw] max-w-4xl max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Idea</DialogTitle>
           </DialogHeader>
           {ideaToEdit && (
             <RegisterIdeaForm
               onSubmit={(data) => handleUpdateIdea(data)}
+              isSubmitting={isSaving}
               defaultValues={{
-                fatherName: ideaToEdit.fatherName,
-                associate: ideaToEdit.associate,
+                firstName: ideaToEdit.firstName,
+                lastName: ideaToEdit.lastName,
                 country: ideaToEdit.country,
                 state: ideaToEdit.state,
                 city: ideaToEdit.city,
                 career: ideaToEdit.career,
-                maritalStatus: ideaToEdit.maritalStatus,
                 gender: ideaToEdit.gender,
                 mobileNumber: ideaToEdit.mobileNumber,
-                age: ideaToEdit.age,
                 branchOfStudy: ideaToEdit.branchOfStudy,
                 branchDetail: ideaToEdit.branchDetail,
                 ideaTitle: ideaToEdit.ideaTitle,

@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { Card } from "@/components/ui/card";
 import { AuthContext } from "@/context/auth-context";
 import ProtectedRoute from "@/app/dashboard/ProtectedRoute";
@@ -70,13 +70,7 @@ export default function UsersPage() {
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       <Card className="p-8 mt-8 shadow">
-        {isLoading && (
-          <div>
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-            <Skeleton className="h-8 w-full mb-2" />
-          </div>
-        )}
+        {isLoading && <LoadingSpinner />}
 
         {error && <p className="text-red-500">Error: {error}</p>}
 
