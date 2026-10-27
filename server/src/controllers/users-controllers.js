@@ -17,13 +17,13 @@ async function getUserById(req, res, next) {
         const user = await User.findById(uid);
 
         if (!user) {
-            return res.status(404).json({ message: 'کاربر پیدا نشد' });
+            return res.status(404).json({ message: 'User not found.' });
         }
 
         res.status(200).json({ user: user.toObject({ getters: true }) });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({ message: 'دریافت اطلاعات کاربر با شکست مواجه شد. لطفاً بعداً دوباره تلاش کنید.' });
+        return res.status(500).json({ message: 'Fetching user data failed, please try again later.' });
     }
 }
 
@@ -53,7 +53,7 @@ async function getUsers(req, res, next) {
         });
     } catch (err) {
         return next(new HttpError(
-            'دریافت اطلاعات کاربر با شکست مواجه شد. لطفاً بعداً دوباره تلاش کنید.',
+            'Fetching user data failed, please try again later.',
             500
         ));
     }
@@ -134,7 +134,7 @@ async function getUsers(req, res, next) {
 async function signup(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return next(new HttpError("ورودی نامعتبر است، لطفاً داده‌های خود را بررسی کنید.", 422));
+        return next(new HttpError("Invalid input passed, please check your data.", 422));
     }
 
     const { username, email, password, fullName } = req.body;
@@ -145,14 +145,14 @@ async function signup(req, res, next) {
         existingUser = await User.findOne({ email: email });
     } catch (err) {
         const error = new HttpError(
-            'ثبت‌نام با شکست مواجه شد، لطفاً بعداً دوباره تلاش کنید.',
+            'Signing up failed, please try again later.',
             500
         );
         return next(error);
     }
 
     if (existingUser) {
-        const error = new HttpError('کاربر از قبل وجود دارد، لطفاً به جای آن وارد شوید.', 422);
+        const error = new HttpError('User exists already, please log in instead.', 422);
         return next(error);
     }
 
@@ -169,7 +169,7 @@ async function signup(req, res, next) {
         await createdUser.save();
     } catch (err) {
         console.error('Error saving user:', err);
-        const error = new HttpError('دریافت اطلاعات کاربر با شکست مواجه شد. لطفاً بعداً دوباره تلاش کنید.', 500);
+        const error = new HttpError('Fetching user data failed, please try again later.', 500);
         return next(error);
     }
 
@@ -181,7 +181,7 @@ async function signup(req, res, next) {
             { expiresIn: '1h' }
         );
     } catch (err) {
-        const error = new HttpError('دریافت اطلاعات کاربر با شکست مواجه شد. لطفاً بعداً دوباره تلاش کنید.', 500);
+        const error = new HttpError('Fetching user data failed, please try again later.', 500);
         return next(error);
     }
 
@@ -257,18 +257,18 @@ async function login(req, res, next) {
     try {
         existingUser = await User.findOne({ email: email });
     } catch (err) {
-        const error = new HttpError('ورود با شکست مواجه شد، لطفاً بعداً دوباره تلاش کنید.', 500);
+        const error = new HttpError('Logging in failed, please try again later.', 500);
         return next(error);
     }
 
     if (!existingUser) {
-        const error = new HttpError('اطلاعات ورود نامعتبر است، امکان ورود وجود ندارد.', 401);
+        const error = new HttpError('Invalid credentials, could not log you in.', 401);
         return next(error);
     }
 
     // Directly compare passwords (plaintext comparison)
     if (password !== existingUser.password) {
-        const error = new HttpError('اطلاعات ورود نامعتبر است، امکان ورود وجود ندارد.', 401);
+        const error = new HttpError('Invalid credentials, could not log you in.', 401);
         return next(error);
     }
 
@@ -280,7 +280,7 @@ async function login(req, res, next) {
             { expiresIn: '1h' }
         );
     } catch (err) {
-        const error = new HttpError('ورود با شکست مواجه شد، لطفاً بعداً دوباره تلاش کنید.', 500);
+        const error = new HttpError('Logging in failed, please try again later.', 500);
         return next(error);
     }
 
@@ -298,7 +298,7 @@ async function login(req, res, next) {
 async function updateUser(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return next(new HttpError("ورودی نامعتبر است، لطفاً داده‌های خود را بررسی کنید.", 422));
+        return next(new HttpError("Invalid input passed, please check your data.", 422));
     }
 
     const userId = req.params.uid;
@@ -306,17 +306,17 @@ async function updateUser(req, res, next) {
 
     try {
         if (!mongoose.Types.ObjectId.isValid(userId)) {
-            return next(new HttpError("شناسه کاربری نامعتبر است", 400));
+            return next(new HttpError("Invalid user ID.", 400));
         }
 
         const user = await User.findById(userId);
         if (!user) {
-            return next(new HttpError("کاربری برای شناسه ارائه شده پیدا نشد", 404));
+            return next(new HttpError("Could not find a user for the provided ID.", 404));
         }
 
         // Prevent changing the role field
         if (updates.role) {
-            return next(new HttpError("شما اجازه تغییر نقش خود را ندارید", 403));
+            return next(new HttpError("You are not allowed to change your role.", 403));
         }
 
         // Update user fields
@@ -340,7 +340,7 @@ async function updateUser(req, res, next) {
         res.status(200).json({ user: user.toObject({ getters: true }) });
     } catch (error) {
         console.log(error);
-        return next(new HttpError("بروزرسانی کاربر ناموفق بود، لطفاً بعداً دوباره تلاش کنید", 500));
+        return next(new HttpError("Updating user failed, please try again later.", 500));
     }
 }
 
@@ -351,14 +351,14 @@ async function updateRole(req, res, next) {
 
     // Validate that the role is either 'admin' or 'user'
     if (role !== 'admin' && role !== 'user') {
-        return res.status(400).json({ message: 'نقش نامعتبر است' });
+        return res.status(400).json({ message: 'Invalid role.' });
     }
 
     try {
         // Find the user by their user ID
         const user = await User.findById(uid);
         if (!user) {
-            return res.status(404).json({ message: 'کاربر پیدا نشد' });
+            return res.status(404).json({ message: 'User not found.' });
         }
 
         // Update the user's role
@@ -367,7 +367,7 @@ async function updateRole(req, res, next) {
 
         return res.status(200).json({ message: `User role updated to ${role}` });
     } catch (err) {
-        return res.status(500).json({ message: 'بروزرسانی نقش ناموفق بود', error: err });
+        return res.status(500).json({ message: 'Failed to update role.', error: err });
     }
 };
 
@@ -378,12 +378,12 @@ async function deleteUser(req, res, next) {
 
     try {
         if (!mongoose.Types.ObjectId.isValid(userId)) {
-            return next(new HttpError("شناسه کاربری نامعتبر است", 400));
+            return next(new HttpError("Invalid user ID.", 400));
         }
 
         const user = await User.findById(userId).populate('ideas').populate('reports');
         if (!user) {
-            return next(new HttpError("کاربری برای شناسه ارائه شده پیدا نشد", 404));
+            return next(new HttpError("Could not find a user for the provided ID.", 404));
         }
 
         const sess = await mongoose.startSession();
@@ -402,10 +402,10 @@ async function deleteUser(req, res, next) {
 
         await sess.commitTransaction();
 
-        res.status(200).json({ message: "کاربر و تمام داده‌های مرتبط با آن با موفقیت حذف شدند" });
+        res.status(200).json({ message: "User and all associated data deleted successfully." });
     } catch (error) {
         sess.abortTransaction();
-        return next(new HttpError("حذف کاربر ناموفق بود، لطفاً بعداً دوباره تلاش کنید", 500));
+        return next(new HttpError("Deleting user failed, please try again later.", 500));
     }
 }
 

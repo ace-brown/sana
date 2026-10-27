@@ -56,7 +56,7 @@ export default function UsersPage() {
       setUsers(data.users);
       setTotalPages(data.totalPages);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "خطای ناشناخته‌ای رخ داد");
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -78,19 +78,19 @@ export default function UsersPage() {
           </div>
         )}
 
-        {error && <p className="text-red-500">خطا: {error}</p>}
+        {error && <p className="text-red-500">Error: {error}</p>}
 
         {!isLoading && !error && (
           <>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-right">آواتار</TableHead>
-                  <TableHead className="text-right">نام کاربری</TableHead>
-                  <TableHead className="text-right">نام کامل</TableHead>
-                  <TableHead className="text-right">ایمیل</TableHead>
-                  <TableHead className="text-right">نقش</TableHead>
-                  <TableHead className="text-right">جزئیات</TableHead>
+                  <TableHead className="text-left">Avatar</TableHead>
+                  <TableHead className="text-left">Username</TableHead>
+                  <TableHead className="text-left">Full Name</TableHead>
+                  <TableHead className="text-left">Email</TableHead>
+                  <TableHead className="text-left">Role</TableHead>
+                  <TableHead className="text-left">Details</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -100,11 +100,11 @@ export default function UsersPage() {
                       {user.profile.avatar ? (
                         <Image
                           src={user.profile.avatar}
-                          alt={`آواتار ${user.username}`}
+                          alt={`${user.username}'s avatar`}
                           className="w-8 h-8 rounded-full"
                         />
                       ) : (
-                        <span>بدون آواتار</span>
+                        <span>No avatar</span>
                       )}
                     </TableCell>
                     <TableCell>{user.username}</TableCell>
@@ -118,7 +118,7 @@ export default function UsersPage() {
                           router.push(`/dashboard/users/${user._id}`)
                         }
                       >
-                        مشاهده
+                        View
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -132,10 +132,10 @@ export default function UsersPage() {
                 disabled={page === 1}
                 variant="outline"
               >
-                قبلی
+                Previous
               </Button>
               <span>
-                صفحه {page} از {totalPages}
+                Page {page} of {totalPages}
               </span>
               <Button
                 onClick={() =>
@@ -144,7 +144,7 @@ export default function UsersPage() {
                 disabled={page === totalPages}
                 variant="outline"
               >
-                بعدی
+                Next
               </Button>
             </div>
           </>

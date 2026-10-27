@@ -2,40 +2,40 @@ const mongoose = require('mongoose');
 
 const defaultStages = [
     {
-        stageTitle: "ارزیابی ایده",
+        stageTitle: "Idea Evaluation",
         stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "جلسه ایده پردازی", taskStatus: "Not Started", description: "" },
-            { taskTitle: "تحقیق بازار", taskStatus: "Not Started", description: "" },
-            { taskTitle: "تحلیل رقبا", taskStatus: "Not Started", description: "" },
-            { taskTitle: "مطالعه امکان‌سنجی", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Brainstorming Session", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Market Research", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Competitor Analysis", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Feasibility Study", taskStatus: "Not Started", description: "" },
         ],
     },
     {
-        stageTitle: "توسعه نمونه اولیه",
+        stageTitle: "Prototype Development",
         stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "طراحی اولیه", taskStatus: "Not Started", description: "" },
-            { taskTitle: "ساخت نمونه اولیه", taskStatus: "Not Started", description: "" },
-            { taskTitle: "آزمایش نمونه اولیه", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Initial Design", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Build Prototype", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Prototype Testing", taskStatus: "Not Started", description: "" },
         ],
     },
     {
-        stageTitle: "آزمایش",
+        stageTitle: "Testing",
         stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "آزمایش واحد", taskStatus: "Not Started", description: "" },
-            { taskTitle: "آزمایش یکپارچه‌سازی", taskStatus: "Not Started", description: "" },
-            { taskTitle: "بازخورد کاربران", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Unit Testing", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Integration Testing", taskStatus: "Not Started", description: "" },
+            { taskTitle: "User Feedback", taskStatus: "Not Started", description: "" },
         ],
     },
     {
-        stageTitle: "توسعه و استقرار",
+        stageTitle: "Development and Deployment",
         stageStatus: "Not Started",
         tasks: [
-            { taskTitle: "راه‌اندازی هاست", taskStatus: "Not Started", description: "" },
-            { taskTitle: "پیکربندی تولید", taskStatus: "Not Started", description: "" },
-            { taskTitle: "عرضه محصول", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Hosting Setup", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Production Configuration", taskStatus: "Not Started", description: "" },
+            { taskTitle: "Product Launch", taskStatus: "Not Started", description: "" },
         ],
     },
 ];

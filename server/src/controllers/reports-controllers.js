@@ -15,11 +15,11 @@ async function getReportById(req, res, next) {
     try {
         report = await Report.findById(reportId);
     } catch (err) {
-        return next(new HttpError("مشکلی پیش آمده است، نتوانستیم گزارش را پیدا کنیم", 500))
+        return next(new HttpError("Something went wrong, could not find report.", 500))
     }
 
     if (!report) {
-        return next(new HttpError("نتوانستیم گزارشی برای شناسه ارائه شده پیدا کنیم", 404))
+        return next(new HttpError("Could not find a report for the provided ID.", 404))
     }
 
     res.json({ report: report.toObject({ getters: true }) })
@@ -48,7 +48,7 @@ async function createReport(req, res, next) {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        throw new HttpError("ورودی نامعتبر ارسال شده است، لطفاً داده‌های خود را بررسی کنید", 422)
+        throw new HttpError("Invalid input passed, please check your data.", 422)
     }
 
     const { ideaTitle, ownerId } = req.body;
@@ -63,11 +63,11 @@ async function createReport(req, res, next) {
     try {
         user = await User.findById(ownerId);
     } catch (err) {
-        return next(new HttpError("ایجاد گزارش ناموفق بود، لطفاً دوباره تلاش کنید", 404))
+        return next(new HttpError("Creating report failed, please try again.", 404))
     }
 
     if (!user) {
-        return next(new HttpError("کاربر پیدا نشد، لطفاً شناسه کاربری را بررسی کنید", 404))
+        return next(new HttpError("Could not find user, please check the user ID.", 404))
     }
 
     try {
@@ -78,7 +78,7 @@ async function createReport(req, res, next) {
         await user.save({ session: sess })
         await sess.commitTransaction()
     } catch (err) {
-        return next(new HttpError("ایجاد گزارش ناموفق بود، لطفاً بعداً دوباره امتحان کنید", 500))
+        return next(new HttpError("Creating report failed, please try again later.", 500))
     }
 
     res.status(201).json({ report: createdReport });
@@ -88,7 +88,7 @@ async function createReport(req, res, next) {
 async function updateReport(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError("ورودی نامعتبر ارسال شد، لطفاً داده‌های خود را بررسی کنید", 422);
+        throw new HttpError("Invalid input passed, please check your data.", 422);
     }
 
     const reportId = req.params.rid;
@@ -101,7 +101,7 @@ async function updateReport(req, res, next) {
 
         const report = await Report.findById(reportId);
         if (!report) {
-            return next(new HttpError("گزارشی برای شناسه ارائه شده یافت نشد", 404));
+            return next(new HttpError("Could not find a report for the provided ID.", 404));
         }
 
         // Check if ideaTitle is being updated
@@ -123,7 +123,7 @@ async function updateReport(req, res, next) {
         res.status(200).json({ report: updatedReport.toObject({ getters: true }) });
     } catch (error) {
         console.error(error);
-        return next(new HttpError("به‌روزرسانی گزارش انجام نشد، لطفاً بعداً دوباره امتحان کنید", 500));
+        return next(new HttpError("Updating report failed, please try again later.", 500));
     }
 }
 

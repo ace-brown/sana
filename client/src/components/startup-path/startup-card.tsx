@@ -41,7 +41,7 @@ export default function StartUpCard({
             href={item.link}
             className="text-blue-500 font-medium hover:underline"
           >
-            بیشتر بخوانید
+            Read more
           </Link> */}
             </CardFooter>
           </div>
@@ -66,7 +66,7 @@ export default function StartUpCard({
             href={item.link}
             className="text-blue-500 font-medium hover:underline"
           >
-            بیشتر بخوانید
+            Read more
           </Link> */}
             </CardFooter>
           </div>

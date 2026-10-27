@@ -6,26 +6,27 @@ import PageTitle from "@/components/common/page-title";
 export default function AboutPage() {
   return (
     <ReadContainer>
-      <PageTitle>درباره ما</PageTitle>
+      <PageTitle>About Us</PageTitle>
       <Text>
         <p>
-          ما در خیام سانا با هدف حمایت از کارآفرینان، ایده‌پردازان و کسب‌وکارهای
-          نوپا تأسیس شده‌ایم. رسالت ما ایجاد یک پلتفرم جامع است که از لحظه‌ای که
-          ایده شما به ذهن می‌آید تا زمانی که استارتاپ شما به مرحله‌ی رشد و
-          پایداری می‌رسد، شما را در تمام مراحل همراهی کند. این شامل اعتبارسنجی
-          ایده‌ها، طراحی و برنامه‌ریزی استراتژیک، تامین منابع مالی، راه‌اندازی
-          اولیه و توسعه مستمر می‌شود. ما معتقدیم که هر ایده‌ای پتانسیل تبدیل به
-          یک کسب‌وکار موفق را دارد و تنها نیاز به پشتیبانی مناسب دارد.
+          Khayam Sana was founded to support entrepreneurs, innovators and
+          early-stage businesses. Our mission is to build a comprehensive
+          platform that accompanies you through every step, from the moment
+          your idea comes to mind until your startup reaches growth and
+          stability. That includes idea validation, strategic design and
+          planning, funding, initial launch and continuous development. We
+          believe every idea has the potential to become a successful business
+          and only needs the right support.
         </p>
         <P>
-          با همکاری نزدیک با بهترین دانشگاه‌ها، متخصصان و مشاوران حوزه
-          کارآفرینی، ابزارها و منابعی را در اختیارتان قرار می‌دهیم که به شما کمک
-          می‌کند تا تصمیمات آگاهانه‌تری بگیرید و مسیر رشد خود را با سرعت و دقت
-          بیشتری طی کنید. تیم ما با سال‌ها تجربه در حوزه‌های مختلف کسب‌وکار، به
-          شما این اطمینان را می‌دهد که در هر مرحله از راه، پشتیبانی قوی و تخصصی
-          دریافت خواهید کرد. ما به قدرت ایده‌ها و اهمیت اجرای صحیح آن‌ها باور
-          داریم و تمام تلاش‌مان را به کار می‌بریم تا شما را در رسیدن به اهدافتان
-          یاری کنیم.
+          Working closely with leading universities, experts and
+          entrepreneurship advisors, we provide tools and resources that help
+          you make better-informed decisions and move along your growth path
+          faster and more precisely. With years of experience across many areas
+          of business, our team ensures you receive strong, expert support at
+          every step of the way. We believe in the power of ideas and the
+          importance of executing them well, and we do everything we can to
+          help you reach your goals.
         </P>
       </Text>
     </ReadContainer>

@@ -60,7 +60,7 @@ export default function TaskModalContent({
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        "گزارش‌ با موفقیت به‌روزرسانی شد"
+        "Report updated successfully"
       );
       closeTaskModal();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -73,7 +73,7 @@ export default function TaskModalContent({
       <Toaster position="top-center" richColors />
       <div className="flex flex-col space-y-2">
         <Label htmlFor="measures" className="font-medium">
-          توضیحات وظیفه
+          Task Description
         </Label>
         <Textarea
           id="measures"
@@ -90,15 +90,15 @@ export default function TaskModalContent({
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Completed" id="completed" />
-            <Label htmlFor="completed">وظیفه تکمیل‌شده است</Label>
+            <Label htmlFor="completed">Task is completed</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="In Progress" id="in-progress" />
-            <Label htmlFor="in-progress">وظیفه در حال اجراست</Label>
+            <Label htmlFor="in-progress">Task is in progress</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="Not Started" id="not-started" />
-            <Label htmlFor="not-started">وظیفه شروع نشده است</Label>
+            <Label htmlFor="not-started">Task has not started</Label>
           </div>
         </RadioGroup>
       </div>
@@ -107,7 +107,7 @@ export default function TaskModalContent({
         disabled={isLoading}
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
       >
-        بروزرسانی وظیفه
+        Update Task
       </button>
       {error && <p className="text-center text-red-500 mb-8">{error}</p>}
     </div>

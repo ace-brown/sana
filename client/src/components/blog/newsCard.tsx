@@ -15,13 +15,13 @@ export const NewsCard1 = () => {
         <Image src={news1} alt="news1" />
       </div>
       <div className={classes["card-content"]}>
-        <h1>عنوان اولین پست وبلاگ</h1>
+        <h1>First blog post title</h1>
         <p>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. زندگی، از
-          یک مجموعه متصل، به سوی سادگی و زیبایی حرکت می‌کند
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <Link href="./about">
-          <Button className="mt-4">بیشتر بخوانید</Button>
+          <Button className="mt-4">Read more</Button>
         </Link>
       </div>
     </article>
@@ -35,13 +35,13 @@ export const NewsCard2 = () => {
         <Image src={news2} alt="news 2" />
       </div>
       <div className={classes["card-content"]}>
-        <h1>عنوان دومین پست وبلاگ</h1>
+        <h1>Second blog post title</h1>
         <p>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. زندگی، از
-          یک مجموعه متصل، به سوی سادگی و زیبایی حرکت می‌کند
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <Link href="./about">
-          <Button className="mt-4">بیشتر بخوانید</Button>
+          <Button className="mt-4">Read more</Button>
         </Link>
       </div>
     </article>
@@ -55,13 +55,13 @@ export const NewsCard3 = () => {
         <Image src={news3} alt="news 3" />
       </div>
       <div className={classes["card-content"]}>
-        <h1>عنوان سومین پست وبلاگ</h1>
+        <h1>Third blog post title</h1>
         <p>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. زندگی، از
-          یک مجموعه متصل، به سوی سادگی و زیبایی حرکت می‌کند
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <Link href="./about">
-          <Button className="mt-4">بیشتر بخوانید</Button>
+          <Button className="mt-4">Read more</Button>
         </Link>
       </div>
     </article>
@@ -74,13 +74,13 @@ export const NewsCard4 = () => {
         <Image src={news3} alt="news 3" />
       </div>
       <div className={classes["card-content"]}>
-        <h1>عنوان چهارمین پست وبلاگ</h1>
+        <h1>Fourth blog post title</h1>
         <p>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. زندگی، از
-          یک مجموعه متصل، به سوی سادگی و زیبایی حرکت می‌کند
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <Link href="./about">
-          <Button className="mt-4">بیشتر بخوانید</Button>
+          <Button className="mt-4">Read more</Button>
         </Link>
       </div>
     </article>

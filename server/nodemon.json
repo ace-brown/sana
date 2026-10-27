@@ -1,12 +1,1 @@
-{
-  "env": {
-    "DB_USER": "dfdsf",
-    "DB_PASSWORD": "fsdsfd",
-    "DB_NAME": "dfdsfds",
-    "JWT_SECRET": "dsfdfdf",
-    "SUFFIX": "dsfdfds",
-    "AFTER_SUFFIX": "fsdfds",
-    "APP_NAME": "sfdf",
-    "PORT": 5000
-  }
-}
+{}

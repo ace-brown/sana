@@ -12,11 +12,11 @@ async function getCostById(req, res, next) {
     try {
         cost = await Cost.findById(costId);
     } catch (err) {
-        return next(new HttpError("مشکلی پیش آمده است، نتوانستیم هزینه را پیدا کنیم", 500))
+        return next(new HttpError("Something went wrong, could not find cost.", 500))
     }
 
     if (!cost) {
-        return next(new HttpError("نتوانستیم هزینه‌ای برای شناسه ارائه شده پیدا کنیم", 404))
+        return next(new HttpError("Could not find a cost for the provided ID.", 404))
     }
 
     res.json({ cost: cost.toObject({ getters: true }) })
@@ -30,11 +30,11 @@ async function getCostsByUserId(req, res, next) {
     try {
         costsForUser = await Cost.find({ userId: userId })
     } catch (err) {
-        return next(new HttpError("دریافت هزینه‌ها ناموفق بود، لطفاً بعداً دوباره تلاش کنید", 500))
+        return next(new HttpError("Fetching costs failed, please try again later.", 500))
     }
 
     if (!costsForUser || costsForUser.length === 0) {
-        return next(new HttpError("نتوانستیم هزینه‌ها را برای شناسه کاربری ارائه شده پیدا کنیم", 404))
+        return next(new HttpError("Could not find costs for the provided user ID.", 404))
     }
 
     res.json({ costsForUser: costsForUser.map(c => c.toObject({ getters: true })) })
@@ -45,7 +45,7 @@ async function createCost(req, res, next) {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.status(422).json({ message: "ورودی نامعتبر ارسال شده است، لطفاً داده‌های خود را بررسی کنید" });
+        return res.status(422).json({ message: "Invalid input passed, please check your data." });
     }
 
     const { userId, reportId, selectedServices, paid } = req.body;
@@ -53,7 +53,7 @@ async function createCost(req, res, next) {
     try {
         // Validate selectedServices (must be from predefinedServices)
         if (!Array.isArray(selectedServices) || selectedServices.length === 0) {
-            return res.status(400).json({ message: "خدمات انتخاب شده باید یک آرایه غیر خالی باشد" });
+            return res.status(400).json({ message: "Selected services must be a non-empty array." });
         }
 
         // Validate and map the selected services
@@ -84,7 +84,7 @@ async function createCost(req, res, next) {
 
             if (duplicateService) {
                 return res.status(400).json({
-                    message: `خدمات "${duplicateService.serviceName}" قبلاً در هزینه موجود است.`,
+                    message: `Service "${duplicateService.serviceName}" already exists in the cost.`,
                 });
             }
 
@@ -99,7 +99,7 @@ async function createCost(req, res, next) {
             // Save the updated cost document
             await existingCost.save();
             return res.status(200).json({
-                message: "خدمات با موفقیت به هزینه موجود اضافه شدند",
+                message: "Services added to existing cost successfully.",
                 cost: existingCost,
             });
         } else {
@@ -113,13 +113,13 @@ async function createCost(req, res, next) {
 
             await newCost.save();
             return res.status(201).json({
-                message: "هزینه با موفقیت ایجاد شد",
+                message: "Cost created successfully.",
                 cost: newCost,
             });
         }
     } catch (err) {
         console.error(err);
-        return next(new HttpError("ایجاد هزینه ناموفق بود، لطفاً بعداً دوباره تلاش کنید", 500));
+        return next(new HttpError("Creating cost failed, please try again later.", 500));
     }
 }
 
@@ -128,7 +128,7 @@ async function updateCost(req, res, next) {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return next(new HttpError("ورودی نامعتبر ارسال شده است، لطفاً داده‌های خود را بررسی کنید", 422));
+        return next(new HttpError("Invalid input passed, please check your data.", 422));
     }
 
     const costId = req.params.cid;
@@ -136,13 +136,13 @@ async function updateCost(req, res, next) {
 
     // Validate costId format
     if (!mongoose.Types.ObjectId.isValid(costId)) {
-        return res.status(400).json({ message: "فرمت شناسه هزینه نامعتبر است" });
+        return res.status(400).json({ message: "Invalid cost ID format." });
     }
 
     try {
         const cost = await Cost.findById(costId);
         if (!cost) {
-            return res.status(404).json({ message: "هزینه پیدا نشد" });
+            return res.status(404).json({ message: "Cost not found." });
         }
 
         if (selectedServices && Array.isArray(selectedServices)) {
@@ -196,10 +196,10 @@ async function updateCost(req, res, next) {
         // Save the updated cost
         await cost.save();
 
-        res.status(200).json({ message: "هزینه با موفقیت بروزرسانی شد", cost });
+        res.status(200).json({ message: "Cost updated successfully.", cost });
     } catch (err) {
         console.error(err);
-        return next(new HttpError("بروزرسانی هزینه ناموفق بود، لطفاً بعداً دوباره تلاش کنید", 500));
+        return next(new HttpError("Updating cost failed, please try again later.", 500));
     }
 }
 

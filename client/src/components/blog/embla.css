@@ -27,12 +27,10 @@
 }
 .embla__viewport {
   overflow: hidden;
-  direction: rtl; /* Ensure the content flows right-to-left for fa routes*/
 }
 .embla__container {
   backface-visibility: hidden;
   display: flex;
-  flex-direction: row-reverse; /* Reverse the direction of slides for fa routes*/
   gap: 1rem;
   touch-action: pan-y pinch-zoom;
   /* margin-left: calc(var(--slide-spacing)); */

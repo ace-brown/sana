@@ -38,13 +38,13 @@ export default function AccountPage() {
         "DELETE",
         null,
         { Authorization: "Bearer " + auth.token },
-        "حساب کاربری شما با موفقیت حذف شد"
+        "Your account was deleted successfully"
       );
 
       auth.logout();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      toast.error("حذف حساب کاربری با مشکل مواجه شد. لطفاً دوباره تلاش کنید.");
+      toast.error("Failed to delete your account. Please try again.");
     } finally {
       setIsDeleteDialogOpen(false);
     }
@@ -91,21 +91,21 @@ export default function AccountPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* First Row */}
               <div>
-                <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                <h2 className="font-bold text-lg">Full Name</h2>
                 <p>{profileData?.profile.fullName}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">نام کاربری</h2>
+                <h2 className="font-bold text-lg">Username</h2>
                 <p>{profileData?.username}</p>
               </div>
 
               {/* Second Row */}
               <div>
-                <h2 className="font-bold text-lg">رايانامه</h2>
+                <h2 className="font-bold text-lg">Email</h2>
                 <p>{profileData?.email}</p>
               </div>
               <div>
-                <h2 className="font-bold text-lg">رمز عبور</h2>
+                <h2 className="font-bold text-lg">Password</h2>
                 <div className="relative flex items-center">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
@@ -126,7 +126,7 @@ export default function AccountPage() {
 
               {/* Third Row */}
               <div className="md:col-span-2">
-                <h2 className="font-bold text-lg">درباره من</h2>
+                <h2 className="font-bold text-lg">About Me</h2>
                 <p>{profileData?.profile.bio}</p>
               </div>
             </div>
@@ -139,7 +139,7 @@ export default function AccountPage() {
                   setIsEditDialogOpen(true);
                 }}
               >
-                ویرایش رخ‌ نما
+                Edit Profile
               </Button>
               <Button
                 variant="destructive"
@@ -147,7 +147,7 @@ export default function AccountPage() {
                   setIsDeleteDialogOpen(true);
                 }}
               >
-                حذف حساب کاربری
+                Delete Account
               </Button>
             </div>
           </div>
@@ -159,22 +159,22 @@ export default function AccountPage() {
         <DialogContent className="max-w-md mx-auto">
           <DialogHeader>
             <DialogTitle className="text-center">
-              آیا می‌خواهید حساب کاربری خود را حذف کنید؟
+              Do you want to delete your account?
             </DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            اگر دکمه حذف را فشار دهید، حساب کاربری شما همراه با تمامی ایده‌های
-            ایجادشده و گزارش‌های مرتبط حذف خواهد شد.
+            If you press delete, your account will be deleted along with all
+            the ideas you created and their related reports.
           </DialogDescription>
           <DialogFooter className="flex gap-2">
             <Button
               variant="outline"
               onClick={() => setIsDeleteDialogOpen(false)}
             >
-              لغو
+              Cancel
             </Button>
             <Button variant="destructive" onClick={handleDeleteAccount}>
-              حذف حساب کاربری
+              Delete Account
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -182,9 +182,9 @@ export default function AccountPage() {
 
       {/* Edit Profile Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-center">ویرایش رخ‌ نما</DialogTitle>
+            <DialogTitle className="text-center">Edit Profile</DialogTitle>
           </DialogHeader>
           <EditUserProfile
             profileData={profileData}

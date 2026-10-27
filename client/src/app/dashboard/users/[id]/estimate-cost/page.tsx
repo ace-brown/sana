@@ -68,7 +68,7 @@ export default function EstimateCostPage() {
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">تخمین هزینه</h1>
+        <h1 className="text-2xl font-bold mb-4">Cost Estimate</h1>
 
         {/*********************************************************************
          *Refactor 2: This card is used here and on the [id]/estimate cost page
@@ -83,18 +83,18 @@ export default function EstimateCostPage() {
         {/* Display cost estimate result */}
         <Card className="mt-4">
           <CardHeader>
-            <CardTitle>خدمات پیشنهادی</CardTitle>
+            <CardTitle>Recommended Services</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               {/* Table header always displayed */}
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text-right">خدمت</TableHead>
-                  <TableHead className="text-right">قیمت (تومان)</TableHead>
-                  <TableHead className="text-right">کارشناس مربوطه</TableHead>
-                  <TableHead className="text-right">وضعیت</TableHead>
-                  <TableHead className="text-right">ویرایش</TableHead>
+                  <TableHead className="text-left">Service</TableHead>
+                  <TableHead className="text-left">Price (Toman)</TableHead>
+                  <TableHead className="text-left">Assigned Expert</TableHead>
+                  <TableHead className="text-left">Status</TableHead>
+                  <TableHead className="text-left">Edit</TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -115,7 +115,7 @@ export default function EstimateCostPage() {
                         <TableRow key={`${index}-${serviceIndex}`}>
                           <TableCell>{service.serviceName}</TableCell>
                           <TableCell>
-                            {service.price.toLocaleString("fa-IR")}
+                            {service.price.toLocaleString("en-US")}
                           </TableCell>
                           <TableCell>{service.expert || "N/A"}</TableCell>
                           <TableCell
@@ -125,7 +125,7 @@ export default function EstimateCostPage() {
                                 : "text-orange-600"
                             }`}
                           >
-                            {service.paid ? "پرداخت شده" : "پرداخت نشده"}
+                            {service.paid ? "Paid" : "Unpaid"}
                           </TableCell>
 
                           <TableCell>
@@ -150,7 +150,7 @@ export default function EstimateCostPage() {
           variant="outline"
           onClick={() => router.push(`/dashboard/users/${userId}`)}
         >
-          بازگشت به صفحه کاربر
+          Back to User Page
         </Button>
 
         {/*********************************************************************
@@ -159,7 +159,7 @@ export default function EstimateCostPage() {
         {/* Modal for editing service */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
           <DialogContent>
-            <DialogHeader>ویرایش خدمت</DialogHeader>
+            <DialogHeader>Edit Service</DialogHeader>
             {selectedService && (
               <EstimateCostFormEdit
                 selectedService={selectedService}

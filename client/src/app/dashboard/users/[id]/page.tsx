@@ -93,68 +93,68 @@ export default function UserDetailsPage({
 
   // Error state
   if (error) {
-    return <p className="text-red-500">خطا: {error}</p>;
+    return <p className="text-red-500">Error: {error}</p>;
   }
 
   // No user found state
   if (!user) {
-    return <p>هیچ اطلاعاتی برای این کاربر یافت نشد</p>;
+    return <p>No information found for this user</p>;
   }
 
   // User details display
   return (
     <ProtectedRoute allowedRoles={["admin"]}>
       <Card className="p-8 mt-8 shadow space-y-2">
-        <h1 className="text-2xl font-bold mb-4">جزئیات کاربر</h1>
+        <h1 className="text-2xl font-bold mb-4">User Details</h1>
         <div className="flex items-center gap-2">
-          <strong>شناسه کاربر:</strong>
+          <strong>User ID:</strong>
           <span>
-            {user.id ? <ShortenAndCopy id={user.id} /> : "اطلاعات موجود نیست"}
+            {user.id ? <ShortenAndCopy id={user.id} /> : "Not available"}
           </span>
         </div>
         <p>
-          <strong>نام کاربری:</strong> {user.username || "اطلاعات موجود نیست"}
+          <strong>Username:</strong> {user.username || "Not available"}
         </p>
         <p>
-          <strong>نام کامل:</strong>{" "}
-          {user.profile.fullName || "اطلاعات موجود نیست"}
+          <strong>Full Name:</strong>{" "}
+          {user.profile.fullName || "Not available"}
         </p>
         <p>
-          <strong>نقش:</strong> {user.role === "admin" ? "مدیر" : "کاربر"}
+          <strong>Role:</strong> {user.role === "admin" ? "Admin" : "User"}
         </p>
         <p>
-          <strong>زبان:</strong>{" "}
+          <strong>Language:</strong>{" "}
           {user.settings?.language === "fa"
-            ? "فارسی"
+            ? "Persian"
             : user.settings?.language === "en"
-            ? "انگلیسی"
-            : "اطلاعات موجود نیست"}
+            ? "English"
+            : "Not available"}
         </p>
         <p>
-          <strong>اعلان‌ها:</strong>{" "}
+          <strong>Notifications:</strong>{" "}
           {user.settings?.notifications !== undefined
             ? user.settings.notifications
-              ? "فعال"
-              : "غیرفعال"
-            : "اطلاعات موجود نیست"}
+              ? "Enabled"
+              : "Disabled"
+            : "Not available"}
         </p>
         <p>
-          <strong>آواتار:</strong>{" "}
+          <strong>Avatar:</strong>{" "}
           {user.profile.avatar ? (
             <Image
               src={user.profile.avatar}
-              alt={`آواتار ${user.username}`}
+              alt={`${user.username}'s avatar`}
               className="w-32 h-32 rounded-full mt-4"
             />
           ) : (
-            "تصویر موجود نیست"
+            "No image available"
           )}
         </p>
         <p>
-          <strong>ایمیل:</strong> {user.email || "اطلاعات موجود نیست"}
+          <strong>Email:</strong> {user.email || "Not available"}
         </p>
         <div className="flex items-center gap-2">
-          <strong>گزارش‌ها:</strong>{" "}
+          <strong>Reports:</strong>{" "}
           {user.reports && user.reports.length > 0 ? (
             <div className="flex space-x-2">
               {user.reports.map((report, index) => (
@@ -162,11 +162,11 @@ export default function UserDetailsPage({
               ))}
             </div>
           ) : (
-            "اطلاعات موجود نیست"
+            "Not available"
           )}
         </div>
         <div className="flex items-center gap-2">
-          <strong>ایده‌ها:</strong>{" "}
+          <strong>Ideas:</strong>{" "}
           {user.ideas && user.ideas.length > 0 ? (
             <div className="flex space-x-2">
               {user.ideas.map((idea, index) => (
@@ -174,11 +174,11 @@ export default function UserDetailsPage({
               ))}
             </div>
           ) : (
-            "اطلاعات موجود نیست"
+            "Not available"
           )}
         </div>
         <p className="mb-8">
-          <strong>بیوگرافی:</strong> {user.profile.bio || "اطلاعات موجود نیست"}
+          <strong>Bio:</strong> {user.profile.bio || "Not available"}
         </p>
 
         <div>
@@ -192,83 +192,83 @@ export default function UserDetailsPage({
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border p-4 rounded-lg shadow-md bg-white">
                     {/* First Row */}
                     <div>
-                      <h2 className="font-bold text-lg">عنوان ایده</h2>
+                      <h2 className="font-bold text-lg">Idea Title</h2>
                       <p>{idea.ideaTitle}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">شناسه گزارش‌</h2>
+                      <h2 className="font-bold text-lg">Report ID</h2>
                       <p>
                         {idea.reportId ? (
                           <ShortenAndCopy id={idea.reportId} />
                         ) : (
-                          "اطلاعات موجود نیست"
+                          "Not available"
                         )}
                       </p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
+                      <h2 className="font-bold text-lg">Created At</h2>
                       <p>{formatDate(idea.createdAt)}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                      <h2 className="font-bold text-lg">Full Name</h2>
                       <p>{auth.fullName}</p>
                     </div>
 
                     {/* Second Row */}
                     <div>
-                      <h2 className="font-bold text-lg">نام پدر</h2>
+                      <h2 className="font-bold text-lg">Father&apos;s Name</h2>
                       <p>{idea.fatherName}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">شرکا</h2>
+                      <h2 className="font-bold text-lg">Partners</h2>
                       <p>{idea.associate}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">کشور</h2>
+                      <h2 className="font-bold text-lg">Country</h2>
                       <p>{idea.country}</p>
                     </div>
                     {/* Third Row */}
                     <div>
-                      <h2 className="font-bold text-lg">استان</h2>
+                      <h2 className="font-bold text-lg">State / Province</h2>
                       <p>{idea.state}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">شهر</h2>
+                      <h2 className="font-bold text-lg">City</h2>
                       <p>{idea.city}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">شغل</h2>
+                      <h2 className="font-bold text-lg">Occupation</h2>
                       <p>{idea.career}</p>
                     </div>
-                    {/* ّFourth Row */}
+                    {/* Fourth Row */}
                     <div>
-                      <h2 className="font-bold text-lg">وضعیت تاهل</h2>
+                      <h2 className="font-bold text-lg">Marital Status</h2>
                       <p>{idea.maritalStatus}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">جنسیت</h2>
+                      <h2 className="font-bold text-lg">Gender</h2>
                       <p>{idea.gender}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">سن</h2>
+                      <h2 className="font-bold text-lg">Age</h2>
                       <p>{idea.age}</p>
                     </div>
                     {/* Fifth Row */}
                     <div>
-                      <h2 className="font-bold text-lg">شماره تماس</h2>
+                      <h2 className="font-bold text-lg">Mobile Number</h2>
                       <p>{idea.mobileNumber}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">رشته تحصیلی</h2>
+                      <h2 className="font-bold text-lg">Field of Study</h2>
                       <p>{idea.branchOfStudy}</p>
                     </div>
                     <div>
-                      <h2 className="font-bold text-lg">زمینه تخصصی</h2>
+                      <h2 className="font-bold text-lg">Specialization</h2>
                       <p>{idea.branchDetail}</p>
                     </div>
                     {/* Description Row */}
                     <div className="md:col-span-3">
-                      <h2 className="font-bold text-lg">توضیحات</h2>
+                      <h2 className="font-bold text-lg">Description</h2>
                       <p>{idea.ideaDescription}</p>
                     </div>
                   </div>
@@ -283,14 +283,14 @@ export default function UserDetailsPage({
                         );
                       }}
                     >
-                      تخمین هزینه
+                      Estimate Cost
                     </Button>
                     <Button
                       className="mt-4"
                       variant="outline"
                       onClick={() => router.push("/dashboard/users")}
                     >
-                      بازگشت به صفحه کاربران
+                      Back to Users
                     </Button>
                   </div>
                 </div>
@@ -299,14 +299,14 @@ export default function UserDetailsPage({
           ) : (
             <>
               <p className="text-gray-500 mx-4">
-                این کاربر هنوز ایده‌ای ثبت نکرده است.
+                This user hasn&apos;t registered any ideas yet.
               </p>
               <Button
                 className="mt-4"
                 variant="outline"
                 onClick={() => router.push("/dashboard/users")}
               >
-                بازگشت به صفحه کاربران
+                Back to Users
               </Button>
             </>
           )}

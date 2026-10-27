@@ -10,46 +10,43 @@ export default function ContactPage() {
         {/* Contact Form */}
         {/* <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-right text-2xl font-bold">
-              تماس با ما
+            <CardTitle className="text-left text-2xl font-bold">
+              Contact Us
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="block text-right">
-                نام شما
+              <Label htmlFor="name" className="block text-left">
+                Your Name
               </Label>
               <Input
                 id="name"
                 type="text"
-                placeholder="نام و نام خانوادگی"
-                dir="rtl"
+                placeholder="Full name"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="block text-right">
-                ایمیل شما
+              <Label htmlFor="email" className="block text-left">
+                Your Email
               </Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="example@email.com"
-                dir="rtl"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="message" className="block text-right">
-                پیام شما
+              <Label htmlFor="message" className="block text-left">
+                Your Message
               </Label>
               <Textarea
                 id="message"
-                placeholder="چگونه می‌توانیم به شما کمک کنیم؟"
+                placeholder="How can we help you?"
                 rows={5}
-                dir="rtl"
               />
             </div>
             <Button className="w-full" variant="default">
-              ارسال پیام
+              Send Message
             </Button>
           </CardContent>
         </Card> */}
@@ -57,15 +54,15 @@ export default function ContactPage() {
         {/* Contact Person Info */}
         <Card className="shadow-lg flex flex-col justify-center p-12">
           <CardContent>
-            <h2 className="text-right text-xl font-semibold mb-4">
-              اطلاعات تماس
+            <h2 className="text-left text-xl font-semibold mb-4">
+              Contact Information
             </h2>
-            <p className="text-right text-gray-700 mb-4">
-              برای هرگونه سوال یا پشتیبانی با ما در ارتباط باشید.
+            <p className="text-left text-gray-700 mb-4">
+              Get in touch with us for any questions or support.
             </p>
             <div className="space-y-2">
-              <div className="text-right">
-                <span className="font-bold">ایمیل:</span> kazem_abdi@yahoo.com
+              <div className="text-left">
+                <span className="font-bold">Email:</span> kazem_abdi@yahoo.com
               </div>
             </div>
           </CardContent>

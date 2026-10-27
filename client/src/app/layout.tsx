@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "@fontsource/vazir";
 
 import NavBar from "@/components/navigation/nav-bar";
 import Footer from "@/components/footer";
@@ -18,9 +17,9 @@ import "./globals.css";
 // });
 
 export const metadata: Metadata = {
-  title: "خیام سانا",
+  title: "Khayam Sana",
   description:
-    "از اعتبارسنجی تا اجرا، ابزارها، راهنمایی‌ها و جامعه‌ای را که برای ساخت، راه‌اندازی و رشد کسب‌وکارتان نیاز دارید، در اختیار شما می‌گذاریم",
+    "From validation to execution, we give you the tools, guidance and community you need to build, launch and grow your business.",
 };
 
 export default async function LocaleLayout({
@@ -29,7 +28,7 @@ export default async function LocaleLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

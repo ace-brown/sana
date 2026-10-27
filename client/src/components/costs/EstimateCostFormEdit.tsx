@@ -18,19 +18,19 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { ServiceType } from "@/types";
 
 const predefinedServices = [
-  { serviceName: "جلسه ایده پردازی" },
-  { serviceName: "تحقیق بازار" },
-  { serviceName: "تحلیل رقبا" },
-  { serviceName: "مطالعه امکان‌سنجی" },
-  { serviceName: "طراحی اولیه" },
-  { serviceName: "ساخت نمونه اولیه" },
-  { serviceName: "آزمایش نمونه اولیه" },
-  { serviceName: "آزمایش واحد" },
-  { serviceName: "آزمایش یکپارچه‌سازی" },
-  { serviceName: "بازخورد کاربران" },
-  { serviceName: "راه اندازی وبسایت و هاست" },
-  { serviceName: "پیکربندی تولید" },
-  { serviceName: "عرضه محصول" },
+  { serviceName: "Brainstorming Session" },
+  { serviceName: "Market Research" },
+  { serviceName: "Competitor Analysis" },
+  { serviceName: "Feasibility Study" },
+  { serviceName: "Initial Design" },
+  { serviceName: "Build Prototype" },
+  { serviceName: "Prototype Testing" },
+  { serviceName: "Unit Testing" },
+  { serviceName: "Integration Testing" },
+  { serviceName: "User Feedback" },
+  { serviceName: "Website and Hosting Setup" },
+  { serviceName: "Production Configuration" },
+  { serviceName: "Product Launch" },
 ];
 
 type EstimateCostFormEditProps = {
@@ -65,12 +65,12 @@ export default function EstimateCostFormEdit({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!serviceName) {
-      alert("لطفاً یک نام خدمات را انتخاب کنید");
+      alert("Please select a service name");
       return;
     }
 
     if (isNaN(Number(price))) {
-      alert("لطفاً یک قیمت معتبر وارد کنید");
+      alert("Please enter a valid price");
       return;
     }
 
@@ -92,7 +92,7 @@ export default function EstimateCostFormEdit({
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        "تخمین هزینه با موفقیت ویرایش شد"
+        "Cost estimate updated successfully"
       );
       fetchCosts();
       setIsEditDialogOpen(false);
@@ -112,26 +112,26 @@ export default function EstimateCostFormEdit({
         )}
         <div>
           <label htmlFor="price" className="block text-sm font-medium mb-2">
-            قیمت
+            Price
           </label>
           <Input
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            placeholder="قیمت را وارد کنید"
+            placeholder="Enter the price"
             required
           />
         </div>
 
         <div>
           <label htmlFor="expert" className="block text-sm font-medium mb-2">
-            متخصص
+            Expert
           </label>
           <Input
             id="expert"
             value={expert}
             onChange={(e) => setExpert(e.target.value)}
-            placeholder="نام متخصص را وارد کنید"
+            placeholder="Enter the expert's name"
             required
           />
         </div>
@@ -141,17 +141,17 @@ export default function EstimateCostFormEdit({
             htmlFor="serviceName"
             className="block text-sm font-medium mb-2"
           >
-            نام خدمات
+            Service Name
           </label>
           <Select
             onValueChange={(value) => setServiceName(value)}
             value={serviceName}
             required
           >
-            <SelectTrigger style={{ direction: "rtl" }}>
-              <SelectValue placeholder="انتخاب نام خدمات" />
+            <SelectTrigger>
+              <SelectValue placeholder="Select a service" />
             </SelectTrigger>
-            <SelectContent style={{ direction: "rtl" }}>
+            <SelectContent>
               {predefinedServices.map((service, index) => (
                 <SelectItem key={index} value={service.serviceName}>
                   {service.serviceName}
@@ -169,12 +169,12 @@ export default function EstimateCostFormEdit({
             onChange={(e) => setPaid(e.target.checked)}
           />
           <label htmlFor="paid" className="text-sm font-medium">
-            پرداخت شده است.
+            Paid
           </label>
         </div>
 
         <Button type="submit" className="mt-4">
-          ارسال
+          Submit
         </Button>
         {error && <p className="text-center text-red-500 mb-8">{error}</p>}
       </form>

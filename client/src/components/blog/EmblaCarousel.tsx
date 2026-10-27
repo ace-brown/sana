@@ -42,10 +42,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   return (
     <Section>
       <div>
-        <SectionTitle>وبلاگ</SectionTitle>
+        <SectionTitle>Blog</SectionTitle>
         <section className="news-swiper">
-          {/* dir="rtl" for fa routes */}
-          <div className="embla" dir="rtl">
+          <div className="embla">
             <div className="embla__viewport" ref={emblaRef}>
               <div className="embla__container">
                 {slides.map((index) => (

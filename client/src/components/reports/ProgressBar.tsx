@@ -25,17 +25,17 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
     return status === "In Progress";
   }
 
-  // Helper function to translate the status
+  // Helper function to get the display label for the status
   function translateStatus(status: string) {
     switch (status) {
       case "Completed":
-        return "تکمیل‌شده";
+        return "Completed";
       case "In Progress":
-        return "در حال اجرا";
+        return "In Progress";
       case "Not Started":
-        return "شروع نشده";
+        return "Not Started";
       default:
-        return "نامشخص";
+        return "Unknown";
     }
   }
 
@@ -45,9 +45,9 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
       <Container>
         <div className="container mx-auto p-6">
           <h2 className="text-3xl sm:text-2xl font-bold text-gray-800 mb-2">
-            خط زمانی پیشرفت
+            Progress Timeline
           </h2>
-          <p> خط زمانی پیشرفت پیدا نشد</p>
+          <p>Progress timeline not found</p>
         </div>
       </Container>
     );
@@ -61,11 +61,11 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
   return (
     <div className="container">
       <h2 className="text-3xl sm:text-xl font-semibold text-gray-800 mb-2">
-        خط زمانی پیشرفت
+        Progress Timeline
       </h2>
       <div className="flex  gap-12 mb-12">
-        <p>{`عنوان ایده : ${foundReport.ideaTitle}`}</p>
-        <p>{`شناسه گزارش  : ${foundReport.id}`}</p>
+        <p>{`Idea Title: ${foundReport.ideaTitle}`}</p>
+        <p>{`Report ID: ${foundReport.id}`}</p>
       </div>
       <div className="flex items-center justify-between relative">
         {foundReport.stages.map((stage, index) => (
@@ -125,7 +125,7 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
                       setSelectedTask(task);
                       setIsTaskDialogOpen(true);
                     }}
-                    className={`flex gap-2 w-full mb-2 text-right transition-colors duration-200 ${
+                    className={`flex gap-2 w-full mb-2 text-left transition-colors duration-200 ${
                       task.taskStatus === "Completed"
                         ? "text-green-600 hover:text-green-800"
                         : task.taskStatus === "In Progress"
@@ -167,7 +167,7 @@ export default function ProgressBar({ foundReport }: ProgressBarType) {
       </div>
       {/* Task Modal */}
       <Dialog open={isTaskDialogOpen} onOpenChange={setIsTaskDialogOpen}>
-        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+        <DialogContent className="w-[50%] max-w-[60%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-center">
               {selectedTask?.taskTitle}

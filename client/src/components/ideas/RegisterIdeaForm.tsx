@@ -47,50 +47,50 @@ export default function RegisterIdeaForm({
   }, [defaultValues, reset]);
 
   const branchesOptions = {
-    "علوم انسانی": [
-      "ادبیات",
-      "زبان‌شناسی",
-      "فلسفه",
-      "جغرافیا",
-      "تاریخ",
-      "دین",
-      "روان‌شناسی",
-      "جامعه‌شناسی",
-      "بازاریابی",
-      "امور مالی",
-      "اقتصاد",
-      "مدیریت بازرگانی",
-      "گردشگری",
-      "حسابداری",
-      "حقوق",
+    Humanities: [
+      "Literature",
+      "Linguistics",
+      "Philosophy",
+      "Geography",
+      "History",
+      "Religion",
+      "Psychology",
+      "Sociology",
+      "Marketing",
+      "Finance",
+      "Economics",
+      "Business Administration",
+      "Tourism",
+      "Accounting",
+      "Law",
     ],
-    هنر: [
-      "نقاشی",
-      "مجسمه‌سازی",
-      "عکاسی",
-      "هنرهای نمایشی",
-      "طراحی لباس",
-      "طراحی مد",
-      "طراحی دوخت",
-      "طراحی پارچه",
-      "کتابت و نگارگری",
-      "موسیقی",
-      "طراحی صنعتی",
-      "فرش",
-      "طلا و جواهر",
-      "گرافیک",
+    Arts: [
+      "Painting",
+      "Sculpture",
+      "Photography",
+      "Performing Arts",
+      "Costume Design",
+      "Fashion Design",
+      "Tailoring Design",
+      "Textile Design",
+      "Calligraphy and Miniature Painting",
+      "Music",
+      "Industrial Design",
+      "Carpet Weaving",
+      "Gold and Jewelry",
+      "Graphic Design",
     ],
-    "علوم تجربی": ["زیست‌ فناوری", "پزشکی", "مهندسی پزشکی", "زمین‌ شناسی"],
-    مهندسی: [
-      "مهندسی برق",
-      "مهندسی مکانیک",
-      "علوم کامپیوتر",
-      "معماری",
-      "مهندسی محاسباتی",
-      "مهندسی زیست‌ محیطی",
+    "Natural Sciences": ["Biotechnology", "Medicine", "Biomedical Engineering", "Geology"],
+    Engineering: [
+      "Electrical Engineering",
+      "Mechanical Engineering",
+      "Computer Science",
+      "Architecture",
+      "Computational Engineering",
+      "Environmental Engineering",
     ],
-    "تربیت بدنی": [],
-    سایر: [],
+    "Physical Education": [],
+    Other: [],
   };
 
   type BranchKey = keyof typeof branchesOptions;
@@ -115,44 +115,44 @@ export default function RegisterIdeaForm({
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  نام پدر
+                  Father&apos;s Name
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
                   type="text"
                   {...register("fatherName", {
-                    required: "نام پدر الزامی است",
+                    required: "Father's name is required",
                   })}
                 />
                 {RenderError(errors, "fatherName")}
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  نام شرکا
+                  Partners&apos; Names
                 </label>
                 <Input type="text" {...register("associate")} />
               </div>
             </div>
             {/* Country Field */}
             <div>
-              <label className="block text-sm font-medium mb-2">کشور</label>
+              <label className="block text-sm font-medium mb-2">Country</label>
               <Input type="text" {...register("country")} />
             </div>
 
             {/* State and City Fields */}
             <div className="flex gap-4">
               <div className="flex-1">
-                <label className="block text-sm font-medium mb-2">استان</label>
+                <label className="block text-sm font-medium mb-2">State / Province</label>
                 <Input type="text" {...register("state")} />
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  شهر
+                  City
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
                   type="text"
-                  {...register("city", { required: "شهر الزامی است" })}
+                  {...register("city", { required: "City is required" })}
                 />
                 {RenderError(errors, "city")}
               </div>
@@ -161,12 +161,12 @@ export default function RegisterIdeaForm({
             {/* Career Fields */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                شغل
+                Occupation
                 <span className="text-red-500"> *</span>
               </label>
               <Input
                 type="text"
-                {...register("career", { required: "شغل الزامی است" })}
+                {...register("career", { required: "Occupation is required" })}
               />
               {RenderError(errors, "career")}
             </div>
@@ -176,18 +176,18 @@ export default function RegisterIdeaForm({
               {/* Marital Status Select */}
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  وضعیت تاهل
+                  Marital Status
                 </label>
                 <Select
                   onValueChange={(value) => setValue("maritalStatus", value)}
                   value={maritalStatus}
                 >
-                  <SelectTrigger style={{ direction: "rtl" }}>
-                    <SelectValue placeholder="انتخاب وضعیت تاهل" />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select marital status" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: "rtl" }}>
-                    <SelectItem value="single">مجرد</SelectItem>
-                    <SelectItem value="married">متاهل</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="single">Single</SelectItem>
+                    <SelectItem value="married">Married</SelectItem>
                   </SelectContent>
                 </Select>
                 <input type="hidden" {...register("maritalStatus")} />
@@ -195,7 +195,7 @@ export default function RegisterIdeaForm({
               {/* Gender Select */}
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  جنسیت
+                  Gender
                   <span className="text-red-500"> *</span>
                 </label>
                 <Select
@@ -204,17 +204,17 @@ export default function RegisterIdeaForm({
                   }}
                   value={gender}
                 >
-                  <SelectTrigger style={{ direction: "rtl" }}>
-                    <SelectValue placeholder="انتخاب جنسیت" />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: "rtl" }}>
-                    <SelectItem value="male">مرد</SelectItem>
-                    <SelectItem value="female">زن</SelectItem>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
                   </SelectContent>
                 </Select>
                 <input
                   type="hidden"
-                  {...register("gender", { required: "جنسیت الزامی است" })}
+                  {...register("gender", { required: "Gender is required" })}
                 />
                 {RenderError(errors, "gender")}
               </div>
@@ -224,25 +224,25 @@ export default function RegisterIdeaForm({
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  شماره تماس (موبایل)
+                  Mobile Number
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
                   type="text"
                   {...register("mobileNumber", {
-                    required: "شماره موبایل الزامی است",
+                    required: "Mobile number is required",
                   })}
                 />
                 {RenderError(errors, "mobileNumber")}
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium mb-2">
-                  سن
+                  Age
                   <span className="text-red-500"> *</span>
                 </label>
                 <Input
                   type="number"
-                  {...register("age", { required: "سن الزامی است" })}
+                  {...register("age", { required: "Age is required" })}
                 />
                 {RenderError(errors, "age")}
               </div>
@@ -254,7 +254,7 @@ export default function RegisterIdeaForm({
             {/* Branch of Study */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                رشته ی تحصیلی
+                Field of Study
                 <span className="text-red-500"> *</span>
               </label>
               <Select
@@ -262,10 +262,10 @@ export default function RegisterIdeaForm({
                   handleBranchChange(value as BranchKey)
                 }
               >
-                <SelectTrigger style={{ direction: "rtl" }}>
-                  <SelectValue placeholder="رشته تحصیلی را انتخاب کنید" />
+                <SelectTrigger>
+                  <SelectValue placeholder="Select your field of study" />
                 </SelectTrigger>
-                <SelectContent style={{ direction: "rtl" }}>
+                <SelectContent>
                   {Object.keys(branchesOptions).map((branch) => (
                     <SelectItem key={branch} value={branch}>
                       {branch}
@@ -276,7 +276,7 @@ export default function RegisterIdeaForm({
               <input
                 type="hidden"
                 {...register("branchOfStudy", {
-                  required: "رشته تحصیلی الزامی است",
+                  required: "Field of study is required",
                 })}
               />
               {RenderError(errors, "branchOfStudy")}
@@ -286,7 +286,7 @@ export default function RegisterIdeaForm({
             {branchOfStudy && subOptions.length > 0 && (
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  زمینه تخصصی
+                  Specialization
                 </label>
                 <Select
                   onValueChange={(value) =>
@@ -294,10 +294,10 @@ export default function RegisterIdeaForm({
                   }
                   value={branchDetail}
                 >
-                  <SelectTrigger style={{ direction: "rtl" }}>
-                    <SelectValue placeholder="زمینه تخصصی را انتخاب کنید" />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your specialization" />
                   </SelectTrigger>
-                  <SelectContent style={{ direction: "rtl" }}>
+                  <SelectContent>
                     {subOptions.map((option) => (
                       <SelectItem key={option} value={option}>
                         {option}
@@ -312,13 +312,13 @@ export default function RegisterIdeaForm({
             {/* Idea Title Field */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                عنوان ایده
+                Idea Title
                 <span className="text-red-500"> *</span>
               </label>
               <Input
                 type="text"
                 {...register("ideaTitle", {
-                  required: "عنوان ایده الزامی است",
+                  required: "Idea title is required",
                 })}
               />
               {RenderError(errors, "ideaTitle")}
@@ -327,13 +327,13 @@ export default function RegisterIdeaForm({
             {/* Idea Details Field*/}
             <div>
               <label className="block text-sm font-medium mb-2">
-                ایده خود را توصیف کنید
+                Describe Your Idea
                 <span className="text-red-500"> *</span>
               </label>
               <Textarea
                 className="min-h-[10rem]"
                 {...register("ideaDescription", {
-                  required: "توصیف ایده الزامی است",
+                  required: "Idea description is required",
                 })}
               />
               {RenderError(errors, "ideaDescription")}
@@ -341,7 +341,7 @@ export default function RegisterIdeaForm({
 
             {/* Submit Button */}
             <Button type="submit" className="w-full">
-              ارسال
+              Submit
             </Button>
           </div>
         </div>

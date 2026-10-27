@@ -31,42 +31,42 @@ export default function NavBar() {
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            خانه
+            Home
           </Link>
           <Link
             href="/about"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            درباره ما
+            About Us
           </Link>
           {/* <Link
             href="/patent-registration"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            ثبت اختراع
+            Patent Registration
           </Link> */}
           <Link
             href="/education"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            آموزش
+            Education
           </Link>
           <Link
             href="/research"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            پژوهش
+            Research
           </Link>
           {/* <Link
             href="/sales"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
             prefetch={false}
           >
-            فروش
+            Sales
           </Link> */}
         </nav>
         <div className="flex items-center gap-4">
@@ -96,10 +96,10 @@ export default function NavBar() {
           {!auth.isLoggedIn && (
             <>
               <Link href="/signup">
-                <Button>ثبت‌ نام</Button>
+                <Button>Sign Up</Button>
               </Link>
               <Link href="/login">
-                <Button>ورود</Button>
+                <Button>Log In</Button>
               </Link>
             </>
           )}
@@ -116,7 +116,7 @@ export default function NavBar() {
                   auth.logout();
                 }}
               >
-                خروج
+                Log Out
               </Button>
             </>
           )}
@@ -131,35 +131,35 @@ export default function NavBar() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="md:hidden">
+            <SheetContent side="right" className="md:hidden">
               <div className="grid gap-4 p-4">
                 <Link
                   href="/"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  خانه
+                  Home
                 </Link>
                 <Link
                   href="/about"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  درباره ما
+                  About Us
                 </Link>
                 <Link
                   href="/education"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  آموزش
+                  Education
                 </Link>
                 <Link
                   href="/research"
                   className="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                   prefetch={false}
                 >
-                  پژوهش
+                  Research
                 </Link>
               </div>
             </SheetContent>

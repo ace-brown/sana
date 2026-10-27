@@ -17,21 +17,20 @@ export default function ResearchPage() {
   return (
     <>
       {/* <ReadContainer>
-        <PageTitle>ثبت ایده‌های </PageTitle>
+        <PageTitle>Idea Registration</PageTitle>
         <P>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. لورم ایپسوم
-          متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ. این متن فقط برای پر
-          کردن فضا قرار داده شده است و ارزش معنایی ندارد
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </P>
       </ReadContainer> */}
       <SubSection>
         <SubSectionTitle textAlign="center">
-          تمام فرم‌های مورد نیاز
+          All Required Forms
         </SubSectionTitle>
         <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] pl-16 pr-16">
           {/* <Card>
             <CardHeader>
-              <CardTitle>مسابقات علمی</CardTitle>
+              <CardTitle>Scientific Competitions</CardTitle>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
@@ -39,55 +38,55 @@ export default function ResearchPage() {
                 href="/research/competitions"
                 className="text-blue-500 font-medium hover:underline"
               >
-                بیشتر بخوانید
+                Read more
               </Link>
             </CardFooter>
           </Card> */}
           <Card>
             <CardHeader>
-              <CardTitle>فرم آشنایی با مالیات</CardTitle>
+              <CardTitle>Introduction to Taxation Form</CardTitle>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/tax_introduction.pdf`}
-                fileName="آشنایی با مالیات در ایران"
+                fileName="Introduction to Taxation in Iran"
               />
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>فرم راهنمای ثبت اختراع</CardTitle>
+              <CardTitle>Patent Registration Guide Form</CardTitle>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/invention_register.pdf`}
-                fileName="راهنمای ثبت اختراع"
+                fileName="Patent Registration Guide"
               />
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>فرم درخواست پذیرش واحد های فناور</CardTitle>
+              <CardTitle>Technology Unit Admission Request Form</CardTitle>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/Incubator_start_form.pdf`}
-                fileName="درخواست پذیرش واحد های فناور"
+                fileName="Technology Unit Admission Request"
               />
             </CardFooter>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>فرم شیوه نامه ی اجرایی جشنواره جوان خوارزمی</CardTitle>
+              <CardTitle>Khwarizmi Youth Festival Executive Guidelines Form</CardTitle>
             </CardHeader>
             <CardContent></CardContent>
             <CardFooter>
               <FileDownload
                 fileUrl={`${process.env.NEXT_PUBLIC_API_URL}/download/kharazmi_approach.pdf`}
-                fileName=" شیوه نامه ی اجرایی جشنواره جوان خوارزمی"
+                fileName="Khwarizmi Youth Festival Executive Guidelines"
               />
             </CardFooter>
           </Card>

@@ -15,61 +15,61 @@ export default function WhyUs() {
   const cardData = [
     {
       id: 1,
-      title: "اعتبارسنجی هدایت‌ شده",
+      title: "Guided Validation",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
     {
       id: 2,
-      title: "عنوان اولین پست وبلاگ",
+      title: "First blog post title",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
     {
       id: 3,
-      title: "عنوان دومین پست وبلاگ",
+      title: "Second blog post title",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
     {
       id: 4,
-      title: "عنوان سومین پست وبلاگ",
+      title: "Third blog post title",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
     {
       id: 5,
-      title: "عنوان چهارمین پست وبلاگ",
+      title: "Fourth blog post title",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
     {
       id: 6,
-      title: "عنوان چهارمین پست وبلاگ",
+      title: "Fourth blog post title",
       bulletPoints: [
-        "ابزارهای تخصصی برای تحقیق درباره بازار و مشتریان",
-        "جمع‌آوری بازخوردهای واقعی از کاربران برای آزمایش ایده‌های شما",
-        "ارائه تحلیل‌ها و گزارش‌هایی که به شما کمک می‌کند تصمیمات بهتری بگیرید",
+        "Specialized tools for researching your market and customers",
+        "Collect real user feedback to test your ideas",
+        "Analyses and reports that help you make better decisions",
       ],
       link: "#",
     },
@@ -77,7 +77,7 @@ export default function WhyUs() {
 
   return (
     <Section>
-      <SectionTitle>چرا خیام سانا؟</SectionTitle>
+      <SectionTitle>Why Khayam Sana?</SectionTitle>
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {cardData.map((item) => {
           return (
@@ -102,7 +102,7 @@ export default function WhyUs() {
                   href={item.link}
                   className="text-blue-500 font-medium hover:underline"
                 >
-                  بیشتر بخوانید
+                  Read more
                 </Link>
               </CardFooter>
             </Card>

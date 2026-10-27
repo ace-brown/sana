@@ -42,7 +42,7 @@ export default function UserIdeas() {
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        "ایده با موفقیت ویرایش شد"
+        "Idea updated successfully"
       );
 
       setIdeaData((prev) =>
@@ -68,7 +68,7 @@ export default function UserIdeas() {
           "DELETE",
           null,
           { Authorization: "Bearer " + auth.token },
-          "ایده با موفقیت حذف شد"
+          "Idea deleted successfully"
         );
 
         // Update the state to remove the deleted idea
@@ -118,8 +118,8 @@ export default function UserIdeas() {
       )}
       {!isLoading && ideaData?.length == 0 && (
         <p className="text-red-400">
-          در حال حاضر هیچ ایده‌ای وجود ندارد. لطفاً اگر هنوز ایده‌ای ثبت
-          نکرده‌اید، از بخش ثبت ایده جدید یک ایده جدید ایجاد کنید.
+          There are no ideas yet. If you haven&apos;t registered an idea, please
+          create one from the Register New Idea section.
         </p>
       )}
       {/*********************************************************************
@@ -133,72 +133,72 @@ export default function UserIdeas() {
               <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* First Row */}
                 <div>
-                  <h2 className="font-bold text-lg">عنوان ایده</h2>
+                  <h2 className="font-bold text-lg">Idea Title</h2>
                   <p>{idea.ideaTitle}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">تاریخ ایجاد</h2>
+                  <h2 className="font-bold text-lg">Created At</h2>
                   <p>{formatDate(idea.createdAt)}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">نام و نام خانوادگی</h2>
+                  <h2 className="font-bold text-lg">Full Name</h2>
                   <p>{auth.fullName}</p>
                 </div>
                 {/* Second Row */}
                 <div>
-                  <h2 className="font-bold text-lg">نام پدر</h2>
+                  <h2 className="font-bold text-lg">Father&apos;s Name</h2>
                   <p>{idea.fatherName}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">شرکا</h2>
+                  <h2 className="font-bold text-lg">Partners</h2>
                   <p>{idea.associate}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">کشور</h2>
+                  <h2 className="font-bold text-lg">Country</h2>
                   <p>{idea.country}</p>
                 </div>
                 {/* Third Row */}
                 <div>
-                  <h2 className="font-bold text-lg">استان</h2>
+                  <h2 className="font-bold text-lg">State / Province</h2>
                   <p>{idea.state}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">شهر</h2>
+                  <h2 className="font-bold text-lg">City</h2>
                   <p>{idea.city}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">شغل</h2>
+                  <h2 className="font-bold text-lg">Occupation</h2>
                   <p>{idea.career}</p>
                 </div>
-                {/* ّFourth Row */}
+                {/* Fourth Row */}
                 <div>
-                  <h2 className="font-bold text-lg">وضعیت تاهل</h2>
+                  <h2 className="font-bold text-lg">Marital Status</h2>
                   <p>{idea.maritalStatus}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">جنسیت</h2>
+                  <h2 className="font-bold text-lg">Gender</h2>
                   <p>{idea.gender}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">سن</h2>
+                  <h2 className="font-bold text-lg">Age</h2>
                   <p>{idea.age}</p>
                 </div>
                 {/* Fifth Row */}
                 <div>
-                  <h2 className="font-bold text-lg">شماره تماس</h2>
+                  <h2 className="font-bold text-lg">Mobile Number</h2>
                   <p>{idea.mobileNumber}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">رشته تحصیلی</h2>
+                  <h2 className="font-bold text-lg">Field of Study</h2>
                   <p>{idea.branchOfStudy}</p>
                 </div>
                 <div>
-                  <h2 className="font-bold text-lg">زمینه تخصصی</h2>
+                  <h2 className="font-bold text-lg">Specialization</h2>
                   <p>{idea.branchDetail}</p>
                 </div>
                 {/* Description Row */}
                 <div className="md:col-span-3">
-                  <h2 className="font-bold text-lg">توضیحات</h2>
+                  <h2 className="font-bold text-lg">Description</h2>
                   <p>{idea.ideaDescription}</p>
                 </div>
                 {/* Action Buttons */}
@@ -210,7 +210,7 @@ export default function UserIdeas() {
                       setIsEditDialogOpen(true);
                     }}
                   >
-                    ویرایش
+                    Edit
                   </Button>
                   <Button
                     variant="destructive"
@@ -219,7 +219,7 @@ export default function UserIdeas() {
                       setIsDeleteDialogOpen(true);
                     }}
                   >
-                    حذف
+                    Delete
                   </Button>
                 </div>
               </CardContent>
@@ -232,30 +232,30 @@ export default function UserIdeas() {
         <DialogContent className="max-w-md mx-auto">
           <DialogHeader>
             <DialogTitle className="text-center">
-              آیا مطمئن هستید که می‌خواهید حذف کنید؟
+              Are you sure you want to delete this?
             </DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            اگر این ایده را حذف کنید، گزارش‌های مربوط به آن نیز حذف خواهند شد.
+            If you delete this idea, its related reports will be deleted too.
           </DialogDescription>
           <DialogFooter className="flex gap-2">
             <Button
               variant="outline"
               onClick={() => setIsDeleteDialogOpen(false)}
             >
-              لغو
+              Cancel
             </Button>
             <Button variant="destructive" onClick={handleDeleteIdea}>
-              حذف
+              Delete
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       {/* Edit Idea Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+        <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>ویرایش ایده</DialogTitle>
+            <DialogTitle>Edit Idea</DialogTitle>
           </DialogHeader>
           {ideaToEdit && (
             <RegisterIdeaForm

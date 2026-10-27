@@ -36,7 +36,7 @@ export default function IdeasPage() {
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        "ایده با موفقیت ایجاد شد"
+        "Idea created successfully"
       );
 
       setIsDialogOpen(false);
@@ -63,15 +63,15 @@ export default function IdeasPage() {
           onClick={() => setIsDialogOpen(true)}
           className="w-full bg-blue-500 text-white mt-4"
         >
-          ثبت ایده جدید
+          Register New Idea
         </Button>
 
         {/* Modal for registering new Idea */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto rtl-scroll">
+          <DialogContent className="w-[80%] max-w-[90%] mx-auto max-h-[calc(100vh-2rem)] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-lg font-bold text-left">
-                ثبت ایده جدید
+                Register New Idea
               </DialogTitle>
             </DialogHeader>
             <RegisterIdeaForm onSubmit={handleIdeaSubmission} />

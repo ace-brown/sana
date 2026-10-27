@@ -11,14 +11,14 @@ export default function ShortenAndCopy({
   id,
   length = 6,
 }: ShortenAndCopyProps) {
-  const [tooltipText, setTooltipText] = useState("برای کپی کلیک کنید");
+  const [tooltipText, setTooltipText] = useState("Click to copy");
 
   async function handleCopy() {
     try {
       if (id) {
         await navigator.clipboard.writeText(id);
-        setTooltipText("کپی شد!");
-        setTimeout(() => setTooltipText("برای کپی کلیک کنید"), 2000);
+        setTooltipText("Copied!");
+        setTimeout(() => setTooltipText("Click to copy"), 2000);
       }
     } catch (error) {
       console.error("Failed to copy ID:", error);

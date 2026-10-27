@@ -7,16 +7,16 @@ interface SubSectionTitleProps {
 
 export default function SubSectionTitle({
   children,
-  textAlign = "right",
+  textAlign = "left",
 }: SubSectionTitleProps) {
   return (
     <h2
       className={`text-3xl sm:text-2xl font-bold text-gray-800 mb-12 ${
-        textAlign === "left"
-          ? "text-left"
+        textAlign === "right"
+          ? "text-right"
           : textAlign === "center"
           ? "text-center"
-          : "text-right"
+          : "text-left"
       }`}
     >
       {children}

@@ -32,7 +32,7 @@ export default function LoginPage() {
         {
           "Content-Type": "application/json",
         },
-        "با موفقیت وارد شدید"
+        "Logged in successfully"
       );
       auth.login(
         responseData.userId,
@@ -53,14 +53,14 @@ export default function LoginPage() {
       <div className="min-h-[50vh] flex items-start justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">ورود</CardTitle>
+            <CardTitle className="text-center text-2xl">Log In</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin}>
               {/* Email */}
               <div className="mb-4">
                 <Label htmlFor="email">
-                  ایمیل<span className="text-red-500">*</span>
+                  Email<span className="text-red-500">*</span>
                 </Label>
                 <Input
                   type="email"
@@ -75,7 +75,7 @@ export default function LoginPage() {
               {/* Password */}
               <div className="mb-4">
                 <Label htmlFor="password">
-                  رمز عبور<span className="text-red-500">*</span>
+                  Password<span className="text-red-500">*</span>
                 </Label>
                 <Input
                   type="password"
@@ -90,18 +90,18 @@ export default function LoginPage() {
               {/* Submit Button */}
               <div className="mt-6">
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  ورود
+                  Log In
                 </Button>
               </div>
             </form>
 
             <p className="text-sm text-center mt-4 text-gray-600">
-              حساب کاربری ندارید؟{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className="text-indigo-600 hover:underline focus:outline-none"
               >
-                ثبت‌ نام
+                Sign Up
               </Link>
             </p>
             {error && <p className="text-center text-red-500 mb-8">{error}</p>}

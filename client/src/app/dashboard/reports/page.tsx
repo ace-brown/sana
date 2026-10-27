@@ -34,7 +34,7 @@ export default function ReportPage() {
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         },
-        "گزارش با موفقیت پیدا شد"
+        "Report found successfully"
       );
       setReport(responseData.report);
       setShowProgressBar(true);
@@ -48,24 +48,24 @@ export default function ReportPage() {
       {isLoading && <LoadingSpinner asOverlay />}
       <div>
         <P>
-          در این بخش می‌توانید روند پیشرفت ایده خود را که برای ما ارسال
-          کرده‌اید، مشاهده کنید. ما تلاش می‌کنیم که در هر مرحله، شما را در جریان
-          وضعیت توسعه ایده‌تان قرار دهیم و اطمینان حاصل کنیم که همیشه از وضعیت
-          پروژه خود مطلع هستید. کافیست شناسه گزارش خود را وارد کنید تا اطلاعات
-          کامل مراحل انجام شده و برنامه‌های آتی نمایش داده شود. هدف ما این است
-          که با شفافیت کامل و به‌روزترین اطلاعات، شما را در مسیر تحقق ایده‌تان
-          همراهی کنیم
+          In this section you can follow the progress of the idea you submitted
+          to us. We aim to keep you informed about the development of your idea
+          at every stage, so you always know where your project stands. Just
+          enter your report ID to see full details of the completed steps and
+          upcoming plans. Our goal is to support you on the path to realizing
+          your idea with full transparency and the most up-to-date
+          information.
         </P>
         <div className="flex items-center gap-8 mt-8">
           <Input
             type="text"
-            placeholder="شناسه گزارش خود را وارد کنید"
+            placeholder="Enter your report ID"
             onChange={handleReportIdChange}
             value={reportId}
             className="w-[300px]"
           />
           <Button onClick={handleProgressBarClick}>
-            خط زمانی پیشرفت را پیدا کن
+            Find Progress Timeline
           </Button>
         </div>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

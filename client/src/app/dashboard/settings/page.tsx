@@ -5,11 +5,10 @@ export default function Appearance() {
     <div>
       <h1>submit</h1>
       <p>
-        خود این شرکت یک شرکت بسیار موفق است. او بزرگ متولد شد این اتفاق می افتد
-        که یک خطای پر زحمت از انتخاب شده وجود دارد او بپرسد که چه زمانی از مدح
-        کنندگان او را پس می زند، اما این که چه روشی را باید دفع کرد یا چه چیزی
-        را که فکرش را می کند. او را با چاپلوسی برکت دهد. اغلب درد انتخاب خود را
-        دفع می کند او، زیرا به ما مربوط نیست که در مشکل باشیم خوشحالی؟
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
       </p>
     </div>
   );

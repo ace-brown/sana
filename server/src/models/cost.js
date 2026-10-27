@@ -7,19 +7,19 @@ const serviceSchema = new mongoose.Schema({
 });
 
 const predefinedServices = [
-    { serviceName: "جلسه ایده پردازی", price: 0, expert: "" },
-    { serviceName: "تحقیق بازار", price: 0, expert: "" },
-    { serviceName: "تحلیل رقبا", price: 0, expert: "" },
-    { serviceName: "مطالعه امکان‌سنجی", price: 0, expert: "" },
-    { serviceName: "طراحی اولیه", price: 0, expert: "" },
-    { serviceName: "ساخت نمونه اولیه", price: 0, expert: "" },
-    { serviceName: "آزمایش نمونه اولیه", price: 0, expert: "" },
-    { serviceName: "آزمایش واحد", price: 0, expert: "" },
-    { serviceName: "آزمایش یکپارچه‌سازی", price: 0, expert: "" },
-    { serviceName: "بازخورد کاربران", price: 0, expert: "" },
-    { serviceName: "راه اندازی وبسایت و هاست", price: 0, expert: "" },
-    { serviceName: "پیکربندی تولید", price: 0, expert: "" },
-    { serviceName: "عرضه محصول", price: 0, expert: "" }
+    { serviceName: "Brainstorming Session", price: 0, expert: "" },
+    { serviceName: "Market Research", price: 0, expert: "" },
+    { serviceName: "Competitor Analysis", price: 0, expert: "" },
+    { serviceName: "Feasibility Study", price: 0, expert: "" },
+    { serviceName: "Initial Design", price: 0, expert: "" },
+    { serviceName: "Build Prototype", price: 0, expert: "" },
+    { serviceName: "Prototype Testing", price: 0, expert: "" },
+    { serviceName: "Unit Testing", price: 0, expert: "" },
+    { serviceName: "Integration Testing", price: 0, expert: "" },
+    { serviceName: "User Feedback", price: 0, expert: "" },
+    { serviceName: "Website and Hosting Setup", price: 0, expert: "" },
+    { serviceName: "Production Configuration", price: 0, expert: "" },
+    { serviceName: "Product Launch", price: 0, expert: "" }
 ]
     ;
 

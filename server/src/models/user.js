@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         avatar: { type: String },
     },
     settings: {
-        language: { type: String, default: 'fa', enum: ['en', 'fa'] },
+        language: { type: String, default: 'en', enum: ['en', 'fa'] },
         notifications: { type: Boolean, default: true },
     },
 });

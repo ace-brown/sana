@@ -13,31 +13,31 @@ export default function StartupPath() {
   const cardData = [
     {
       id: 1,
-      title: "اعتبارسنجی ایده",
+      title: "Idea Validation",
       description:
-        "مفهوم خود را با کاربران واقعی و بینش‌های ارزشمند آزمایش کنید",
+        "Test your concept with real users and gain valuable insights",
       imgSrc: validateImg,
       link: "#",
     },
     {
       id: 2,
-      title: "برنامه‌ریزی و نمونه‌سازی اولیه",
-      description: "یک نقشه راه طراحی کنید و نسخه اولیه محصول خود را بسازید",
+      title: "Planning & Prototyping",
+      description: "Design a roadmap and build the first version of your product",
       imgSrc: planingImg,
       link: "#",
     },
     {
       id: 3,
-      title: "راه‌اندازی و اجرا",
+      title: "Launch & Execution",
       description:
-        "با اطمینان و استفاده از ابزارهای حرفه‌ای کسب‌وکار خود را راه‌اندازی کنید",
+        "Launch your business with confidence using professional tools",
       imgSrc: launchImg,
       link: "#",
     },
     {
       id: 4,
-      title: "رشد و توسعه",
-      description: "جذب کاربران را افزایش دهید و استارتاپ خود را گسترش دهید",
+      title: "Growth & Expansion",
+      description: "Increase user acquisition and scale your startup",
       imgSrc: growthImg,
       link: "#",
     },
@@ -45,7 +45,7 @@ export default function StartupPath() {
   return (
     <Section>
       <div style={{ direction: "ltr" }}>
-        <SectionTitle>مسیر استارتاپ شما، ساده شده</SectionTitle>
+        <SectionTitle>Your Startup Journey, Simplified</SectionTitle>
         {cardData.map((item) => {
           return (
             <>
